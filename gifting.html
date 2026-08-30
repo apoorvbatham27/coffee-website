@@ -1,0 +1,826 @@
+<html lang="en">
+
+<head>
+	<title>Gifting-Page</title>
+	
+<style>
+
+	*{
+		box-sizing:border-box;
+		margin:0;
+		padding:0;
+		
+	}
+	
+	
+	body{
+	
+		background:linear-gradient(120deg, #1f0208, #3a050d, #650d22, #3a050d); /* #530d1d*/
+		font-family:Arial, Sans-serif;
+		color:#ffff;
+		
+		
+		overflow-x:hidden;
+	}
+	
+							/*---01_Navigation Bar---*/
+							
+	.navbar{
+		display:flex;
+		justify-content:space-between;
+		align-items:center;
+		height:12%;
+		width:100%;
+		
+		background-color: rgba(30, 30, 31, 0.2);
+		backdrop-filter: blur(3px);
+	
+		
+	}
+	
+	/*Navbar-Logo*/
+	.logo-img{
+		height:65%;
+		width:8%;
+		
+	}
+	
+	.logo-img img{
+		height:100%;
+		width:100%:
+	}
+	/*--Navigation-Links & Hover---*/
+	
+	.navlinks{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		height:97%;
+		width:70%;
+		gap:30px;
+		text-shadow: 5px 5px 25px rgba(0,0,0,1);
+		
+		
+	}
+	
+	.navlinks a{
+		color:#ffff;
+		font-family:Arial, Sans-serif;
+		font-size:22px;
+		font-weight:700;
+		text-decoration:none;
+		transition: all 0.70s ease;/*smooth pointer*/ 
+		height:55%;
+	}
+	
+			/*---Nav-Links Hover---*/
+	
+	.navlinks a:hover{
+		color:#b33259;/* hsl(0, 100%, 87%);(option)*/
+		cursor:pointer;
+		
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* soft shadow */
+		border-bottom:2px solid #b33259;
+		
+	}
+	
+			/*Social-Media Links & Hover*/
+	
+	.socialmediaLinks{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:row;
+		height:50%;
+		width:11%;
+		gap:15px;
+		padding:2px;
+		padding-right:15px;
+		margin-top:20px;
+		
+	}
+	.socialmediaLinks img{
+		height:100%;
+		width:100%;
+			
+	}
+	
+	.socialmediaLinks a{
+		transition: all 0.3s ease;
+	}
+	
+	
+			/*--- Social-media links hover---*/
+	
+	.socialmediaLinks a:hover{
+		transform: translateY(-5px) scale(1.05);
+	}
+	
+	
+	
+	
+		
+	
+							/*---02_Side Bar---*/
+	
+	#sidebar{
+		display: flex;
+        align-items:center;
+        justify-content:flex-start;
+        flex-direction:column;
+		
+		position:fixed;
+		top:0;
+		left:-15%;
+		
+		height:100vh;
+		width:15%;
+		
+		
+		background: linear-gradient(
+			to bottom,
+			#511527,
+			#3f0f20,
+			#2b0916,
+			#1d050e
+		);
+		
+        
+        transition:0.50s;
+		
+		z-index:1000;
+		
+		padding-left:20px;
+		
+		
+		
+	}
+			/*---Sidebar Links(Container)---*/
+			
+	.sidebar-links{
+		display:flex;
+        align-items:flex-start;
+        justify-content:flex-start;
+        flex-direction:column;
+        
+        
+        height: 100%;
+        width: 100%;
+   
+		
+        gap: 25px;
+        
+        margin-top:25%;
+        position: relative;
+		
+		
+	}
+	
+	.sidebar-links a{
+        display: flex;
+        align-items:center;
+        justify-content:flex-start;
+        height:35px;
+        width:80%;
+        
+        text-decoration: none;
+        font-size: 20px;
+        font-weight:1000;
+        color: #ffff;
+		
+		padding:5px;
+		
+		transition:0.30s;
+        
+    }
+	
+	.sidebar-links a:nth-child(7){
+        position: absolute;
+        bottom:35px;
+        left:3px;
+        
+        color:rgb(238, 195, 208);
+		text-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+
+		transition:0.25s;
+    }
+	
+			/*--Sidebar Hover--*/
+			
+	.sidebar-links a:hover{
+        background-color:#8b2745;
+		color:#b33259;
+		color:rgb(238, 195, 208);
+    }
+
+	.sidebar-links a:nth-child(7):hover{
+		color:#b33259;
+		transform:translateY(-3px);
+	}
+	
+			/*---Close Button---*/
+	
+	.closeBtn{
+       margin-top:20px;
+       margin-left:70%;
+	   
+    }
+    
+    .closeBtn button{
+        font-size:25px;
+        background-color: transparent;
+        border: none;
+        color: #ffff;
+        font-weight:1000;
+		transition:0.25s;
+        
+    }
+	
+			/*Close-Button Hover*/
+	
+	.closeBtn button:hover{
+		color:#b33259;
+		transform: translateY(-2px);
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+	}
+	
+				/*----- Hamburgger button-----*/
+	
+	.menueBtn{
+		height:80%;
+		width:5%;
+		margin-top:14px;
+	}
+	
+	.menueBtn button{
+		height:100%;
+		width:100%;
+		font-size:30px;
+		background-color:transparent;
+		color:#ffff;
+		font-weight:900;
+		transition: all 0.45s ease;
+		border:none;
+	}
+	
+	.menueBtn button:hover{
+		color:#b33259;
+		transform: translateY(2px);
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+		
+	}
+
+
+						/*-----04_Foooter_Section-----*/
+
+	
+	.footer-section{
+		
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		background-color:#3d0a14;
+		height:30vh;
+		width:100vw;
+		margin-top:4%;
+		
+		
+	}
+	
+			/*footer content(flex-container)*/
+			
+	.footer-content{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		height:100%;
+		width:90%;
+	
+	}
+	
+	
+	
+	
+			/*---Links Containers---*/
+	
+	.follow-us{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:column;
+		height:80%;
+		width:20%;
+		
+	}
+	
+	.follow-links{
+		display:flex;
+		align-items:flex-start;
+		justify-content:flex-start;
+	}
+	
+	.follow-us h3{
+		margin-bottom:15px;
+		
+	}
+	
+	.follow-us img{
+		
+		width: 25px;
+		height: 25px;
+		margin:5px;
+	}
+	
+	.follow-us a{
+		transition: all 0.3s ease;
+	}
+	.follow-us a:hover{
+		transform: translateY(-5px) scale(1.05);
+	
+	}
+	
+	
+	
+	.company-links a{
+		display:flex;
+		font-size:20px;
+		margin-bottom:5px;
+		text-decoration:underline;
+		color:rgb(238, 195, 208);
+		line-height:30.6px;
+		letter-spacing:1px;
+		
+	}
+	
+	
+	.help-links a{
+		display:flex;
+		font-size:20px;
+		margin-bottom:5px;
+		text-decoration:underline;
+		color:rgb(238, 195, 208);
+		line-height:30.6px;
+		letter-spacing:1px;
+	}
+	
+	.shop-links a{
+		display:flex;
+		font-size:20px;
+		margin-bottom:5px;
+		text-decoration:underline;
+		color:rgb(238, 195, 208);
+		line-height:30.6px;
+		letter-spacing:1px;
+	}
+	
+					
+		
+							/*-----03_Home_Section-----*/
+				
+		
+				
+	/*Home-Section(container)*/
+	
+	.home-section{
+		
+		height:80vh;
+		width:100vw;
+		background-image:url("images/hampers-bg.png");
+		background-size:cover;
+		background-repeat:no-repeat;
+		background-position:center;
+		border-bottom:1px solid #bb3c51;
+		margin-bottom:4%;
+		
+		
+	}
+	
+	
+	/*-----02_Brewed_Pro_Section-----*/
+					
+	.hamper-pro_section{
+	
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		height:95vh;
+		width:100vw;
+		
+	}
+	
+	
+	/*---Products Grid---*/
+	
+	.hamper-products{
+	
+		display:grid;
+		align-items:center;
+		justify-content:center;
+		
+		grid-template-columns:1fr 1fr 1fr;
+		
+		height:90vh;
+		width:93vw;
+		
+		position:relative;
+		
+		background-color:#530c1b;
+		
+		border-radius:10px;
+		border:1px solid #bb3c51;
+		
+		padding-left:90px;
+		padding-right:170px;
+		column-gap:10%;
+		
+		
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+	}
+	
+	
+		/*---Our Hampers(Heading)---*/
+	.our-hampers-heading{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		font-size:22px;
+		
+		color:#b48a4b;
+		letter-spacing:1px;
+		text-shadow: 0 10px 14px rgba(0, 0, 0, 0.65);
+		font-family: Georgia, "Times New Roman", serif;
+		margin-bottom:10px;
+		
+	}
+		
+		/*Products-Cards*/
+		
+	.hamper_card{
+		
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:row;
+		height:70%;
+		width:132%;
+		
+		border:none;
+		background-color:#460b18;
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+		border-radius:7px;
+		transition:0.3s;
+		border:1px solid  #79060c;
+		
+		
+		
+	}
+		/*Cards-Hover*/
+		
+	.hamper_card:hover{
+		box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
+	}
+	.hamper_card_img{
+		height:100%;
+		width:110%;
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		padding:1px;
+		overflow:hidden;
+	}
+	.hamper_card img{
+		
+		height:100%;
+		width:100%;
+		object-fit:cover;
+		border-radius:50px;
+		transform:scale(1.12);
+		
+		
+	}
+	
+	.hamper_card p{
+		text-align:center;
+		line-height:1.3;
+		color:rgb(238, 195, 208);
+		font-style:italic;
+		text-align:left;
+		font-size:11px;
+		word-spacing:1px;
+		margin-left:5px;
+		
+	}
+	
+	
+	.hamper_card h3{
+		text-align:left;
+		color:#ffa64d;
+		font-family: Georgia, "Times New Roman", serif;
+		font-size:10px;
+		text-align:left;
+		word-spacing:2px;
+		margin-left:5px;
+		
+		
+	}
+					/*---Cards-Buttons & Hover---*/
+					
+	
+	.hamper_card button{
+		height:35px;
+		width:100px;
+		
+		margin-left:10px;
+		background-color:#601220; 
+		color:#eec3d0;
+		box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+		cursor: pointer;
+		font-weight:bold;
+		transition: 0.3s;
+		border: none;
+		border-radius:4px;
+		
+	}
+	.hamper_card button:hover{
+		background-color:rgb(159, 45, 79);
+		transform: translateY(3px);
+		box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+	}
+	
+	span{
+		margin-left:30px;
+		font-size:15px;
+		color:#cf974d;
+	}
+	
+	
+
+</style>
+	
+</head>
+
+	<body>
+		
+		<aside>
+			<div id="sidebar">
+				
+				<div class="closeBtn">
+					<button id="closeBtn">✕</button>
+				</div>
+				
+				<div class="sidebar-links">
+				
+					<a href="#">My Cart</a>
+					<a href="#">My Orders</a>
+					<a href="#">Favorites</a>
+					<a href="#">Contact Us</a>
+					<a href="#">Our Process</a>
+					<a href="#">Feedback</a>
+				
+				</div>
+				
+			</div>
+		
+		</aside>
+		
+		
+		
+		<main>
+	
+			
+			<section class="home-section">
+			
+			
+				<header>
+					<nav>
+						<div class="navbar">
+							
+							<div class="menueBtn">
+								<button id="menuBtn">☰</button>  
+							</div>
+							
+							<div class="logo-img">
+								<img src="images/logo-img.png" alt="logo image">
+							</div>
+							
+							<div class="navlinks">
+								<a href="#">HOME</a>
+								<a href="#">BLENDS</a>
+								<a href="#">BREWED</a>
+								<a href="gifting.html">GIFTING</a>
+								<a href="#">ABOUT</a>
+							</div>
+							
+							<div class="socialmediaLinks">
+								<a href="https://facebook.com" target="_blank">
+									<img src="images/—Pngtree—white  icon png_3562061.png">
+								</a>
+								<a href="https://instagram.com" target="_blank">
+									<img src="images/—Pngtree—white instagram icon png instagram_3562066.png">
+								</a>
+								<a href="https://twitter.com" target="_blank">
+									<img src="images/icons8-twitter-bird-50.png">
+								</a>
+								
+							</div>
+						</div>
+					</nav>
+					
+				</header>
+		
+			
+			</section>
+		
+
+	
+			<div class="our-hampers-heading">
+				<h2><b>OUR HAMPERS</b></h2>
+			</div>
+		
+		
+		
+			<section class="hamper-pro_section"> 
+			
+				
+				<div class="hamper-products">
+				
+					<div class="hamper_card">
+						<div class="hamper_card_img">
+							<img src="images/premium.png" alt="coffee-4">
+						</div>
+						
+						<div class="hamper_card_text">
+							<h3>CLASSIC COFFEE</h3><br>
+							
+							<p>A perfect blend of rich coffee and sweet moments.</p><br>
+							<p><span>$24.00</span></p><br>
+							<button>Order Now</button>
+						</div>
+						
+					</div>
+					
+					<div class="hamper_card">
+						
+						<div class="hamper_card_img">
+							<img src="images/celebration.png" alt="coffee-4">
+						</div>
+						
+						<div class="hamper_card_text">
+							<h3>PREMIO DELIGHT</h3><br>
+							<p>Indugle in premium blends and delightful treats.</p><br>
+							<p><span>$34.00</span></p><br>
+							<button>Order Now</button>
+						</div>
+						
+					</div>
+					
+					<div class="hamper_card">
+						
+						<div class="hamper_card_img">
+							<img src="images/luxury.png" alt="coffee-4">
+						</div>
+						
+						<div class="hamper_card_text">
+							<h3>LUXURY COFFEE</h3><br>
+							<p>Luxury selection for true coffee connoisseurs.</p><br>
+							<p><span>$49.00</span></p><br>
+							<button>Order Now</button>
+						</div>
+						
+						
+					</div>
+					
+					<div class="hamper_card">
+					
+						<div class="hamper_card_img">
+							<img src="images/celebration.png" alt="coffee-4">
+						</div>
+						
+						<div class="hamper_card_text">
+							<h3>THE CELEBRATION</h3><br>
+							<p>Celebrate special moment with our best picks.</p><br>
+							<p><span>$59.00</span></p><br>
+							<button>Order Now</button>
+						</div>
+						
+						
+					</div>
+				
+			
+					<div class="hamper_card">
+					
+						<div class="hamper_card_img">
+							<img src="images/courmet.png" alt="coffee-5">
+						</div>
+						
+						<div class="hamper_card_text">
+							<h3>COURMET COFFEE</h3><br>
+							<p>Exquisite coffee with gourmet goodies.</p><br>
+							<p><span>$69.00</span></p><br>
+							<button>Order Now</button>
+						</div>
+						
+						
+					</div>
+					
+					<div class="hamper_card">
+						<div class="hamper_card_img">
+							<img src="images/ultimate.png" alt="coffee-6">
+						</div>
+						
+						<div class="hamper_card_text">
+							<h3>ELITE INDULGENCE</h3><br>
+							<p>The elite indulgence for coffee lovers.</p><br>
+							<p><span>$79.00</span></p><br>
+							<button>Order Now</button>
+						</div>
+						
+						
+					</div>
+					
+	
+					
+				</div>
+			
+			</section>
+			
+			
+		</main>
+		
+	
+		<footer class="footer-section">
+    
+			<div class="footer-content">
+					
+				<div class="company">
+					<h3>Company</h3><br><br>
+					
+					<div class="company-links">
+						<a href="#about">About Us</a>
+						<a href="#process">Our Process</a>
+					</div>
+				</div>
+				
+				
+				
+				<div class="help">
+					<h3>Get Help</h3><br><br>
+					
+					<div class="help-links">
+						<a href="tel:6307736109">Phone: +91 63077 - 36109</a>
+						<a href="mailto:apoorvbatham27@gmail.com">Email Us: apoorvbatham27@gmail.com</a>
+					</div>
+					
+				</div>
+				
+				<div class="online-shop">
+					<h3>Online-Shop</h3><br><br>
+					
+					<div class="shop-links">
+						<a href="#ice-coffee">Ice-Coffee</a>
+						<a href="#products">Brewed-Coffee</a>
+					</div>
+				</div>
+				
+				
+				<div class="follow-us">
+					<h3> Follow-Us</h3><br>
+					<div class="follow-links">
+						<a href="https://facebook.com" target="_blank"><img src ="images/—Pngtree—white  icon png_3562061.png" alt="icon-facebook"></a>
+						<a href="https://instagram.com" target="_blank"><img src="images/—Pngtree—white instagram icon png instagram_3562066.png"alt="icon-instagram"></a>
+						<a href="https://twitter.com" target="_blank"><img src="images/icons8-twitter-bird-50.png" alt="icon-twitter"></a>
+					</div>
+				</div>
+				
+			</div>
+	
+		</footer>
+	
+		
+	<script>
+    
+	   let menuBtn = document.getElementById("menuBtn");
+	   let closeBtn = document.getElementById("closeBtn");
+	   let sidebar = document.getElementById("sidebar");
+	   
+		menuBtn.addEventListener("click",function(){
+		   
+		   sidebar.style.left = "0";
+		   
+	   });
+	   
+		closeBtn.addEventListener("click",function(){
+		   
+		   sidebar.style.left = "-15%";
+		   
+		   
+	   });
+    
+	</script>
+
+	</body>
+
+
+
+	
+</html>
