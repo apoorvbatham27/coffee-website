@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffyCup - Register</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+			flex-direction: column;
+            background-image: url("../images/login-img.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+			justify-content: flex-end;
+			row-gap:10px;
+            width: 100vw;
+			min-height: 100vh;
+			height: auto;
+        }
+
+        .form {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+
+            font-size: 25px;
+            border: 2px solid #ccffcc;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+
+            width: 45%;
+            padding: 15px 30px;
+        }
+
+        .form-content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .form-headings {
+            color: #e6ffe6;
+            text-align: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .form-headings h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .login-logo {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto 5px;
+        }
+
+        .form-headings .tagline {
+            font-size: 12px;
+            font-weight: normal;
+            margin-top: 0;
+            line-height: 1.4;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            color: #e6ffe6;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 10px 18px;
+            border: 1px solid #ccffcc;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.25);
+            transition: 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background-color: #631c31;
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+
+        input {
+            margin: 5px 0;
+            height: 34px;
+            width: 100%;
+            text-align: left;
+            padding: 5px;
+            border: none;
+            border-bottom: 2px solid #e6ffe6;
+            background: transparent;
+            outline: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        input::placeholder {
+            color: #e6ffe6;
+        }
+
+        .form-content p {
+            color: #e6ffe6;
+            margin-top: 8px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 18px;
+            align-self: center;
+            width: 100%;
+            max-width: 260px;
+            min-height: 36px;
+            color: #fff;
+            background-color: #4D5A1A;
+            box-shadow: rgba(0, 0, 0, 0.5) 5px 5px 12px 0px;
+            border: none;
+            font-size: 21px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.45s ease;
+        }
+
+        button:hover {
+            background-color:#631c31;
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+
+        #register-message {
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        .form-content a {
+            color: #e6ffe6;
+            font-size: 15px;
+            margin-top: 12px;
+            align-self: center;
+        }
+
+        @media (max-width: 768px) {
+            .form {
+                width: 100%;
+                max-width: 420px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="/home.html" class="back-btn">← Back</a>
+
+    <form class="form" id="registerForm">
+
+        <div class="form-headings">
+            <h2>Create Account</h2>
+
+            <img src="../images/logo-img.png"
+                 alt="CoffyCup Logo"
+                 class="login-logo">
+
+            <p class="tagline">Pure Taste Pure Beans</p>
+        </div>
+
+        <div class="form-content">
+
+            <p>Enter Your Name:</p>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Full Name"
+                maxlength="100"
+                autocomplete="name"
+                required
+            >
+
+            <p>Enter Your Email:</p>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email Address"
+                maxlength="150"
+                autocomplete="email"
+                required
+            >
+
+            <p>Enter Your Phone:</p>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Phone Number"
+                maxlength="20"
+                autocomplete="tel"
+            >
+
+            <p>Create Password:</p>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Minimum 8 characters"
+                minlength="8"
+                autocomplete="new-password"
+                required
+            >
+
+            <p>Confirm Password:</p>
+            <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Re-enter Password"
+                minlength="8"
+                autocomplete="new-password"
+                required
+            >
+
+            <button type="submit" id="registerButton">
+                REGISTER
+            </button>
+
+            <div id="register-message"
+                 role="status"
+                 aria-live="polite"></div>
+
+            <a href="/login.html">Already have an account? Login</a>
+
+        </div>
+    </form>
+
+    <script>
+        const registerForm = document.getElementById("registerForm");
+        const registerButton = document.getElementById("registerButton");
+        const message = document.getElementById("register-message");
+
+        registerForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            message.textContent = "";
+
+            if (password !== confirmPassword) {
+                message.textContent = "Passwords do not match.";
+                return;
+            }
+
+            if (password.length < 8) {
+                message.textContent =
+                    "Password must contain at least 8 characters.";
+                return;
+            }
+
+            registerButton.disabled = true;
+            registerButton.textContent = "PLEASE WAIT...";
+
+            try {
+                const response = await fetch("/api/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        password: password
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    message.textContent =
+                        result.error || "Registration failed.";
+                    return;
+                }
+
+                message.textContent =
+                    "Registration successful! Redirecting to login...";
+
+                setTimeout(() => {
+                    window.location.href = "/login.html";
+                }, 1200);
+
+            } catch (error) {
+                message.textContent =
+                    "Unable to connect. Check whether Flask is running.";
+            } finally {
+                registerButton.disabled = false;
+                registerButton.textContent = "REGISTER";
+            }
+        });
+    </script>
+
+{% include 'includes/copyright.html' %}
+</body>
+</html>

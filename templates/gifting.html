@@ -1,0 +1,1959 @@
+
+<html lang="en">
+
+<head>
+	<title>Gifting-Page</title>
+	
+<style>
+
+	*{
+		box-sizing:border-box;
+		margin:0;
+		padding:0;
+		
+	}
+	
+	
+	body{
+	
+		background:linear-gradient(120deg, #1f0208, #3a050d, #650d22, #3a050d); /* #530d1d*/
+		font-family:Arial, Sans-serif;
+		color:#ffff;
+		
+		overflow-x:hidden;
+	}
+	
+	/*-----0_Forms-PopUp_Section-----*/
+
+	/* 1_Order_Form */
+
+	.order-section{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.75);
+		z-index:2000;
+		padding:20px;
+	}
+
+	.order-section.active{
+		display:flex;
+	}
+
+	.order-container{
+		width:90%;
+		max-width:850px;
+		max-height:90vh;
+		overflow-y:auto;
+		background:linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		border:1px solid #bb3c51;
+		border-radius:12px;
+		padding:30px;
+		box-shadow:0 10px 30px rgba(0,0,0,0.7);
+		position:relative;
+	}
+
+	.order-close{
+		position:absolute;
+		top:12px;
+		right:18px;
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:28px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.order-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.order-container h2{
+		text-align:center;
+		color:#eec3d0;
+		margin-bottom:25px;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.order-form-layout{
+		display:grid;
+		grid-template-columns:1fr 1fr;
+		gap:18px;
+	}
+
+	.order-form-group{
+		display:flex;
+		flex-direction:column;
+		gap:8px;
+	}
+
+	.order-form-group label{
+		color:#eec3d0;
+		font-weight:bold;
+		font-size:14px;
+	}
+
+	.order-form-group input,
+	.order-form-group textarea,
+	.order-form-group select{
+		width:100%;
+		padding:12px;
+		border:1px solid #b33259;
+		border-radius:5px;
+		background:#3a0b1b;
+		color:#fff;
+		outline:none;
+		font-size:14px;
+	}
+
+	.order-form-group input:focus,
+	.order-form-group textarea:focus,
+	.order-form-group select:focus{
+		border-color:#eec3d0;
+	}
+
+	.order-form-group textarea{
+		resize:vertical;
+		min-height:75px;
+	}
+
+	.order-form-group select option{
+		background:#3a0b1b;
+		color:#fff;
+	}
+
+	.order-form-full{
+		grid-column:1 / -1;
+	}
+
+	.order-submit{
+		width:100%;
+		padding:13px;
+		border:none;
+		border-radius:5px;
+		background:#b33259;
+		color:#fff;
+		font-weight:bold;
+		font-size:15px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.order-submit:hover{
+		background:#8b2745;
+		transform:translateY(2px);
+	}
+
+	/* Order Form Popup */
+
+
+	/* 1_Feedback_Form */
+
+	.feedback-overlay{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.75);
+		z-index:3000;
+		padding:20px;
+	}
+
+	.feedback-overlay.active{
+		display:flex;
+	}
+
+	.feedback-container{
+		width:100%;
+		max-width:420px;
+		max-height:90vh;
+		overflow-y:auto;
+		background:linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		border:1px solid #bb3c51;
+		border-radius:12px;
+		padding:28px;
+		box-shadow:0 10px 30px rgba(0,0,0,0.7);
+		position:relative;
+	}
+
+	.feedback-close{
+		position:absolute;
+		top:10px;
+		right:15px;
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:26px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.feedback-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.feedback-container h2{
+		text-align:center;
+		color:#eec3d0;
+		margin-bottom:10px;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.feedback-container p{
+		text-align:center;
+		color:#eec3d0;
+		font-size:13px;
+		margin-bottom:22px;
+	}
+
+	.feedback-form-group{
+		display:flex;
+		flex-direction:column;
+		gap:8px;
+		margin-bottom:16px;
+	}
+
+	.feedback-form-group label{
+		color:#eec3d0;
+		font-weight:bold;
+		font-size:14px;
+	}
+
+	.feedback-form-group input,
+	.feedback-form-group textarea{
+		width:100%;
+		padding:11px;
+		border:1px solid #b33259;
+		border-radius:5px;
+		background:#3a0b1b;
+		color:#fff;
+		outline:none;
+		font-size:14px;
+	}
+
+	.feedback-form-group input:focus,
+	.feedback-form-group textarea:focus{
+		border-color:#eec3d0;
+	}
+
+	.feedback-form-group textarea{
+		min-height:100px;
+		resize:vertical;
+	}
+
+	.feedback-rating{
+		display:flex;
+		flex-direction:row-reverse;
+		justify-content:flex-end;
+		gap:5px;
+	}
+
+	.feedback-rating input{
+		display:none;
+	}
+
+	.feedback-rating label{
+		font-size:30px;
+		color:#777;
+		cursor:pointer;
+		transition:0.2s;
+	}
+
+	.feedback-rating input:checked ~ label,
+	.feedback-rating label:hover,
+	.feedback-rating label:hover ~ label{
+		color:#ffc107;
+	}
+
+	.feedback-submit{
+		width:100%;
+		padding:12px;
+		border:none;
+		border-radius:5px;
+		background:#b33259;
+		color:#fff;
+		font-size:15px;
+		font-weight:bold;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.feedback-submit:hover{
+		background:#8b2745;
+		transform:translateY(2px);
+	}
+
+	/* 3_My_Orders_PopUp */
+
+	.my-orders-overlay{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.78);
+		z-index:4000;
+		padding:20px;
+	}
+
+	.my-orders-overlay.active{
+		display:flex;
+	}
+
+	.my-orders-container{
+		width:80vw;
+		height:80vh;
+		max-width:1100px;
+		overflow-y:auto;
+		background:linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		border:1px solid #bb3c51;
+		border-radius:12px;
+		padding:25px;
+		box-shadow:0 10px 30px rgba(0,0,0,0.7);
+		position:relative;
+	}
+
+	.my-orders-header{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		margin-bottom:25px;
+		padding-bottom:15px;
+		border-bottom:1px solid rgba(238,195,208,0.3);
+	}
+
+	.my-orders-header h2{
+		color:#eec3d0;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.my-orders-close{
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:28px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.my-orders-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.my-orders-list{
+		display:flex;
+		flex-direction:column;
+		gap:15px;
+	}
+
+	.my-order-card{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		gap:20px;
+		padding:18px;
+		background:rgba(30,5,14,0.65);
+		border:1px solid rgba(187,60,81,0.6);
+		border-radius:8px;
+	}
+	
+	.my-order-image{
+		width:110px;
+		height:110px;
+		flex-shrink:0;
+		overflow:hidden;
+		border-radius:8px;
+		border:1px solid rgba(187,60,81,0.6);
+	}
+
+	.my-order-image img{
+		width:100%;
+		height:100%;
+		object-fit:cover;
+		display:block;
+	}
+
+	.my-order-info{
+		flex:1;
+	}
+	
+
+	.my-order-info h3{
+		color:#eec3d0;
+		margin-bottom:8px;
+		font-size:17px;
+	}
+
+	.my-order-info p{
+		color:#fff;
+		font-size:13px;
+		line-height:1.8;
+	}
+
+	.my-order-price{
+		color:#cf974d;
+		font-size:18px;
+		font-weight:bold;
+		white-space:nowrap;
+	}
+
+	.my-order-status{
+		display:inline-block;
+		margin-top:8px;
+		padding:5px 10px;
+		border-radius:20px;
+		font-size:12px;
+		font-weight:bold;
+	}
+
+	.status-delivered{
+		background:rgba(46,160,67,0.2);
+		color:#75e39a;
+	}
+
+	.status-pending{
+		background:rgba(255,193,7,0.15);
+		color:#ffd76a;
+	}
+
+	.my-orders-empty{
+		text-align:center;
+		color:#eec3d0;
+		padding:35px 10px;
+		display:none;
+	}
+
+	@media(max-width:768px){
+
+		.order-container{
+			padding:25px 18px;
+		}
+
+		.order-form-layout{
+			grid-template-columns:1fr;
+		}
+
+		.order-form-full{
+			grid-column:auto;
+		}
+
+		.my-orders-container{
+			width:95vw;
+			height:85vh;
+			padding:18px;
+		}
+
+		.my-order-card{
+			align-items:flex-start;
+			flex-direction:column;
+			gap:10px;
+		}
+
+		.my-orders-header h2{
+			font-size:20px;
+		}
+
+		
+		.socialmediaLinks{
+			gap:5px;
+		}
+	}
+	
+							/*---01_Navigation Bar---*/
+							
+	.navbar{
+		display:flex;
+		justify-content:space-between;
+		align-items:center;
+		height:12%;
+		width:100%;
+		
+		background-color: rgba(30, 30, 31, 0.2);
+		backdrop-filter: blur(3px);
+	
+		
+	}
+	
+	/*Navbar-Logo*/
+	.logo-img{
+		height:65%;
+		width:8%;
+		
+	}
+	
+	.logo-img img{
+		height:100%;
+		width:100%;
+	}
+	/*--Navigation-Links & Hover---*/
+	
+	.navlinks{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		height:97%;
+		width:70%;
+		gap:30px;
+		text-shadow: 5px 5px 25px rgba(0,0,0,1);
+		
+		
+	}
+	
+	.navlinks a{
+		color:#ffff;
+		font-family:Arial, Sans-serif;
+		font-size:22px;
+		font-weight:700;
+		text-decoration:none;
+		transition: all 0.70s ease;/*smooth pointer*/ 
+		height:55%;
+	}
+	
+			/*---Nav-Links Hover---*/
+	
+	.navlinks a:hover{
+		color:#b33259;/* hsl(0, 100%, 87%);(option)*/
+		cursor:pointer;
+		
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* soft shadow */
+		border-bottom:2px solid #b33259;
+		
+	}
+	
+			/*Social-Media Links & Hover*/
+	
+	.socialmediaLinks{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:row;
+		height:50%;
+		width:11%;
+		gap:15px;
+		padding:2px;
+		padding-right:15px;
+		margin-top:20px;
+		
+	}
+	.socialmediaLinks img{
+		height:100%;
+		width:100%;
+			
+	}
+	
+	.socialmediaLinks a{
+		transition: all 0.3s ease;
+	}
+	
+	
+			/*--- Social-media links hover---*/
+	
+	.socialmediaLinks a:hover{
+		transform: translateY(-5px) scale(1.05);
+	}
+	
+	
+	
+	
+		
+	
+							/*---02_Side Bar---*/
+	
+	
+	#sidebar {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-direction: column;
+
+		position: fixed;
+		top: 0;
+		left: -15%;
+
+		height: 100vh;
+		width: 15%;
+
+		background: linear-gradient(
+			to bottom,
+			#511527,
+			#3f0f20,
+			#2b0916,
+			#1d050e
+		);
+
+		transition: 0.50s;
+		z-index: 1000;
+		padding-left: 20px;
+	}
+	
+	/*---Menu Button---*/
+
+	.menueBtn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		width: 5%;
+	}
+
+	.menueBtn button {
+		font-size: 30px;
+		background-color: transparent;
+		border: none;
+		color: #fff;
+		font-weight: 1000;
+		cursor: pointer;
+		transition: 0.25s;
+	}
+
+	.menueBtn button:hover {
+		color: #b33259;
+		transform: translateY(-2px);
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+	}
+	/*---Sidebar Links Container---*/
+
+	.sidebar-links {
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-start;
+		flex-direction: column;
+
+		height: 100%;
+		width: 100%;
+		gap: 25px;
+
+		margin-top: 15px;
+		position: relative;
+	}
+
+	/*---Sidebar Links---*/
+
+	.sidebar-links a {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+
+		height: 35px;
+		width: 80%;
+
+		text-decoration: none;
+		font-size: 20px;
+		font-weight: 1000;
+		color: #fff;
+
+		padding: 5px;
+		transition: 0.30s;
+	}
+
+	/*---Sidebar Hover---*/
+
+	.sidebar-links a:hover {
+		background-color: #8b2745;
+		color: rgb(238, 195, 208);
+	}
+
+	/*---Welcome User---*/
+
+	.sidebar-welcome {
+		width: 100%;
+		max-width: 100%;
+		padding: 5px;
+		color: #eec3d0;
+		font-weight: bold;
+		overflow-wrap: anywhere;
+		word-break: normal;
+	}
+
+	.welcome-label {
+		display: block;
+		margin-bottom: 5px;
+		font-size: 15px;
+		color: #eec3d0;
+	}
+
+	.welcome-name {
+		display: block;
+		max-width: 100%;
+		font-size: 18px;
+		line-height: 1.4;
+		overflow-wrap: anywhere;
+		color: #eec3d0;
+	}
+
+	/*---Close Button---*/
+
+	.closeBtn {
+		margin-top: 20px;
+		margin-left: 70%;
+	}
+
+	.closeBtn button {
+		font-size: 25px;
+		background-color: transparent;
+		border: none;
+		color: #fff;
+		font-weight: 1000;
+		transition: 0.25s;
+		cursor: pointer;
+	}
+
+	.closeBtn button:hover {
+		color: #b33259;
+		transform: translateY(-2px);
+		text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+	}
+
+	
+	
+	
+						/*-----03_Home_Section-----*/
+				
+		
+				
+	/*Home-Section(container)*/
+	
+	.home-section{
+		
+		height:80vh;
+		width:100vw;
+		background-image:url("images/hampers-bg.png");
+		background-size:cover;
+		background-repeat:no-repeat;
+		background-position:center;
+		border-bottom:1px solid #bb3c51;
+		margin-bottom:4%;
+		
+		
+	}
+	
+	
+	
+						/*-----04_Hamper-Products_Section-----*/
+					
+	.hamper-pro_section{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		min-height:95vh;      
+		width:100vw;
+		padding:30px 0;
+		
+	}
+	
+	
+	/*---Products Grid---*/
+	
+	.hamper-products{
+	
+		display:grid;
+		grid-template-columns:1fr 1fr 1fr;
+		grid-auto-rows:230px;       
+		row-gap:60px;
+		align-content:center;       
+		align-items:center;
+		justify-content:center;
+
+		min-height:90vh;            
+		width:93vw;
+
+		position:relative;
+		background-color:#530c1b;
+		border-radius:10px;
+		border:1px solid #bb3c51;
+
+		padding:40px 170px 40px 90px;
+		column-gap:10%;
+
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+	}
+	
+	
+		/*---Our Hampers(Heading)---*/
+	.our-hampers-heading{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		font-size:22px;
+		
+		color:#b48a4b;
+		letter-spacing:1px;
+		text-shadow: 0 10px 14px rgba(0, 0, 0, 0.65);
+		font-family: Georgia, "Times New Roman", serif;
+		margin-bottom:10px;
+		
+	}
+		
+		/*Products-Cards*/
+		
+	.hamper_card{
+		
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		flex-direction:row;
+		height:95%;               
+		width:132%;
+
+		border:none;
+		background-color:#460b18;
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+		border-radius:7px;
+		transition:0.3s;
+		border:1px solid #79060c;
+		
+		
+		
+	}
+	
+		/*Cards-Hover*/
+	.hamper_card:hover{
+		box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
+	}
+	.hamper_card_img{
+		flex:0 0 66%;
+		height:100%;
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		padding:1px;
+		overflow:hidden;
+	}
+	.hamper_card img{
+		height:100%;
+		width:100%;
+		object-fit:cover;
+		border-radius:5px;
+		
+	}
+	
+	
+	.hamper_card p{
+		text-align:center;
+		line-height:1.3;
+		color:rgb(238, 195, 208);
+		font-style:italic;
+		text-align:left;
+		font-size:11px;
+		word-spacing:1px;
+		margin-left:5px;
+		
+	}
+	
+	
+	.hamper_card h3{
+		text-align:left;
+		color:#ffa64d;
+		font-family: Georgia, "Times New Roman", serif;
+		font-size:10px;
+		text-align:left;
+		word-spacing:2px;
+		margin-left:5px;
+		
+		
+	}
+					/*---Cards-Buttons & Hover---*/
+					
+	
+	.hamper_card button{
+		height:35px;
+		width:100px;
+		
+		margin-left:10px;
+		background-color:#601220; 
+		color:#eec3d0;
+		box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+		cursor: pointer;
+		font-weight:bold;
+		transition: 0.3s;
+		border: none;
+		border-radius:4px;
+		
+	}
+	.hamper_card button:hover{
+		background-color:rgb(159, 45, 79);
+		transform: translateY(3px);
+		box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+	}
+	
+	span{
+		margin-left:30px;
+		font-size:15px;
+		color:#cf974d;
+	}
+
+
+						/*-----05_Foooter_Section-----*/
+
+	
+	#footer-section{
+		
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		background-color:#3d0a14;
+		height:30vh;
+		width:100vw;
+		margin-top:4%;
+		
+		
+	}
+	
+			/*footer content(flex-container)*/
+			
+	.footer-content{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		height:100%;
+		width:90%;
+	
+	}
+	
+	
+	
+	
+			/*---Links Containers---*/
+	
+	.follow-us{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:column;
+		height:80%;
+		width:20%;
+		
+	}
+	
+	.follow-links{
+		display:flex;
+		align-items:flex-start;
+		justify-content:flex-start;
+	}
+	
+	.follow-us h3{
+		margin-bottom:15px;
+		
+	}
+	
+	.follow-us img{
+		
+		width: 25px;
+		height: 25px;
+		margin:5px;
+	}
+	
+	.follow-us a{
+		transition: all 0.3s ease;
+	}
+	.follow-us a:hover{
+		transform: translateY(-5px) scale(1.05);
+	
+	}
+	
+	
+	
+	.company-links a{
+		display:flex;
+		font-size:20px;
+		margin-bottom:5px;
+		text-decoration:underline;
+		color:rgb(238, 195, 208);
+		line-height:30.6px;
+		letter-spacing:1px;
+		
+	}
+	
+	
+	.help-links a{
+		display:flex;
+		font-size:20px;
+		margin-bottom:5px;
+		text-decoration:underline;
+		color:rgb(238, 195, 208);
+		line-height:30.6px;
+		letter-spacing:1px;
+	}
+	
+	.shop-links a{
+		display:flex;
+		font-size:20px;
+		margin-bottom:5px;
+		text-decoration:underline;
+		color:rgb(238, 195, 208);
+		line-height:30.6px;
+		letter-spacing:1px;
+	}
+	
+	.copyright {
+		background-color:#3d0a14;
+	}
+					
+	
+
+</style>
+	
+</head>
+
+	<body>
+		
+		
+		<aside id="sidebar">
+
+			<div class="closeBtn">
+				<button id="closeBtn" type="button">✕</button>
+			</div>
+
+			<div class="sidebar-links">
+
+				{% if current_user %}
+				<div class="sidebar-welcome">
+					<span class="welcome-label">Welcome,</span>
+					<span class="welcome-name">{{ current_user.name }}</span>
+				</div>
+				{% endif %}
+
+				<a href="/">Home</a>
+				<a href="#hamper-pro_section">Products</a>
+				<a href="#" onclick="openMyOrders(); return false;">My Orders</a>
+				<a href="#footer-section">Contact Us</a>
+				<a href="#" onclick="openFeedbackForm(); return false;">Feedback</a>
+
+				{% if current_user %}
+				<a href="#" onclick="logoutUser(event)">↪Logout</a>
+				{% else %}
+				<a href="/login.html">Login</a>
+				<a href="/register.html">Register</a>
+				{% endif %}
+
+			</div>
+
+		</aside>
+
+		
+		
+		
+		<main>
+	
+			
+			<section class="home-section">
+			
+			
+				<header>
+					<nav>
+						<div class="navbar">
+							
+							<div class="menueBtn">
+								<button id="menuBtn">☰</button>  
+							</div>
+							
+							<div class="logo-img">
+								<img src="images/logo-img.png" alt="logo image">
+							</div>
+							
+							<div class="navlinks">
+								<a href="home.html">HOME</a>
+								<a href="home.html#latest_blends">BLENDS</a>
+								<a href="home.html#brewed-pro_section">BREWED</a>
+								<a href="gifting.html">GIFTING</a>
+								<a href="home.html#section-about">ABOUT</a>
+							</div>
+							
+							<div class="socialmediaLinks">
+								<a href="https://facebook.com" target="_blank">
+									<img src="images/—Pngtree—white  icon png_3562061.png">
+								</a>
+								<a href="https://instagram.com" target="_blank">
+									<img src="images/—Pngtree—white instagram icon png instagram_3562066.png">
+								</a>
+								<a href="https://twitter.com" target="_blank">
+									<img src="images/icons8-twitter-bird-50.png">
+								</a>
+								
+							</div>
+						</div>
+					</nav>
+					
+				</header>
+		
+			
+			</section>
+		
+
+	
+			<div class="our-hampers-heading">
+				<h2><b>OUR HAMPERS</b></h2>
+			</div>
+		
+		
+		
+			<section class="hamper-pro_section"> 
+			
+				
+				<div class="hamper-products">
+
+					{% for product in gifting_products %}
+					<div class="hamper_card">
+
+						<div class="hamper_card_img">
+							<img src="/{{ product.img }}" alt="{{ product.name }}">
+						</div>
+
+						<div class="hamper_card_text">
+							<h3>{{ product.name }}</h3>
+							<br>
+
+							<p>{{ product.description }}</p>
+							<br>
+
+							<p>
+								<span>${{ "%.2f"|format(product.price) }}</span>
+							</p>
+							<br>
+
+							<button type="button"
+								data-product-id="{{ product.id }}"
+								data-product-name="{{ product.name }}"
+								data-product-price="{{ product.price }}"
+								onclick='openOrderForm(
+									{{ product.id | tojson }},
+									{{ product.name | tojson }},
+									{{ product.price | tojson }}
+								)'>
+								Order Now
+							</button>
+						</div>
+
+					</div>
+					{% else %}
+						<p>No gifting hampers available yet.</p>
+					{% endfor %}
+
+				</div>
+			
+			</section>
+
+
+			<!-- Forms and PopUp -->
+
+			<!-- Order Form -->
+
+			<section class="order-section" id="orderForm">
+
+				<div class="order-container">
+
+					<button class="order-close" onclick="closeOrderForm()">✕</button>
+
+					<h2>Place Your Order</h2>
+
+					<form id="hamperOrderForm">
+						
+						<input type="hidden" id="orderProductId" name="product_id">
+						
+						<div class="order-form-layout">
+
+							<div class="order-form-group">
+								<label for="orderProduct">Selected Hamper</label>
+								<input type="text" id="orderProduct" name="product" readonly required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderPrice">Product Price ($)</label>
+								<input type="text" id="orderPrice" name="price" readonly required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderQuantity">Quantity</label>
+								<input type="number" id="orderQuantity" name="quantity" min="1" max="100" value="1" required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderTotal">Total Amount ($)</label>
+								<input type="text" id="orderTotal" name="total" readonly required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderName">Full Name</label>
+								<input type="text" id="orderName" name="name" placeholder="Enter your full name" required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderPhone">Mobile Number</label>
+								<input type="tel" id="orderPhone" name="phone" placeholder="Enter mobile number" required>
+							</div>
+
+							<div class="order-form-group order-form-full">
+								<label for="orderEmail">Email Address (Optional)</label>
+								<input type="email" id="orderEmail" name="email" placeholder="Enter your email">
+							</div>
+
+							<div class="order-form-group order-form-full">
+								<label for="orderAddress">Delivery Address</label>
+								<textarea id="orderAddress" name="address" placeholder="House number, street, area" required></textarea>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderCity">City</label>
+								<input type="text" id="orderCity" name="city" placeholder="Enter city" required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderPincode">PIN Code</label>
+								<input type="text" id="orderPincode" name="pincode" placeholder="6-digit PIN code" pattern="[0-9]{6}" maxlength="6" required>
+							</div>
+
+							<div class="order-form-group order-form-full">
+								<label for="paymentMethod">Payment Method</label>
+								<select id="paymentMethod" name="payment_method" required>
+								<option value="Cash on Delivery">Cash on Delivery — Pay when order arrives</option>
+								</select>
+							</div>
+
+							<div class="order-form-group order-form-full">
+								<button type="submit" class="order-submit">Confirm Order</button>
+							</div>
+
+						</div>
+
+
+					</form>
+
+				</div>
+
+			</section>
+
+
+			<!-- Feedback Form -->
+
+			<section class="feedback-overlay" id="feedbackForm">
+
+				<div class="feedback-container">
+
+					<button class="feedback-close" onclick="closeFeedbackForm()">✕</button>
+
+					<h2>Share Your Feedback</h2>
+					<p>We would love to hear about your experience!</p>
+
+					<form id="hamperFeedbackForm">
+
+						<div class="feedback-form-group">
+							<label for="feedbackName">Your Name</label>
+							<input type="text" id="feedbackName" name="name" placeholder="Enter your name" required>
+						</div>
+
+						<div class="feedback-form-group">
+							<label>Rate Your Experience</label>
+
+							<div class="feedback-rating">
+								<input type="radio" id="star5" name="rating" value="5" required>
+								<label for="star5">★</label>
+
+								<input type="radio" id="star4" name="rating" value="4">
+								<label for="star4">★</label>
+
+								<input type="radio" id="star3" name="rating" value="3">
+								<label for="star3">★</label>
+
+								<input type="radio" id="star2" name="rating" value="2">
+								<label for="star2">★</label>
+
+								<input type="radio" id="star1" name="rating" value="1">
+								<label for="star1">★</label>
+							</div>
+						</div>
+
+						<div class="feedback-form-group">
+							<label for="feedbackMessage">Your Feedback</label>
+							<textarea id="feedbackMessage" name="message" placeholder="Write your feedback here..." required></textarea>
+						</div>
+
+						<button type="submit" class="feedback-submit">Submit Feedback</button>
+
+					</form>
+
+				</div>
+
+			</section>
+
+
+			<!-- My_Ordres_PopUp -->
+
+			<section class="my-orders-overlay" id="myOrdersPopup">
+
+				<div class="my-orders-container">
+
+					<div class="my-orders-header">
+						<h2>My Orders</h2>
+						<button class="my-orders-close" onclick="closeMyOrders()">✕</button>
+					</div>
+
+					<div class="my-orders-list" id="myOrdersList"></div>
+
+					<div class="my-orders-empty" id="myOrdersEmpty">
+						<h3>No Orders Yet</h3>
+						<p>Your hamper orders will appear here.</p>
+					</div>
+
+				</div>
+
+			</section>
+			
+			
+		</main>
+		
+	
+		<footer id="footer-section">
+    
+			<div class="footer-content">
+					
+				<div class="company">
+					<h3>Company Details</h3><br><br>
+					
+					<div class="company-links">
+						<a href="#about">About Us</a>
+						<a href="#process">Our Process</a>
+					</div>
+				</div>
+				
+				
+				
+				<div class="help">
+					<h3>Contact Us</h3><br><br>
+					
+					<div class="help-links">
+						<a href="tel:6307736109">Phone: +91 63077 - 36109</a>
+						<a href="mailto:apoorvbatham27@gmail.com">Email Us: apoorvbatham27@gmail.com</a>
+					</div>
+					
+				</div>
+				
+				<div class="online-shop">
+					<h3>Online Shop</h3><br><br>
+					
+					<div class="shop-links">
+						<a href="home.html#latest_blends">Ready To Drink Coffee</a>
+						<a href="home.html#brewed-pro_section">Brewed Coffee</a>
+					</div>
+				</div>
+				
+				
+				<div class="follow-us">
+					<h3> Follow Us</h3><br>
+					<div class="follow-links">
+						<a href="https://facebook.com" target="_blank"><img src ="images/—Pngtree—white  icon png_3562061.png" alt="icon-facebook"></a>
+						<a href="https://instagram.com" target="_blank"><img src="images/—Pngtree—white instagram icon png instagram_3562066.png"alt="icon-instagram"></a>
+						<a href="https://twitter.com" target="_blank"><img src="images/icons8-twitter-bird-50.png" alt="icon-twitter"></a>
+					</div>
+				</div>
+				
+			</div>
+	
+		</footer>
+	
+		
+			
+	<script>
+		// ---------------- SIDEBAR ----------------
+
+		
+		const menuBtn = document.getElementById("menuBtn");
+		const closeBtn = document.getElementById("closeBtn");
+		const sidebar = document.getElementById("sidebar");
+
+		menuBtn.addEventListener("click", function () {
+			sidebar.style.left = "0";
+		});
+
+		closeBtn.addEventListener("click", function () {
+			sidebar.style.left = "-15%";
+		});
+
+
+		// ---------------- REFRESH EFFECT ----------------
+
+		if ("scrollRestoration" in history) {
+			history.scrollRestoration = "manual";
+		}
+
+		window.addEventListener("load", function () {
+			const navigation = performance.getEntriesByType("navigation")[0];
+
+			if (navigation && navigation.type === "reload") {
+				window.scrollTo(0, 0);
+			}
+		});
+
+
+		// ---------------- LOGIN STATUS ----------------
+
+		const isLoggedIn = {{ 'true' if current_user else 'false' }};
+
+
+		// ---------------- ORDER FORM ----------------
+
+		function openOrderForm(productId, productName, productPrice) {
+
+			if (!isLoggedIn) {
+				const nextUrl = new URL("/gifting.html", window.location.origin);
+
+				nextUrl.searchParams.set("order_product_id", productId);
+				nextUrl.searchParams.set("order_qty", "1");
+
+				window.location.href =
+					"/login.html?next=" +
+					encodeURIComponent(nextUrl.pathname + nextUrl.search);
+
+				return;
+			}
+
+			document.getElementById("orderProductId").value = productId;
+			document.getElementById("orderProduct").value = productName;
+
+			document.getElementById("orderPrice").value =
+				"$" + Number(productPrice).toFixed(2);
+
+			document.getElementById("orderQuantity").value = 1;
+
+			updateOrderTotal();
+
+			document.getElementById("orderForm").classList.add("active");
+			document.body.style.overflow = "hidden";
+		}
+
+
+		// Restore the selected product after successful login.
+
+		window.addEventListener("DOMContentLoaded", function () {
+
+			const params = new URLSearchParams(window.location.search);
+			const productId = Number(params.get("order_product_id"));
+			const quantity = Number(params.get("order_qty") || 1);
+
+			if (
+				!isLoggedIn ||
+				!Number.isInteger(productId) ||
+				productId <= 0 ||
+				!Number.isInteger(quantity) ||
+				quantity < 1 ||
+				quantity > 100
+			) {
+				return;
+			}
+
+			const buttons = document.querySelectorAll(".hamper_card button");
+
+			for (const button of buttons) {
+
+				if (Number(button.dataset.productId) === productId) {
+
+					openOrderForm(
+						productId,
+						button.dataset.productName,
+						Number(button.dataset.productPrice)
+					);
+
+					document.getElementById("orderQuantity").value = quantity;
+					updateOrderTotal();
+
+					// Remove only the temporary order parameters.
+					const cleanUrl = new URL(window.location.href);
+					cleanUrl.searchParams.delete("order_product_id");
+					cleanUrl.searchParams.delete("order_qty");
+
+					window.history.replaceState(
+						{},
+						"",
+						cleanUrl.pathname + cleanUrl.search + cleanUrl.hash
+					);
+
+					break;
+				}
+			}
+		});
+
+
+		// Calculate total price.
+
+		function updateOrderTotal() {
+
+			const price = Number(
+				document.getElementById("orderPrice").value.replace("$", "")
+			);
+
+			const quantity = Number(
+				document.getElementById("orderQuantity").value
+			);
+
+			document.getElementById("orderTotal").value =
+				"$" + (price * quantity).toFixed(2);
+		}
+
+
+		document.getElementById("orderQuantity").addEventListener(
+			"input",
+			updateOrderTotal
+		);
+
+
+		function closeOrderForm() {
+			document.getElementById("orderForm").classList.remove("active");
+			document.body.style.overflow = "";
+		}
+
+
+		// ---------------- ORDER SUBMIT ----------------
+
+		document.getElementById("hamperOrderForm").addEventListener(
+			"submit",
+			async function (event) {
+
+				event.preventDefault();
+
+				const submitButton = this.querySelector(".order-submit");
+				const quantityInput = document.getElementById("orderQuantity");
+
+				const productId = Number(
+					document.getElementById("orderProductId").value
+				);
+
+				const quantity = Number(quantityInput.value);
+
+				if (
+					!Number.isInteger(productId) ||
+					productId <= 0 ||
+					!Number.isInteger(quantity) ||
+					quantity < 1 ||
+					quantity > 100
+				) {
+					alert("Please select a valid product and quantity.");
+					return;
+				}
+
+				const orderData = {
+					product_id: productId,
+					qty: quantity,
+					name: document.getElementById("orderName").value.trim(),
+					phone: document.getElementById("orderPhone").value.trim(),
+					email: document.getElementById("orderEmail").value.trim(),
+					addr: document.getElementById("orderAddress").value.trim(),
+					city: document.getElementById("orderCity").value.trim(),
+					pincode: document.getElementById("orderPincode").value.trim(),
+					payment_method: document.getElementById("paymentMethod").value
+				};
+
+				submitButton.disabled = true;
+				submitButton.textContent = "Placing Order...";
+
+				try {
+					
+					const response = await fetch("/api/orders", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(orderData)
+					});
+
+					const result = await response.json();
+
+					if (response.status === 401) {
+
+						const nextUrl = new URL(
+							"/gifting.html",
+							window.location.origin
+						);
+
+						nextUrl.searchParams.set("order_product_id", productId);
+						nextUrl.searchParams.set("order_qty", quantity);
+
+						window.location.href =
+							"/login.html?next=" +
+							encodeURIComponent(nextUrl.pathname + nextUrl.search);
+
+						return;
+					}
+
+					if (!response.ok || result.success === false) {
+						throw new Error(
+							result.message || result.error || "Unable to place your order."
+						);
+					}
+
+					alert(
+						"Your order has been placed successfully!\n" +
+						"Order ID: " + (result.order_id ?? "Confirmed") + "\n" +
+						"Total Amount: " +
+						(result.total != null
+							? "$" + Number(result.total).toFixed(2)
+							: document.getElementById("orderTotal").value)
+					);
+
+					this.reset();
+					closeOrderForm();
+
+				} catch (error) {
+
+					console.error("Order submission error:", error);
+
+					alert(
+						error.message ||
+						"Could not place your order. Please try again."
+					);
+
+				} finally {
+
+					submitButton.disabled = false;
+					submitButton.textContent = "Confirm Order";
+				}
+			}
+		);
+
+
+		// ---------------- FEEDBACK FORM ----------------
+
+		function openFeedbackForm() {
+
+			if (!isLoggedIn) {
+				window.location.href =
+					"/login.html?next=" + encodeURIComponent("/gifting.html");
+				return;
+			}
+
+			document.getElementById("feedbackForm").classList.add("active");
+			document.body.style.overflow = "hidden";
+		}
+
+
+		function closeFeedbackForm() {
+			document.getElementById("feedbackForm").classList.remove("active");
+			document.body.style.overflow = "";
+		}
+
+
+		document.getElementById("hamperFeedbackForm").addEventListener(
+			"submit",
+			async function (event) {
+
+				event.preventDefault();
+
+				const ratingInput = this.querySelector(
+					'input[name="rating"]:checked'
+				);
+
+				if (!ratingInput) {
+					alert("Please select a rating.");
+					return;
+				}
+
+				const submitButton = this.querySelector(".feedback-submit");
+
+				const feedbackData = {
+					name: document.getElementById("feedbackName").value.trim(),
+					rating: Number(ratingInput.value),
+					message: document.getElementById("feedbackMessage").value.trim()
+				};
+
+				submitButton.disabled = true;
+				submitButton.textContent = "Submitting...";
+
+				try {
+
+					const response = await fetch("/api/feedback", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(feedbackData)
+					});
+
+					const result = await response.json();
+
+					if (response.status === 401) {
+						window.location.href =
+							"/login.html?next=" +
+							encodeURIComponent("/gifting.html");
+						return;
+					}
+
+					if (!response.ok || result.success === false) {
+						throw new Error(
+							result.message || result.error || "Feedback submission failed."
+						);
+					}
+
+					alert("Thank you for your feedback!");
+
+					this.reset();
+					closeFeedbackForm();
+
+				} catch (error) {
+
+					console.error("Feedback submission error:", error);
+
+					alert(
+						error.message ||
+						"Could not submit feedback. Please try again."
+					);
+
+				} finally {
+
+					submitButton.disabled = false;
+					submitButton.textContent = "Submit Feedback";
+				}
+			}
+		);
+
+
+		// ---------------- MY ORDERS ----------------
+
+		function openMyOrders() {
+
+			if (!isLoggedIn) {
+				window.location.href =
+					"/login.html?next=" + encodeURIComponent("/gifting.html");
+				return;
+			}
+
+			document.getElementById("myOrdersPopup").classList.add("active");
+			document.body.style.overflow = "hidden";
+
+			loadMyOrders();
+		}
+
+
+		function closeMyOrders() {
+			document.getElementById("myOrdersPopup").classList.remove("active");
+			document.body.style.overflow = "";
+		}
+
+
+		// Escape text before inserting API data into HTML.
+
+		function escapeHtml(value) {
+			return String(value ?? "").replace(/[&<>"']/g, function (character) {
+				return {
+					"&": "&amp;",
+					"<": "&lt;",
+					">": "&gt;",
+					'"': "&quot;",
+					"'": "&#39;"
+				}[character];
+			});
+		}
+
+
+		async function loadMyOrders() {
+
+			const list = document.getElementById("myOrdersList");
+			const empty = document.getElementById("myOrdersEmpty");
+
+			list.innerHTML = "<p>Loading your orders...</p>";
+			empty.style.display = "none";
+
+			try {
+
+				const response = await fetch("/api/my-orders");
+
+				if (response.status === 401) {
+					window.location.href =
+						"/login.html?next=" +
+						encodeURIComponent("/gifting.html");
+					return;
+				}
+
+				if (!response.ok) {
+					throw new Error("Unable to load your orders.");
+				}
+
+				const result = await response.json();
+
+				// Supports either an array response or { orders: [...] }.
+				const orders = Array.isArray(result)
+					? result
+					: (result.orders || []);
+
+				list.innerHTML = "";
+
+				if (orders.length === 0) {
+					empty.style.display = "block";
+					return;
+				}
+
+				empty.style.display = "none";
+
+				orders.forEach(function (order) {
+
+					const productName =
+						order.prod || order.product_name || "Coffee Hamper";
+
+					const orderId =
+						order.id ?? order.order_id ?? "—";
+
+					const quantity =
+						Number(order.qty ?? order.quantity ?? 1);
+
+					const total =
+						Number(order.total ?? order.total_amount ?? 0);
+
+					const status =
+						String(order.status || "Pending");
+
+					const statusClass =
+						status.toLowerCase() === "delivered"
+							? "status-delivered"
+							: "status-pending";
+
+					const dateValue =
+						order.created_at || order.order_date;
+
+					const date = dateValue
+						? new Date(dateValue).toLocaleDateString("en-GB", {
+							day: "2-digit",
+							month: "short",
+							year: "numeric"
+						})
+						: "—";
+
+					let imagePath = order.img || order.image || "";
+
+					if (imagePath && !imagePath.startsWith("/")) {
+						imagePath = "/" + imagePath;
+					}
+
+					const card = document.createElement("div");
+					card.className = "my-order-card";
+
+					card.innerHTML = `
+						<div class="my-order-image">
+							${
+								imagePath
+									? `<img src="${escapeHtml(imagePath)}"
+											alt="${escapeHtml(productName)}">`
+									: ""
+							}
+						</div>
+
+						<div class="my-order-info">
+							<h3>${escapeHtml(productName)}</h3>
+							<p>Order ID: #${escapeHtml(orderId)}</p>
+							<p>Quantity: ${escapeHtml(quantity)}</p>
+							<p>Order Date: ${escapeHtml(date)}</p>
+							<span class="my-order-status ${statusClass}">
+								${escapeHtml(status)}
+							</span>
+						</div>
+
+						<div class="my-order-price">
+							$${total.toFixed(2)}
+						</div>
+					`;
+
+					list.appendChild(card);
+				});
+
+			} catch (error) {
+
+				console.error("My Orders error:", error);
+
+				list.innerHTML =
+					"<p>Could not load orders. Please try again later.</p>";
+			}
+		}
+
+
+		// ---------------- CLOSE POPUPS ----------------
+
+		document.getElementById("orderForm").addEventListener(
+			"click",
+			function (event) {
+				if (event.target === this) {
+					closeOrderForm();
+				}
+			}
+		);
+
+
+		document.getElementById("feedbackForm").addEventListener(
+			"click",
+			function (event) {
+				if (event.target === this) {
+					closeFeedbackForm();
+				}
+			}
+		);
+
+
+		document.getElementById("myOrdersPopup").addEventListener(
+			"click",
+			function (event) {
+				if (event.target === this) {
+					closeMyOrders();
+				}
+			}
+		);
+
+
+		document.addEventListener("keydown", function (event) {
+
+			if (event.key === "Escape") {
+				closeOrderForm();
+				closeFeedbackForm();
+				closeMyOrders();
+
+				sidebar.style.left = "-15%";
+			}
+		});
+
+
+		// ---------------- LOGOUT ----------------
+
+		async function logoutUser(event) {
+
+			if (event) {
+				event.preventDefault();
+			}
+
+			try {
+
+				const response = await fetch("/api/logout", {
+					method: "POST"
+				});
+
+				if (response.ok) {
+					window.location.href = "/";
+				} else {
+					alert("Could not log out. Please try again.");
+				}
+
+			} catch (error) {
+
+				console.error("Logout error:", error);
+				alert("Could not log out. Please try again.");
+			}
+		}
+
+	</script>
+
+	{% include 'includes/copyright.html' %}
+</body>
+
+
+
+	
+</html>

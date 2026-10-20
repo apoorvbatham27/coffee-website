@@ -1,0 +1,1904 @@
+<html lang="en">
+
+<head> 
+<title>Home-Page</title>
+
+<style>
+
+	*{
+		box-sizing:border-box;
+		margin:0;
+		padding:0;
+	}
+
+	html{
+		scroll-behavior: smooth;
+	}
+
+	body{
+		background: linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		font-family:Arial, Sans-serif;
+		color:#ffff;
+		overflow-x:hidden;
+	}
+
+	/*-----0_Forms-PopUp_Section-----*/
+
+	/* 1_Order_Form */
+
+	.order-section{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.75);
+		z-index:2000;
+		padding:20px;
+	}
+
+	.order-section.active{
+		display:flex;
+	}
+
+	.order-container{
+		width:90%;
+		max-width:850px;
+		max-height:90vh;
+		overflow-y:auto;
+		background:linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		border:1px solid #bb3c51;
+		border-radius:12px;
+		padding:30px;
+		box-shadow:0 10px 30px rgba(0,0,0,0.7);
+		position:relative;
+	}
+
+	.order-close{
+		position:absolute;
+		top:12px;
+		right:18px;
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:28px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.order-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.order-container h2{
+		text-align:center;
+		color:#eec3d0;
+		margin-bottom:25px;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.order-form-layout{
+		display:grid;
+		grid-template-columns:1fr 1fr;
+		gap:18px;
+	}
+
+	.order-form-group{
+		display:flex;
+		flex-direction:column;
+		gap:8px;
+	}
+
+	.order-form-group label{
+		color:#eec3d0;
+		font-weight:bold;
+		font-size:14px;
+	}
+
+	.order-form-group input,
+	.order-form-group textarea,
+	.order-form-group select{
+		width:100%;
+		padding:12px;
+		border:1px solid #b33259;
+		border-radius:5px;
+		background:#3a0b1b;
+		color:#fff;
+		outline:none;
+		font-size:14px;
+	}
+
+	.order-form-group input:focus,
+	.order-form-group textarea:focus,
+	.order-form-group select:focus{
+		border-color:#eec3d0;
+	}
+
+	.order-form-group textarea{
+		resize:vertical;
+		min-height:75px;
+	}
+
+	.order-form-group select option{
+		background:#3a0b1b;
+		color:#fff;
+	}
+
+	.order-form-full{
+		grid-column:1 / -1;
+	}
+
+	.order-submit{
+		width:100%;
+		padding:13px;
+		border:none;
+		border-radius:5px;
+		background:#b33259;
+		color:#fff;
+		font-weight:bold;
+		font-size:15px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.order-submit:hover{
+		background:#8b2745;
+		transform:translateY(2px);
+	}
+
+	@media(max-width:768px){
+		.order-container{
+			padding:25px 18px;
+		}
+		.order-form-layout{
+			grid-template-columns:1fr;
+		}
+		.order-form-full{
+			grid-column:auto;
+		}
+	}
+
+	/* 1_Feedback_Form */
+
+	.feedback-overlay {
+		display: none;
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		padding: 15px;
+		box-sizing: border-box;
+		background: rgba(0, 0, 0, 0.75);
+		z-index: 3000;
+		align-items: center;
+		justify-content: center;
+		overflow-y: auto;
+	}
+
+	.feedback-overlay.active {
+		display: flex;
+	}
+
+	.feedback-container {
+		position: relative;
+		width: 100%;
+		max-width: 420px;
+		max-height: 90vh;
+		overflow-y: auto;
+		box-sizing: border-box;
+		padding: 25px;
+		background: #6d1f37;
+		border: 1px solid #b33259;
+		border-radius: 14px;
+		box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+		color: #ffffff;
+	}
+
+	.feedback-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 8px;
+	}
+
+	.feedback-header h2 {
+		margin: 0;
+		color: #eec3d0;
+		font-size: 23px;
+	}
+
+	.feedback-close {
+		border: none;
+		background: transparent;
+		color: #ffffff;
+		font-size: 30px;
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	.feedback-close:hover {
+		color: #eec3d0;
+	}
+
+	.feedback-subtitle {
+		margin: 0 0 22px;
+		color: #f0dce2;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	#feedbackFormData label {
+		display: block;
+		margin: 15px 0 7px;
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	#feedbackFormData input[type="text"],
+	#feedbackFormData textarea {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 11px 12px;
+		border: 1px solid #d99aaa;
+		border-radius: 7px;
+		outline: none;
+		background: #ffffff;
+		color: #333333;
+		font-family: Arial, sans-serif;
+		font-size: 14px;
+	}
+
+	#feedbackFormData input[type="text"]:focus,
+	#feedbackFormData textarea:focus {
+		border-color: #eec3d0;
+		box-shadow: 0 0 0 2px rgba(238, 195, 208, 0.2);
+	}
+
+	#feedbackFormData textarea {
+		resize: vertical;
+		min-height: 90px;
+	}
+
+	.feedback-rating {
+		display: flex;
+		flex-direction: row;
+		gap: 5px;
+		margin: 5px 0 15px;
+	}
+
+	.feedback-rating input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.feedback-rating label {
+		margin: 0 !important;
+		color: #b9a0a7 !important;
+		font-size: 32px !important;
+		cursor: pointer;
+		transition: color 0.2s;
+	}
+
+	.feedback-rating label:hover,
+	.feedback-rating label:hover ~ label,
+	.feedback-rating input:checked ~ label {
+		color: #ffc857 !important;
+	}
+
+	.feedback-rating {
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+	}
+
+	.feedback-rating label:hover,
+	.feedback-rating label:hover ~ label,
+	.feedback-rating input:checked ~ label,
+	.feedback-rating input:checked + label {
+		color: #ffc857 !important;
+	}
+
+	.feedback-submit {
+		width: 100%;
+		margin-top: 20px;
+		padding: 12px;
+		border: none;
+		border-radius: 7px;
+		background: #b33259;
+		color: #ffffff;
+		font-size: 15px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+
+	.feedback-submit:hover {
+		background: #c8446c;
+	}
+
+	@media (max-width: 480px) {
+		.feedback-container {
+			padding: 20px;
+		}
+
+		.feedback-header h2 {
+			font-size: 20px;
+		}
+	}
+
+	/* 3_My_Orders_PopUp */
+
+	.my-orders-overlay{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.78);
+		z-index:4000;
+		padding:20px;
+	}
+
+	.my-orders-overlay.active{
+		display:flex;
+	}
+
+	.my-orders-container{
+		width:80vw;
+		height:80vh;
+		max-width:1100px;
+		overflow-y:auto;
+		background:linear-gradient(135deg, #1f0208, #3a050d, #650d22, #3a050d);
+		border:1px solid #b33259;
+		border-radius:18px;
+		padding:25px;
+		box-shadow:0 0 30px rgba(179,50,89,0.25);
+		position:relative;
+	}
+
+	.my-orders-header{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		margin-bottom:25px;
+		padding-bottom:15px;
+		border-bottom:1px solid rgba(238,195,208,0.3);
+	}
+
+	.my-orders-header h2{
+		color:#eec3d0;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.my-orders-close{
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:28px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.my-orders-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.my-orders-list{
+		display:flex;
+		flex-direction:column;
+		gap:15px;
+	}
+
+	.my-order-card{
+		display:flex;
+		align-items:center;
+		gap:20px;
+		padding:18px;
+		background:linear-gradient(120deg, rgba(109,31,55,0.85), rgba(58,11,27,0.95));
+		border:1px solid rgba(227,156,177,0.25);
+		border-radius:12px;
+		transition:0.3s;
+	}
+
+	.my-order-image{
+		width:110px;
+		height:110px;
+		flex-shrink:0;
+		overflow:hidden;
+		border-radius:8px;
+		border:1px solid rgba(187,60,81,0.6);
+	}
+
+	.my-order-image img{
+		width:100%;
+		height:100%;
+		object-fit:cover;
+		display:block;
+	}
+
+	.my-order-info{
+		flex:1;
+	}
+
+	.my-order-info h3{
+		color:#eec3d0;
+		margin-bottom:8px;
+		font-size:17px;
+	}
+
+	.my-order-info p{
+		color:#fff;
+		font-size:13px;
+		line-height:1.8;
+	}
+
+	.my-order-price{
+		color:#eec3d0;
+		font-size:18px;
+		font-weight:bold;
+		white-space:nowrap;
+	}
+
+	.my-order-status{
+		display:inline-block;
+		margin-top:8px;
+		margin-left:30px;
+		padding:5px 10px;
+		border-radius:20px;
+		font-size:12px;
+		font-weight:bold;
+	}
+
+	.status-delivered{
+		background:rgba(46,160,67,0.2);
+		color:#75e39a;
+	}
+
+	.status-pending{
+		background:rgba(255,193,7,0.15);
+		color:#ffd76a;
+	}
+
+	.my-orders-empty{
+		text-align:center;
+		color:#eec3d0;
+		padding:35px 10px;
+		display:none;
+	}
+
+	@media(max-width:768px){
+
+		.my-orders-container{
+			width:95vw;
+			height:85vh;
+			padding:18px;
+		}
+
+		.my-order-card{
+			align-items:flex-start;
+			flex-direction:column;
+			gap:10px;
+		}
+
+		.my-orders-header h2{
+			font-size:20px;
+		}
+	}
+
+	/*-----01_Home_Section-----*/
+
+	.home-section{
+		height:100vh;
+		width:100vw;
+		background-image:url("images/hero-img.png");
+		background-size:cover;
+		background-repeat:no-repeat;
+		background-position:center;
+		margin-bottom:5%;
+	}
+
+	/*-----Navigation Bar-----*/
+
+	.navbar{
+		display:flex;
+		justify-content:space-between;
+		align-items:center;
+		height:10%;
+		width:100%;
+		background-color: rgba(30, 30, 31, 0.6); 
+		backdrop-filter: blur(3px);
+	}
+
+	.logo-img{
+		height:65%;
+		width:8%;
+	}
+
+	.logo-img img{
+		height:100%;
+		width:100%;
+	}
+
+	.navlinks{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		height:95%;
+		width:70%;
+		gap:30px;
+		text-shadow: 5px 5px 25px rgba(0,0,0,1);
+	}
+
+	.navlinks a{
+		color:#ffff;
+		font-family:Arial, Sans-serif;
+		font-size:22px;
+		font-weight:700;
+		text-decoration:none;
+		transition: all 0.70s ease;
+		height:60%;
+	}
+
+	.navlinks a:hover{
+		color:#b33259;
+		cursor:pointer;
+		border-bottom:2px solid #b33259;
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+	}
+
+	.socialmediaLinks{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:row;
+		height:50%;
+		width:11%;
+		gap:15px;
+		padding:2px;
+		padding-right:15px;
+		margin-top:20px;
+	}
+
+	.socialmediaLinks img{
+		height:100%;
+		width:100%;
+	}
+
+	.socialmediaLinks a{
+		transition: all 0.3s ease;
+	}
+
+	.socialmediaLinks a:hover{
+		transform: translateY(-5px) scale(1.05);
+	}
+
+	/*----- Hamburgger Icon-----*/
+
+	.menueBtn{
+		height:80%;
+		width:5%;
+		margin-top:14px;
+	}
+
+	.menueBtn button{
+		height:100%;
+		width:100%;
+		font-size:30px;
+		background-color:transparent;
+		color:#ffff;
+		font-weight:900;
+		transition: all 0.45s ease;
+		border:none;
+	}
+
+	.menueBtn button:hover{
+		color:#b33259;
+		transform: translateY(2px);
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+	}
+
+	/*-----Hero Logo-----*/
+
+	.hero-logo{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:column;
+		text-align:center;
+		color:#ffff;
+		height:70%;
+		width:100%;
+		position:absolute;
+		top:0;
+		margin-top:5%;
+	}
+
+	.hero-logo img{
+		height:25%;
+		width:10%;
+		display:block;
+		margin-bottom:-35px;
+	}
+
+	.hero-logo h1{
+		font-family: 'Georgia', serif;
+		font-size:70px;
+		font-weight:bold;
+		text-shadow: 5px 5px 25px rgba(0,0,0,1);
+		font-style:italic;
+	}
+
+	.hero-logo p{
+		font-family:'Cormorant Upright', cursive;
+		letter-spacing:3px;
+		word-spacing:2px;
+		text-shadow: 5px 5px 25px rgba(0,0,0,1);
+		font-style:italic;
+	}
+
+	/*-----Side Bar-----*/
+
+	#sidebar{
+		display: flex;
+		align-items:center;
+		justify-content:flex-start;
+		flex-direction:column;
+		position:fixed;
+		top:0;
+		left:-15%;
+		height:100vh;
+		width:15%;
+		background: linear-gradient(to bottom, #511527, #3f0f20, #2b0916, #1d050e);
+		transition:0.50s;
+		z-index:1000;
+		padding-left:20px;
+	}
+
+	.sidebar-links{
+	    display:flex;
+		align-items:flex-start;
+		justify-content:flex-start;
+		flex-direction:column;
+		height:100%;
+		width:100%;
+		gap:25px;
+		margin-top:15px;
+		position:relative;
+	}
+
+	.sidebar-links a{
+		display: flex;
+		align-items:center;
+		justify-content:flex-start;
+		height:35px;
+		width:80%;
+		text-decoration: none;
+		font-size: 20px;
+		font-weight:1000;
+		color: #ffff;
+		padding:5px;
+		transition:0.30s;
+	}
+
+	.sidebar-links a:hover{
+		background-color:#8b2745;
+		color:#b33259;
+		color:rgb(238, 195, 208);
+	}
+	
+	
+	/* Logged-in user name */
+	.sidebar-welcome {
+		width: 100%;
+		max-width: 100%;
+		padding: 5px;
+		color: #eec3d0;
+		font-weight: bold;
+		overflow-wrap: anywhere;
+		word-break: normal;
+	}
+
+	.welcome-label {
+		display: block;
+		margin-bottom: 5px;
+		font-size: 15px;
+	}
+
+	.welcome-name {
+		display: block;
+		max-width: 100%;
+		font-size: 18px;
+		line-height: 1.4;
+		overflow-wrap: anywhere;
+	}
+
+
+	.closeBtn{
+		margin-top:20px;
+		margin-left:70%;
+	}
+
+	.closeBtn button{
+		font-size:25px;
+		background-color: transparent;
+		border: none;
+		color: #ffff;
+		font-weight:1000;
+		transition:0.25s;
+	}
+
+	.closeBtn button:hover{
+		color:#b33259;
+		transform: translateY(-2px);
+		text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+	}
+
+	/*-----02_Brewed_Pro_Section-----*/
+
+	#brewed-pro_section{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		min-height:100vh;
+		width:100vw;
+		padding:40px 0;
+	}
+
+	.our-pro-heading{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		font-size:22px;
+		color:#eec3d0;
+		letter-spacing:4px;
+		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
+		font-family: Georgia, "Times New Roman", serif;
+	}
+
+	/*---Products Grid---*/
+
+	.brewed-products{
+		display:grid;
+		grid-template-columns:1fr 1fr 1fr 1fr;
+		grid-auto-rows:390px;          
+		row-gap:25px;
+		align-items:center;
+		justify-content:center;
+		min-height:93vh;               
+		width:93vw;
+		position:relative;
+		background-color:#77223b;
+		box-shadow:rgba(0, 0, 0, 0.2) 5px 5px 20px 0px;
+		padding:30px 170px 30px 130px; 
+		column-gap:30px;
+		border:1px solid #bb3c51;
+		border-radius:10px;
+	}
+
+	.brewed_card{
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		flex-direction:column;
+		height:85%;
+		width:95%;
+		margin-left:15px;
+		border:none;
+		background-color:#631c31;
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 12px 0px;
+		border-radius:15px;
+		transition:0.3s;
+		padding-top:15px;
+		border:1px solid #bb3c51;
+	}
+
+	.brewed_card:hover{
+		box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
+	}
+
+	.brewed_card img{
+		height:140px;
+		width:220px;
+		object-fit:cover;
+	}
+
+	.brewed_card p{
+		text-align:center;
+		line-height: 1.3;
+		color:rgb(227, 156, 177);
+		font-style:italic;
+		letter-spacing:1px;
+		word-spacing:1px;
+	}
+
+	.brewed_card h3{
+		text-align:center;
+		color:rgb(238, 195, 208);
+		font-weight:900;
+		line-height:1.3;                   
+		min-height:2.6em;                  
+	}
+
+	.brewed_card button{
+		height:35px;
+		width:100px;
+		margin-top:auto;                   
+		margin-bottom:15px;               
+		background-color: #eec3d0; 
+		color:rgb(109, 31, 55);
+		box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+		cursor: pointer;
+		font-weight:bold;
+		transition: 0.3s;
+		border: none;
+		border-radius: 10px;
+	}
+
+	.brewed_card button:hover{
+		background-color:rgb(159, 45, 79);
+		transform: translateY(3px);
+		box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+	}
+
+	/*-----03_ReadyToDrink_Pro_Section-----*/
+
+		/*-----03_ReadyToDrink_Pro_Section-----*/
+
+	.readytodrink_pro_section{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		min-height:100vh;
+		width:100vw;
+		margin-bottom:5%;
+		padding:40px 0;
+	}
+
+	#latest_blends{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		min-height:97vh;
+		width:93vw;
+		position:relative;
+		padding:30px 2% 30px 0;
+		background-color:#77223b;
+		box-shadow:rgba(0, 0, 0, 0.2) 5px 5px 12px 0px;
+		border:1px solid #bb3c51;
+		border-radius:10px;
+	}
+
+	.poster_container{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:column;
+		height:auto;
+		width:60%;
+	}
+
+	.poster_container h2{
+		font-size:35px;
+		width:95%;
+		margin-bottom:20px;
+		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
+		letter-spacing:4px;
+		font-family: 'Georgia', serif;
+		color:#eec3d0;
+	}
+
+	.poster_container img{
+		height:540px;
+		width:810px;
+		margin-bottom:30px;
+		margin-left:20px;
+		border-radius:5px;
+		box-shadow: 0px 8px 25px rgba(0,0,0,0.6);
+	}
+
+	.blends_card_container{
+		display:grid;
+		grid-template-columns:1fr 1fr;
+		grid-auto-rows:310px;
+		row-gap:15px;
+		align-items:center;
+		justify-items:center;
+		width:36%;
+		position:static;
+	}
+
+	.blends_card{
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		flex-direction:column;
+		height:100%;
+		width:95%;
+		padding:10px 5px 0;
+		background-color:#631c31;
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+		border-radius:15px;
+		transition: 0.3s;
+		border:1px solid #bb3c51;
+		
+	}
+
+	.blends_card img{
+		height:140px;
+		width:200px;
+		
+		object-fit:cover;
+	}
+
+	.blends_card p{
+		text-align:center;
+		line-height: 1.4;
+		color:rgb(227, 156, 177);
+		font-style:italic;
+		letter-spacing:1px;
+		word-spacing:1px;
+	}
+
+	.blends_card h3{
+		text-align:center;
+		line-height:1.3;
+		color:rgb(238, 195, 208);
+		font-weight:900;
+	}
+
+	.blends_card:hover{
+		box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
+	}
+
+	.blends_card button{
+		height:35px;
+		width:85px;
+		margin-top:auto;
+		margin-bottom:12px;
+		background-color: #eec3d0; 
+		color:rgb(109, 31, 55);
+		box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+		cursor: pointer;
+		font-weight:bold;
+		transition: 0.3s;
+		border: none;
+		border-radius: 10px;
+	}
+
+	.blends_card button:hover{
+		background-color:rgb(159, 45, 79);
+		transform: translateY(3px);
+		box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+	}
+
+	/*-----04_Product_Process_Section-----*/
+
+	#process-section{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:column;
+		height:180vh;
+		width:100vw;
+	}
+
+	.process{
+		height:90%;
+		width:98%;
+	}
+
+	.process-step img{
+		height:250px;
+		width:395px;
+		box-shadow: 0px 8px 25px rgba(0,0,0,0.6);
+		object-fit:cover;
+	}
+
+	.process-step-rev img{
+		height:250px;
+		width:395px;
+		box-shadow: 0px 8px 25px rgba(0,0,0,0.6);
+		object-fit:cover;
+	}
+
+	.process-step{
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		margin-bottom:2%;
+	}
+
+	.process-step-rev{
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		flex-direction:row-reverse;
+		margin-bottom:2%;
+	}
+
+	.process-heading{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		margin-bottom:5%;
+	}
+
+	.process-heading h2{
+		color:#eec3d0;
+		font-size:38px;
+		letter-spacing:3px;
+		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
+		font-family: 'Georgia', serif;
+	}
+
+	.process-step p{
+		font-size:18px;
+		color:rgb(238, 195, 208);
+		letter-spacing:2px;
+		line-height:27px;
+		text-shadow:rgba(0, 0, 0, 0.6) 2px 2px 8px;
+		word-spacing:2px;
+		margin-left:50px;
+	}
+
+	.process-step-rev p{
+		font-size:18px;
+		color:rgb(238, 195, 208);
+		letter-spacing:2px;
+		line-height:27px;
+		text-shadow:rgba(0, 0, 0, 0.6) 2px 2px 8px;
+		word-spacing:2px;
+		margin-right:20px;
+	}
+
+	/*-----05_About-us_Section-----*/
+
+	#section-about{
+		height:80vh;
+		width:100vw;
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+		background-color:#77223b;
+	}
+
+	.about-imgs{
+		height:100%;
+		width:45%;
+		position:relative;
+	}
+
+	.about-imgs img{
+		height:400px;
+		width:400px;
+		border-radius:50%;
+		object-fit:cover;
+		position:absolute;
+		top:10%;
+		right:10%;
+		z-index:1;
+		box-shadow:0px 8px 25px rgba(0,0,0,0.4);
+	}
+
+	.about-imgs img:nth-child(2){
+		height:260px;
+		width:260px;
+		object-fit:cover;
+		border-radius:50%;
+		position:absolute;
+		top:43%;
+		left:25%;
+		border:10px solid #77223b;
+		box-shadow:0px 8px 25px rgba(0,0,0,0.4);
+		z-index:2;
+	}
+
+	.about-content{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		height:100%;
+		width:100%;
+		position:relative;
+	}
+
+	.about-headings{
+		width:60%;
+		padding-left:5%;
+	}
+
+	.about-headings p{
+		line-height:22.4px;
+		text-shadow:rgba(0, 0, 0, 0.6) 2px 2px 8px;
+		word-spacing:1px;
+		letter-spacing:1px;
+		color:rgb(238, 195, 208);
+	}
+
+	.about-headings h2{
+		font-size:25px;
+		font-weight:800;
+		word-spacing:1px;
+		text-shadow:rgba(255, 255, 255, 0.3) 0px 0px 10px;
+	}
+
+	.about-headings h4{
+		font-size:40px;
+		letter-spacing:2px;
+		word-spacing:1px;
+		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
+		font-family: 'Georgia', serif;
+		color:#eec3d0;
+	}
+
+	/*-----06_Foooter_Section-----*/
+
+	#footer-section{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		background-color:#501628;
+		 height: auto;
+		     min-height: 30vh;
+		width:100vw;
+		flex-direction: column;
+    padding: 15px 0;
+	}
+
+	.footer-content{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		height:100%;
+		width:90%;
+	}
+
+	.follow-us{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:column;
+		height:80%;
+		width:20%;
+	}
+
+	.follow-links{
+		display:flex;
+		align-items:flex-start;
+		justify-content:flex-start;
+	}
+
+	.follow-us h3{
+		margin-bottom:15px;
+	}
+
+	.follow-us img{
+		width: 25px;
+		height: 25px;
+		margin:5px;
+	}
+
+	.follow-us a{
+		transition: all 0.3s ease;
+	}
+
+	.follow-us a:hover{
+		transform: translateY(-5px) scale(1.05);
+	}
+
+	.company-links a,
+	.contact-links a,
+	.shop-links a{
+		display:flex;
+		font-size:20px;
+		margin-bottom:5px;
+		text-decoration:underline;
+		color:rgb(238, 195, 208);
+		line-height:30.6px;
+		letter-spacing:1px;
+	}
+	
+	.copyright {
+		background-color:#501628;
+	}
+
+</style>
+</head>
+
+<body>
+	
+	
+	
+	
+	
+	<aside>
+		<div id="sidebar">
+			
+			<div class="closeBtn">
+				<button id="closeBtn">✕</button>
+			</div>
+			
+			<div class="sidebar-links">
+				{% if current_user %}
+				<div class="sidebar-welcome">
+					<span class="welcome-label">Welcome,</span>
+					<span class="welcome-name">{{ current_user }}</span>
+				</div>
+				{% endif %}
+
+				<a href="/">Home</a>
+				<a href="#brewed-pro_section">Products</a>
+				<a href="#" onclick="openMyOrders(); return false;">My Orders</a>
+				<a href="#footer-section">Contact Us</a>
+				<a href="#" onclick="openFeedbackForm(); return false;">Feedback</a>
+				{% if current_user %}
+				<a href="#" onclick="logoutUser(event)">↪Logout</a>
+				{% else %}
+				<a href="/login.html">Login</a>
+				<a href="/register.html">Register</a>
+				{% endif %}
+
+
+				
+			</div>
+			
+		</div>
+		
+    </aside>
+	
+	
+	
+	<main>
+	
+		<section class="home-section">
+			<header>
+				<nav>
+					<div class="navbar">
+						
+						<div class="menueBtn">
+							<button id="menuBtn">☰</button>  
+						</div>
+						
+						<div class="logo-img">
+							<img src="images/logo-img.png" alt="hero logo">
+						</div>
+						
+						<div class="navlinks">
+							<a href="/">HOME</a>
+							<a href="#latest_blends">BLENDS</a>
+							<a href="#brewed-pro_section">BREWED</a>
+							<a href="/gifting.html">GIFTING</a>
+							<a href="#section-about">ABOUT</a>
+						</div>
+						
+						<div class="socialmediaLinks">
+							<a href="https://facebook.com" target="_blank">
+								<img src="images/—Pngtree—white  icon png_3562061.png">
+							</a>
+							<a href="https://instagram.com" target="_blank">
+								<img src="images/—Pngtree—white instagram icon png instagram_3562066.png">
+							</a>
+							<a href="https://twitter.com" target="_blank">
+								<img src="images/icons8-twitter-bird-50.png">
+							</a>
+							
+						</div>
+					</div>
+				</nav>
+				
+			</header>
+	
+		
+			<div class="hero-logo">
+				<img src="images/logo(beans).png" alt="logo-beans">
+				<h1>CoffyCup</h1>
+				<p>Pure Beans Pure Taste</p>
+			</div>
+		
+		</section>
+		
+		
+	
+		<div class="our-pro-heading">
+			<h2>OUR PRODUCTS</h2>
+		</div>
+		
+		<section id="brewed-pro_section"> 
+		
+			
+			<div class="brewed-products">
+				{% for product in brewed_products %}
+				<div class="brewed_card">
+					<img src="{{ product.img if product.img else 'images/p1.png' }}" alt="{{ product.name }}">
+					{% set parts = (product.name|upper|trim).rsplit(' ', 1) %}
+					<h3>{{ parts[0] }}{% if parts|length > 1 %}<br>{{ parts[1] }}{% endif %}</h3>
+					<p><i>{{ product.description or '' }}</i></p>
+					<p>${{ '%.2f'|format(product.price|float) }}</p>
+					
+					<button type="button" onclick='openOrderForm({{ product.id|tojson }}, {{ product.name|tojson }}, {{ product.price|tojson }}, {{ (product.img or "images/p1.png")|tojson }})'>Order Now</button>
+					
+				</div>
+				{% else %}
+				<p style="grid-column:1/-1;text-align:center;">No brewed coffee products are available right now.</p>
+				{% endfor %}
+			</div>
+		
+		</section>
+		
+		
+		
+		
+		
+		<section class="readytodrink_pro_section">	
+			
+			<div id="latest_blends">
+			
+				<div class="poster_container">		
+					<h2>LATEST BLENDS</h2>
+					<img src="images/drinks_poster.png" alt="pro_img">
+				</div>
+				
+				<div class="blends_card_container">
+					{% for product in ready_to_drink_products %}
+					<div class="blends_card">
+						<img src="{{ product.img if product.img else 'images/drink-1.png' }}" alt="{{ product.name }}">
+						<h3>{{ product.name|upper }}</h3>
+						<p>{{ product.description or '' }}</p>
+						<p>${{ '%.2f'|format(product.price|float) }}</p>
+						<button type="button" onclick='openOrderForm({{ product.id|tojson }}, {{ product.name|tojson }}, {{ product.price|tojson }}, {{ (product.img or "images/drink-1.png")|tojson }})'>Try Now</button>
+					</div>
+					{% else %}
+					<p style="grid-column:1/-1;text-align:center;">No ready-to-drink coffee products are available right now.</p>
+					{% endfor %}
+				</div>
+			</div>
+			
+		</section>
+		
+		
+		
+		<section id="process-section">	
+		
+			<div class="process-heading">
+				<h2>FROM BEAN TO CUP</h2>
+			</div>
+			
+			<div class="process">
+			
+
+				<div class="process-step">
+					<img src="images/y-n-y-n-OQBS_MlThqU-unsplash.jpg" alt="step-img1">
+					
+					<p>
+						We carefully select premium coffee beans sourced<br> 
+						from trusted farms around the world.Our expert team 
+						<br>inspects each batch to ensure only the finest<br> 
+						beans make it to our roasting process.This <br>
+						guarantees consistent flavor, aroma, and quality in<br>
+						every cup you enjoy.We believe that great coffee<br> 
+						starts with exceptional raw materials.
+					</p>
+				</div>
+
+				<div class="process-step-rev">
+					<img src="images/pexels-1500mcoffee-29812658.jpg" alt="step-img2">
+					
+					<p>
+						After selection, the beans undergo thorough<br> 
+						cleaning to remove impurities and dust.
+						<br>We wash and sort them carefully<br>
+						to maintain the natural flavor profile.
+						<br>Every bean is checked to ensure that <br>
+						only the cleanest, top-quality beans proceed.
+						<br>This process helps in producing <br>
+						a smoother, purer coffee experience.
+					</p>
+					
+				</div>
+
+				<div class="process-step">
+					<img src="images/tamas-pap-RJPrJQXlmng-unsplash.jpg" alt="step-img3">
+						
+						<p>
+							Our beans are roasted to perfection to<br>
+							bring out rich aroma and deep flavors.
+							<br>Roasting profiles are carefully 
+							<br>monitored for temperature and duration.<br>
+							After roasting, beans are ground<br> 
+							according to the type of coffee product.<br>
+							This ensures each cup has <br>
+							the ideal strength, body, and taste.
+						</p>					
+				</div>
+
+				<div class="process-step-rev">
+					<img src="images/nadia-valko-7QlJ79Cj43w-unsplash.jpg" alt="step-img4">
+					
+					<p>
+						Once roasted and ground, our coffee<br> 
+						beans are ready for brewing.
+						<br>We carefully package them to<br> 
+						maintain aroma, flavor, and freshness.
+						<br>Each batch is handled with hygiene <br>
+						and quality checks to ensure consistency.
+						<br>This ensures that when you brew <br>
+						at home or at your café, every cup is perfect.
+					</p>
+				</div>
+				
+			</div>
+		
+		</section>
+		
+		
+		
+		<section id="section-about">
+		
+			<div class="about-content">
+			
+				<div class="about-headings">
+					<h4>ABOUT US</h4><br>
+				
+					<h2>More Than Coffee, It's an Experience</h2><br>
+				
+					<p>
+						At CoffyCup, we believe that coffee is more than just a drink — 
+						it’s a complete experience that connects people, moments, and emotions.
+						Our journey begins with carefully sourced coffee beans from the finest farms across the world,
+						where quality and sustainability go hand in hand.
+						Every bean is handpicked, cleaned, and roasted with precision to ensure that each cup delivers a rich aroma,
+						smooth texture, and unforgettable taste.<br>
+
+						We focus on maintaining the highest standards at every stage, 
+						from selecting raw beans to roasting, grinding, and packaging.
+						Our expert process ensures that the natural flavors of coffee are preserved,
+						giving you a fresh and authentic experience every time.
+						Whether it’s our classic blends or our ready-to-drink iced coffees, 
+						each product is crafted with passion and attention to detail.
+
+						CoffyCup is not just about serving coffee — 
+						it’s about creating moments. 
+						Whether you're starting your day, relaxing in the evening,
+						or sharing time with friends, our coffee adds warmth and comfort to every situation.
+						We are committed to delivering quality, consistency, 
+						and a premium coffee experience that you can trust and enjoy every day.
+					</p>
+				</div>
+				
+				<div class="about-imgs">
+					<img src="images/hero-cup.jpg" alt="about-img1">
+					
+					<img src="images/jakub-kapusnak-1LaCrYx5J7I-unsplash.jpg" alt="about-img2">
+				</div>
+				
+			</div>
+		</section>
+		
+		
+				
+							<!-- Forms and PopUp -->
+								
+		
+		<!-- ORDER FORM POPUP -->
+
+		<section class="order-section" id="orderForm">
+
+			<div class="order-container">
+
+				<button type="button" class="order-close" onclick="closeOrderForm()">✕</button>
+
+				<h2>Place Your Order</h2>
+
+				<form id="orderFormData">
+
+					<input type="hidden" id="orderProductId" name="product_id">
+
+					<div class="order-form-layout">
+
+						<div class="order-form-group">
+							<label for="orderProduct">Selected Coffee</label>
+							<input type="text" id="orderProduct" name="product" readonly required>
+						</div>
+
+						<div class="order-form-group">
+							<label for="orderPrice">Product Price (₹)</label>
+							<input type="text" id="orderPrice" name="price" readonly required>
+						</div>
+
+						<div class="order-form-group">
+							<label for="orderQuantity">Quantity</label>
+							<input type="number" id="orderQuantity" name="quantity" min="1" value="1" required>
+						</div>
+
+						<div class="order-form-group">
+							<label for="orderTotal">Total Amount (₹)</label>
+							<input type="text" id="orderTotal" name="total" readonly required>
+						</div>
+
+						<div class="order-form-group">
+							<label for="orderName">Full Name</label>
+							<input type="text" id="orderName" name="name" placeholder="Enter your full name" required>
+						</div>
+
+						<div class="order-form-group">
+							<label for="orderPhone">Mobile Number</label>
+							<input type="tel" id="orderPhone" name="phone" placeholder="Enter mobile number" pattern="[0-9]{10}" maxlength="10" required>
+						</div>
+
+						<div class="order-form-group order-form-full">
+							<label for="orderEmail">Email Address (Optional)</label>
+							<input type="email" id="orderEmail" name="email" placeholder="Enter your email">
+						</div>
+
+						<div class="order-form-group order-form-full">
+							<label for="orderAddress">Delivery Address</label>
+							<textarea id="orderAddress" name="address" placeholder="House number, street, area" required></textarea>
+						</div>
+
+						<div class="order-form-group">
+							<label for="orderCity">City</label>
+							<input type="text" id="orderCity" name="city" placeholder="Enter city" required>
+						</div>
+
+						<div class="order-form-group">
+							<label for="orderPincode">PIN Code</label>
+							<input type="text" id="orderPincode" name="pincode" placeholder="6-digit PIN code" pattern="[0-9]{6}" maxlength="6" required>
+						</div>
+
+						<div class="order-form-group order-form-full">
+							<label for="paymentMethod">Payment Method</label>
+							<select id="paymentMethod" name="payment_method" required>
+								<option value="COD">Cash on Delivery — Pay when order arrives</option>
+							</select>
+						</div>
+
+						<div class="order-form-group order-form-full">
+							<button type="submit" class="order-submit">Confirm Order</button>
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
+
+		</section>
+		
+		
+		<!-- Feedback Form -->
+		
+		<section class="feedback-overlay" id="feedbackForm">
+
+			<div class="feedback-container">
+
+				<!-- Heading and Close Button -->
+				<div class="feedback-header">
+					<h2>Share Your Feedback</h2>
+					<button type="button" class="feedback-close"
+							onclick="closeFeedbackForm()">&times;</button>
+				</div>
+
+				<p class="feedback-subtitle">
+					We'd love to hear about your CoffyCup experience!
+				</p>
+
+				<form id="feedbackFormData">
+
+					<!-- Name -->
+					<label for="feedbackName">Your Name</label>
+					<input type="text" id="feedbackName"
+						   name="name" placeholder="Enter your name" required>
+
+					<label for="feedbackEmail">Email Address (Optional)</label>
+					<input type="email" id="feedbackEmail" name="email" placeholder="Enter your email">
+
+					<!-- Rating -->
+					<label class="rating-label">Rate Your Experience</label>
+
+					<div class="feedback-rating">
+						<input type="radio" id="rate1" name="rating" value="1" required>
+						<label for="rate1" title="1 star">★</label>
+
+						<input type="radio" id="rate2" name="rating" value="2">
+						<label for="rate2" title="2 stars">★</label>
+
+						<input type="radio" id="rate3" name="rating" value="3">
+						<label for="rate3" title="3 stars">★</label>
+
+						<input type="radio" id="rate4" name="rating" value="4">
+						<label for="rate4" title="4 stars">★</label>
+
+						<input type="radio" id="rate5" name="rating" value="5">
+						<label for="rate5" title="5 stars">★</label>
+					</div>
+
+					<!-- Feedback Message -->
+					<label for="feedbackMessage">Your Feedback</label>
+					<textarea id="feedbackMessage" name="message"
+							  rows="4" placeholder="Write your feedback here..."
+							  required></textarea>
+
+					<!-- Submit -->
+					<button type="submit" class="feedback-submit">
+						Submit Feedback
+					</button>
+
+				</form>
+
+			</div>
+		</section>
+		
+		
+		<!-- My_Ordres_PopUp -->
+		
+		
+				<!-- My_Orders_PopUp -->
+
+		<section class="my-orders-overlay" id="myOrdersPopup">
+
+			<div class="my-orders-container">
+
+				<div class="my-orders-header">
+
+					<div>
+						<h2>My Orders</h2>
+					</div>
+
+					<button type="button" class="my-orders-close"
+							onclick="closeMyOrders()">✕</button>
+				</div>
+
+				<div class="my-orders-list" id="myOrdersList"></div>
+
+				<!-- Empty Orders Message -->
+				<div class="my-orders-empty" id="myOrdersEmpty">
+					<h3>No Orders Yet</h3>
+					<p>Your coffee orders will appear here.</p>
+				</div>
+
+			</div>
+
+		</section>
+
+	
+		
+	</main>
+	
+	
+	<footer id="footer-section">
+    
+		<div class="footer-content">
+				
+			<div class="company">
+				<h3>Company Details</h3><br><br>
+				
+				<div class="company-links">
+					<a href="#section-about">About Us</a>
+					<a href="#process-section">Our Process</a>
+				</div>
+			</div>
+			
+			
+			
+			<div class="contact-us">
+				<h3>Contact Us</h3><br><br>
+				
+				<div class="contact-links">
+					<a href="tel:6307736109">Phone: +91 63077 - 36109</a>
+					<a href="mailto:apoorvbatham27@gmail.com">Email Us: apoorvbatham27@gmail.com</a>
+				</div>
+				
+			</div>
+			
+			<div class="online-shop">
+				<h3>Online Shop</h3><br><br>
+				
+				<div class="shop-links">
+					<a href="#latest_blends">Ready To Drink Coffee</a>
+					<a href="#brewed-pro_section">Brewed-Coffee</a>
+				</div>
+			</div>
+			
+			
+			<div class="follow-us">
+				<h3> Follow Us</h3><br>
+				<div class="follow-links">
+					<a href="https://facebook.com" target="_blank"><img src ="images/—Pngtree—white  icon png_3562061.png" alt="icon-facebook"></a>
+					<a href="https://instagram.com" target="_blank"><img src="images/—Pngtree—white instagram icon png instagram_3562066.png"alt="icon-instagram"></a>
+					<a href="https://twitter.com" target="_blank"><img src="images/icons8-twitter-bird-50.png" alt="icon-twitter"></a>
+				</div>
+			</div>
+			
+		</div>
+	
+	</footer>
+
+
+
+	
+	<script>
+	
+	async function logoutUser(event) {
+		event.preventDefault();
+
+		if (!confirm("Are you sure you want to logout?")) {
+			return;
+		}
+
+		try {
+			const response = await fetch("/api/logout", {
+				method: "POST"
+			});
+
+			if (response.ok) {
+				window.location.href = "/";
+			} else {
+				alert("Logout failed. Please try again.");
+			}
+		} catch (error) {
+			alert("Server connection failed.");
+		}
+	}
+	
+	(function () {
+		const menuBtn = document.getElementById("menuBtn");
+		const closeBtn = document.getElementById("closeBtn");
+		const sidebar = document.getElementById("sidebar");
+		if (menuBtn && sidebar) menuBtn.addEventListener("click", () => { sidebar.style.left = "0"; });
+		if (closeBtn && sidebar) closeBtn.addEventListener("click", () => { sidebar.style.left = "-15%"; });
+
+		let selectedProduct = { id: null, name: "", price: 0, img: "images/p1.png" };
+		const money = value => "$" + Number(value || 0).toFixed(2);
+		const rupee = value => "₹" + Number(value || 0).toFixed(2);
+		const quantityInput = document.getElementById("orderQuantity");
+
+		function updateTotal() {
+			const quantity = Math.max(1, parseInt(quantityInput.value || "1", 10) || 1);
+			document.getElementById("orderTotal").value = rupee(selectedProduct.price * quantity);
+		}
+
+		window.openOrderForm = function (id, name, price, img) {
+			selectedProduct = { id: id, name: name || "Coffee", price: Number(price) || 0, img: img || "images/p1.png" };
+			document.getElementById("orderProductId").value = id;
+			document.getElementById("orderProduct").value = selectedProduct.name;
+			document.getElementById("orderPrice").value = rupee(selectedProduct.price);
+			quantityInput.value = 1;
+			updateTotal();
+			document.getElementById("orderForm").classList.add("active");
+			document.body.style.overflow = "hidden";
+		};
+
+		window.closeOrderForm = function () {
+			document.getElementById("orderForm").classList.remove("active");
+			document.body.style.overflow = "";
+		};
+
+		window.openFeedbackForm = function () {
+			document.getElementById("feedbackForm").classList.add("active");
+			document.body.style.overflow = "hidden";
+		};
+		window.closeFeedbackForm = function () {
+			document.getElementById("feedbackForm").classList.remove("active");
+			document.body.style.overflow = "";
+		};
+
+		window.openMyOrders = async function () {
+			document.getElementById("myOrdersPopup").classList.add("active");
+			document.body.style.overflow = "hidden";
+			const list = document.getElementById("myOrdersList");
+			const empty = document.getElementById("myOrdersEmpty");
+			list.innerHTML = "<p style='text-align:center;color:#eec3d0;'>Loading your orders...</p>";
+			empty.style.display = "none";
+			try {
+				const response = await fetch("/api/my-orders", { credentials: "same-origin" });
+				const data = await response.json();
+				if (!response.ok) throw new Error(data.error || data.message || "Please log in to view your orders.");
+				const orders = data.orders || [];
+				list.innerHTML = "";
+				if (!orders.length) { empty.style.display = "block"; return; }
+				empty.style.display = "none";
+				orders.forEach(order => {
+					const card = document.createElement("div");
+					card.className = "my-order-card";
+					const image = document.createElement("div"); image.className = "my-order-image";
+					const img = document.createElement("img"); img.src = order.img || "images/hero-img.png"; img.alt = order.prod || "Coffee"; image.appendChild(img);
+					const info = document.createElement("div"); info.className = "my-order-info";
+					const title = document.createElement("h3"); title.textContent = order.prod || "Coffee"; info.appendChild(title);
+					const id = document.createElement("p"); id.textContent = "Order ID: #" + order.id; info.appendChild(id);
+					const qty = document.createElement("p"); qty.textContent = "Quantity: " + order.qty; info.appendChild(qty);
+					const date = document.createElement("p"); date.textContent = "Order Date: " + (order.created_at || ""); info.appendChild(date);
+					const status = document.createElement("span"); status.className = "my-order-status " + ((String(order.status || "").toLowerCase() === "delivered") ? "status-delivered" : "status-pending"); status.textContent = order.status || "Pending"; info.appendChild(status);
+					const price = document.createElement("div"); price.className = "my-order-price"; price.textContent = money(order.total);
+					card.append(image, info, price); list.appendChild(card);
+				});
+			} catch (error) {
+				list.innerHTML = "";
+				empty.style.display = "block";
+				empty.querySelector("h3").textContent = "Unable to Load Orders";
+				empty.querySelector("p").textContent = error.message || "Please try again.";
+			}
+		};
+		window.closeMyOrders = function () {
+			document.getElementById("myOrdersPopup").classList.remove("active");
+			document.body.style.overflow = "";
+		};
+
+		quantityInput.addEventListener("input", updateTotal);
+
+		document.getElementById("orderFormData").addEventListener("submit", async function (event) {
+			event.preventDefault();
+			if (!selectedProduct.id) { alert("Please select a coffee product first."); return; }
+			const submit = this.querySelector(".order-submit");
+			const payload = {
+				product_id: selectedProduct.id,
+				qty: Math.max(1, parseInt(quantityInput.value || "1", 10) || 1),
+				name: document.getElementById("orderName").value.trim(),
+				phone: document.getElementById("orderPhone").value.trim(),
+				email: document.getElementById("orderEmail").value.trim(),
+				addr: document.getElementById("orderAddress").value.trim(),
+				city: document.getElementById("orderCity").value.trim(),
+				pincode: document.getElementById("orderPincode").value.trim(),
+				payment_method: "Cash on Delivery"
+			};
+			submit.disabled = true; submit.textContent = "Placing Order...";
+			try {
+				const response = await fetch("/api/orders", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify(payload) });
+				const data = await response.json();
+				if (!response.ok) throw new Error(data.error || data.message || "Could not place order.");
+				alert(data.message || "Your order has been placed successfully!");
+				this.reset(); closeOrderForm();
+			} catch (error) { alert(error.message || "Could not place order. Please try again."); }
+			finally { submit.disabled = false; submit.textContent = "Confirm Order"; }
+		});
+
+		document.getElementById("feedbackFormData").addEventListener("submit", async function (event) {
+			event.preventDefault();
+			const submit = this.querySelector(".feedback-submit");
+			const payload = {
+				name: document.getElementById("feedbackName").value.trim(),
+				email: document.getElementById("feedbackEmail").value.trim(),
+				message: document.getElementById("feedbackMessage").value.trim(),
+				rating: (this.querySelector('input[name="rating"]:checked') || {}).value || null
+			};
+			submit.disabled = true; submit.textContent = "Submitting...";
+			try {
+				const response = await fetch("/api/feedback", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify(payload) });
+				const data = await response.json();
+				if (!response.ok) throw new Error(data.error || data.message || "Could not submit feedback.");
+				alert(data.message || "Thank you for your feedback!"); this.reset(); closeFeedbackForm();
+			} catch (error) { alert(error.message || "Could not submit feedback."); }
+			finally { submit.disabled = false; submit.textContent = "Submit Feedback"; }
+		});
+
+		// Dark backdrop par click karne se popup band
+		["orderForm", "feedbackForm", "myOrdersPopup"].forEach(id => {
+			const overlay = document.getElementById(id);
+			overlay.addEventListener("click", event => {
+				if (event.target !== overlay) return;
+				if (id === "orderForm") closeOrderForm();
+				else if (id === "feedbackForm") closeFeedbackForm();
+				else closeMyOrders();
+			});
+		});
+		document.addEventListener("keydown", event => {
+			if (event.key === "Escape") { closeOrderForm(); closeFeedbackForm(); closeMyOrders(); }
+		});
+	})();
+	
+	
+	
+	
+	</script>
+	
+	{% include 'includes/copyright.html' %}
+</body>
+
+</html>

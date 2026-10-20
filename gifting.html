@@ -1,3 +1,4 @@
+
 <html lang="en">
 
 <head>
@@ -19,8 +20,463 @@
 		font-family:Arial, Sans-serif;
 		color:#ffff;
 		
-		
 		overflow-x:hidden;
+	}
+	
+	/*-----0_Forms-PopUp_Section-----*/
+
+	/* 1_Order_Form */
+
+	.order-section{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.75);
+		z-index:2000;
+		padding:20px;
+	}
+
+	.order-section.active{
+		display:flex;
+	}
+
+	.order-container{
+		width:90%;
+		max-width:850px;
+		max-height:90vh;
+		overflow-y:auto;
+		background:linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		border:1px solid #bb3c51;
+		border-radius:12px;
+		padding:30px;
+		box-shadow:0 10px 30px rgba(0,0,0,0.7);
+		position:relative;
+	}
+
+	.order-close{
+		position:absolute;
+		top:12px;
+		right:18px;
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:28px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.order-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.order-container h2{
+		text-align:center;
+		color:#eec3d0;
+		margin-bottom:25px;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.order-form-layout{
+		display:grid;
+		grid-template-columns:1fr 1fr;
+		gap:18px;
+	}
+
+	.order-form-group{
+		display:flex;
+		flex-direction:column;
+		gap:8px;
+	}
+
+	.order-form-group label{
+		color:#eec3d0;
+		font-weight:bold;
+		font-size:14px;
+	}
+
+	.order-form-group input,
+	.order-form-group textarea,
+	.order-form-group select{
+		width:100%;
+		padding:12px;
+		border:1px solid #b33259;
+		border-radius:5px;
+		background:#3a0b1b;
+		color:#fff;
+		outline:none;
+		font-size:14px;
+	}
+
+	.order-form-group input:focus,
+	.order-form-group textarea:focus,
+	.order-form-group select:focus{
+		border-color:#eec3d0;
+	}
+
+	.order-form-group textarea{
+		resize:vertical;
+		min-height:75px;
+	}
+
+	.order-form-group select option{
+		background:#3a0b1b;
+		color:#fff;
+	}
+
+	.order-form-full{
+		grid-column:1 / -1;
+	}
+
+	.order-submit{
+		width:100%;
+		padding:13px;
+		border:none;
+		border-radius:5px;
+		background:#b33259;
+		color:#fff;
+		font-weight:bold;
+		font-size:15px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.order-submit:hover{
+		background:#8b2745;
+		transform:translateY(2px);
+	}
+
+	/* Order Form Popup */
+
+
+	/* 1_Feedback_Form */
+
+	.feedback-overlay{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.75);
+		z-index:3000;
+		padding:20px;
+	}
+
+	.feedback-overlay.active{
+		display:flex;
+	}
+
+	.feedback-container{
+		width:100%;
+		max-width:420px;
+		max-height:90vh;
+		overflow-y:auto;
+		background:linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		border:1px solid #bb3c51;
+		border-radius:12px;
+		padding:28px;
+		box-shadow:0 10px 30px rgba(0,0,0,0.7);
+		position:relative;
+	}
+
+	.feedback-close{
+		position:absolute;
+		top:10px;
+		right:15px;
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:26px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.feedback-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.feedback-container h2{
+		text-align:center;
+		color:#eec3d0;
+		margin-bottom:10px;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.feedback-container p{
+		text-align:center;
+		color:#eec3d0;
+		font-size:13px;
+		margin-bottom:22px;
+	}
+
+	.feedback-form-group{
+		display:flex;
+		flex-direction:column;
+		gap:8px;
+		margin-bottom:16px;
+	}
+
+	.feedback-form-group label{
+		color:#eec3d0;
+		font-weight:bold;
+		font-size:14px;
+	}
+
+	.feedback-form-group input,
+	.feedback-form-group textarea{
+		width:100%;
+		padding:11px;
+		border:1px solid #b33259;
+		border-radius:5px;
+		background:#3a0b1b;
+		color:#fff;
+		outline:none;
+		font-size:14px;
+	}
+
+	.feedback-form-group input:focus,
+	.feedback-form-group textarea:focus{
+		border-color:#eec3d0;
+	}
+
+	.feedback-form-group textarea{
+		min-height:100px;
+		resize:vertical;
+	}
+
+	.feedback-rating{
+		display:flex;
+		flex-direction:row-reverse;
+		justify-content:flex-end;
+		gap:5px;
+	}
+
+	.feedback-rating input{
+		display:none;
+	}
+
+	.feedback-rating label{
+		font-size:30px;
+		color:#777;
+		cursor:pointer;
+		transition:0.2s;
+	}
+
+	.feedback-rating input:checked ~ label,
+	.feedback-rating label:hover,
+	.feedback-rating label:hover ~ label{
+		color:#ffc107;
+	}
+
+	.feedback-submit{
+		width:100%;
+		padding:12px;
+		border:none;
+		border-radius:5px;
+		background:#b33259;
+		color:#fff;
+		font-size:15px;
+		font-weight:bold;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.feedback-submit:hover{
+		background:#8b2745;
+		transform:translateY(2px);
+	}
+
+	/* 3_My_Orders_PopUp */
+
+	.my-orders-overlay{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.78);
+		z-index:4000;
+		padding:20px;
+	}
+
+	.my-orders-overlay.active{
+		display:flex;
+	}
+
+	.my-orders-container{
+		width:80vw;
+		height:80vh;
+		max-width:1100px;
+		overflow-y:auto;
+		background:linear-gradient(120deg, #3a0b1b, #631c31, #8f2d4b, #631c31, #421020);
+		border:1px solid #bb3c51;
+		border-radius:12px;
+		padding:25px;
+		box-shadow:0 10px 30px rgba(0,0,0,0.7);
+		position:relative;
+	}
+
+	.my-orders-header{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		margin-bottom:25px;
+		padding-bottom:15px;
+		border-bottom:1px solid rgba(238,195,208,0.3);
+	}
+
+	.my-orders-header h2{
+		color:#eec3d0;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.my-orders-close{
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:28px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.my-orders-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.my-orders-list{
+		display:flex;
+		flex-direction:column;
+		gap:15px;
+	}
+
+	.my-order-card{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		gap:20px;
+		padding:18px;
+		background:rgba(30,5,14,0.65);
+		border:1px solid rgba(187,60,81,0.6);
+		border-radius:8px;
+	}
+	
+	.my-order-image{
+		width:110px;
+		height:110px;
+		flex-shrink:0;
+		overflow:hidden;
+		border-radius:8px;
+		border:1px solid rgba(187,60,81,0.6);
+	}
+
+	.my-order-image img{
+		width:100%;
+		height:100%;
+		object-fit:cover;
+		display:block;
+	}
+
+	.my-order-info{
+		flex:1;
+	}
+	
+
+	.my-order-info h3{
+		color:#eec3d0;
+		margin-bottom:8px;
+		font-size:17px;
+	}
+
+	.my-order-info p{
+		color:#fff;
+		font-size:13px;
+		line-height:1.8;
+	}
+
+	.my-order-price{
+		color:#cf974d;
+		font-size:18px;
+		font-weight:bold;
+		white-space:nowrap;
+	}
+
+	.my-order-status{
+		display:inline-block;
+		margin-top:8px;
+		padding:5px 10px;
+		border-radius:20px;
+		font-size:12px;
+		font-weight:bold;
+	}
+
+	.status-delivered{
+		background:rgba(46,160,67,0.2);
+		color:#75e39a;
+	}
+
+	.status-pending{
+		background:rgba(255,193,7,0.15);
+		color:#ffd76a;
+	}
+
+	.my-orders-empty{
+		text-align:center;
+		color:#eec3d0;
+		padding:35px 10px;
+		display:none;
+	}
+
+	@media(max-width:768px){
+
+		.order-container{
+			padding:25px 18px;
+		}
+
+		.order-form-layout{
+			grid-template-columns:1fr;
+		}
+
+		.order-form-full{
+			grid-column:auto;
+		}
+
+		.my-orders-container{
+			width:95vw;
+			height:85vh;
+			padding:18px;
+		}
+
+		.my-order-card{
+			align-items:flex-start;
+			flex-direction:column;
+			gap:10px;
+		}
+
+		.my-orders-header h2{
+			font-size:20px;
+		}
+
+		#sidebar{
+			width:220px;
+			left:-220px;
+		}
+
+		.socialmediaLinks{
+			gap:5px;
+		}
 	}
 	
 							/*---01_Navigation Bar---*/
@@ -194,17 +650,6 @@
         
     }
 	
-	.sidebar-links a:nth-child(7){
-        position: absolute;
-        bottom:35px;
-        left:3px;
-        
-        color:rgb(238, 195, 208);
-		text-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-
-		transition:0.25s;
-    }
-	
 			/*--Sidebar Hover--*/
 			
 	.sidebar-links a:hover{
@@ -213,10 +658,6 @@
 		color:rgb(238, 195, 208);
     }
 
-	.sidebar-links a:nth-child(7):hover{
-		color:#b33259;
-		transform:translateY(-3px);
-	}
 	
 			/*---Close Button---*/
 	
@@ -269,12 +710,193 @@
 		text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 		
 	}
+	
+	
+	
+						/*-----03_Home_Section-----*/
+				
+		
+				
+	/*Home-Section(container)*/
+	
+	.home-section{
+		
+		height:80vh;
+		width:100vw;
+		background-image:url("images/hampers-bg.png");
+		background-size:cover;
+		background-repeat:no-repeat;
+		background-position:center;
+		border-bottom:1px solid #bb3c51;
+		margin-bottom:4%;
+		
+		
+	}
+	
+	
+	
+						/*-----04_Hamper-Products_Section-----*/
+					
+	.hamper-pro_section{
+	
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		height:95vh;
+		width:100vw;
+		
+	}
+	
+	
+	/*---Products Grid---*/
+	
+	.hamper-products{
+	
+		display:grid;
+		align-items:center;
+		justify-content:center;
+		
+		grid-template-columns:1fr 1fr 1fr;
+		
+		height:90vh;
+		width:93vw;
+		
+		position:relative;
+		
+		background-color:#530c1b;
+		
+		border-radius:10px;
+		border:1px solid #bb3c51;
+		
+		padding-left:90px;
+		padding-right:170px;
+		column-gap:10%;
+		
+		
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+	}
+	
+	
+		/*---Our Hampers(Heading)---*/
+	.our-hampers-heading{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		font-size:22px;
+		
+		color:#b48a4b;
+		letter-spacing:1px;
+		text-shadow: 0 10px 14px rgba(0, 0, 0, 0.65);
+		font-family: Georgia, "Times New Roman", serif;
+		margin-bottom:10px;
+		
+	}
+		
+		/*Products-Cards*/
+		
+	.hamper_card{
+		
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		flex-direction:row;
+		height:70%;
+		width:132%;
+		
+		border:none;
+		background-color:#460b18;
+		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
+		border-radius:7px;
+		transition:0.3s;
+		border:1px solid  #79060c;
+		
+		
+		
+	}
+	
+		/*Cards-Hover*/
+	.hamper_card:hover{
+		box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
+	}
+	.hamper_card_img{
+		height:100%;
+		width:110%;
+		display:flex;
+		align-items:center;
+		justify-content:flex-start;
+		padding:1px;
+		overflow:hidden;
+	}
+	.hamper_card img{
+		
+		height:100%;
+		width:100%;
+		object-fit:cover;
+		border-radius:50px;
+		transform:scale(1.12);
+		
+		
+	}
+	
+	.hamper_card p{
+		text-align:center;
+		line-height:1.3;
+		color:rgb(238, 195, 208);
+		font-style:italic;
+		text-align:left;
+		font-size:11px;
+		word-spacing:1px;
+		margin-left:5px;
+		
+	}
+	
+	
+	.hamper_card h3{
+		text-align:left;
+		color:#ffa64d;
+		font-family: Georgia, "Times New Roman", serif;
+		font-size:10px;
+		text-align:left;
+		word-spacing:2px;
+		margin-left:5px;
+		
+		
+	}
+					/*---Cards-Buttons & Hover---*/
+					
+	
+	.hamper_card button{
+		height:35px;
+		width:100px;
+		
+		margin-left:10px;
+		background-color:#601220; 
+		color:#eec3d0;
+		box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+		cursor: pointer;
+		font-weight:bold;
+		transition: 0.3s;
+		border: none;
+		border-radius:4px;
+		
+	}
+	.hamper_card button:hover{
+		background-color:rgb(159, 45, 79);
+		transform: translateY(3px);
+		box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+	}
+	
+	span{
+		margin-left:30px;
+		font-size:15px;
+		color:#cf974d;
+	}
 
 
-						/*-----04_Foooter_Section-----*/
+						/*-----05_Foooter_Section-----*/
 
 	
-	.footer-section{
+	#footer-section{
 		
 		display:flex;
 		align-items:center;
@@ -374,185 +996,6 @@
 	}
 	
 					
-		
-							/*-----03_Home_Section-----*/
-				
-		
-				
-	/*Home-Section(container)*/
-	
-	.home-section{
-		
-		height:80vh;
-		width:100vw;
-		background-image:url("images/hampers-bg.png");
-		background-size:cover;
-		background-repeat:no-repeat;
-		background-position:center;
-		border-bottom:1px solid #bb3c51;
-		margin-bottom:4%;
-		
-		
-	}
-	
-	
-	/*-----02_Brewed_Pro_Section-----*/
-					
-	.hamper-pro_section{
-	
-		display:flex;
-		align-items:center;
-		justify-content:center;
-		height:95vh;
-		width:100vw;
-		
-	}
-	
-	
-	/*---Products Grid---*/
-	
-	.hamper-products{
-	
-		display:grid;
-		align-items:center;
-		justify-content:center;
-		
-		grid-template-columns:1fr 1fr 1fr;
-		
-		height:90vh;
-		width:93vw;
-		
-		position:relative;
-		
-		background-color:#530c1b;
-		
-		border-radius:10px;
-		border:1px solid #bb3c51;
-		
-		padding-left:90px;
-		padding-right:170px;
-		column-gap:10%;
-		
-		
-		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
-	}
-	
-	
-		/*---Our Hampers(Heading)---*/
-	.our-hampers-heading{
-		display:flex;
-		align-items:center;
-		justify-content:center;
-		font-size:22px;
-		
-		color:#b48a4b;
-		letter-spacing:1px;
-		text-shadow: 0 10px 14px rgba(0, 0, 0, 0.65);
-		font-family: Georgia, "Times New Roman", serif;
-		margin-bottom:10px;
-		
-	}
-		
-		/*Products-Cards*/
-		
-	.hamper_card{
-		
-		display:flex;
-		align-items:center;
-		justify-content:center;
-		flex-direction:row;
-		height:70%;
-		width:132%;
-		
-		border:none;
-		background-color:#460b18;
-		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
-		border-radius:7px;
-		transition:0.3s;
-		border:1px solid  #79060c;
-		
-		
-		
-	}
-		/*Cards-Hover*/
-		
-	.hamper_card:hover{
-		box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
-	}
-	.hamper_card_img{
-		height:100%;
-		width:110%;
-		display:flex;
-		align-items:center;
-		justify-content:flex-start;
-		padding:1px;
-		overflow:hidden;
-	}
-	.hamper_card img{
-		
-		height:100%;
-		width:100%;
-		object-fit:cover;
-		border-radius:50px;
-		transform:scale(1.12);
-		
-		
-	}
-	
-	.hamper_card p{
-		text-align:center;
-		line-height:1.3;
-		color:rgb(238, 195, 208);
-		font-style:italic;
-		text-align:left;
-		font-size:11px;
-		word-spacing:1px;
-		margin-left:5px;
-		
-	}
-	
-	
-	.hamper_card h3{
-		text-align:left;
-		color:#ffa64d;
-		font-family: Georgia, "Times New Roman", serif;
-		font-size:10px;
-		text-align:left;
-		word-spacing:2px;
-		margin-left:5px;
-		
-		
-	}
-					/*---Cards-Buttons & Hover---*/
-					
-	
-	.hamper_card button{
-		height:35px;
-		width:100px;
-		
-		margin-left:10px;
-		background-color:#601220; 
-		color:#eec3d0;
-		box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
-		cursor: pointer;
-		font-weight:bold;
-		transition: 0.3s;
-		border: none;
-		border-radius:4px;
-		
-	}
-	.hamper_card button:hover{
-		background-color:rgb(159, 45, 79);
-		transform: translateY(3px);
-		box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-	}
-	
-	span{
-		margin-left:30px;
-		font-size:15px;
-		color:#cf974d;
-	}
-	
 	
 
 </style>
@@ -569,13 +1012,12 @@
 				</div>
 				
 				<div class="sidebar-links">
-				
-					<a href="#">My Cart</a>
-					<a href="#">My Orders</a>
-					<a href="#">Favorites</a>
-					<a href="#">Contact Us</a>
-					<a href="#">Our Process</a>
-					<a href="#">Feedback</a>
+					<a href="home.html">Home</a>
+					<a href="#hamper-pro_section">Products</a>
+					<a href="#" onclick="openMyOrders(); return false;">My Orders</a>
+					<a href="#footer-section">Contact Us</a>
+					<a href="home.html#section-about">Our Process</a>
+					<a href="#" onclick="openFeedbackForm(); return false;">Feedback</a>
 				
 				</div>
 				
@@ -604,11 +1046,11 @@
 							</div>
 							
 							<div class="navlinks">
-								<a href="#">HOME</a>
-								<a href="#">BLENDS</a>
-								<a href="#">BREWED</a>
+								<a href="home.html">HOME</a>
+								<a href="home.html#latest_blends">BLENDS</a>
+								<a href="home.html#brewed-pro_section">BREWED</a>
 								<a href="gifting.html">GIFTING</a>
-								<a href="#">ABOUT</a>
+								<a href="home.html#section-about">ABOUT</a>
 							</div>
 							
 							<div class="socialmediaLinks">
@@ -654,7 +1096,7 @@
 							
 							<p>A perfect blend of rich coffee and sweet moments.</p><br>
 							<p><span>$24.00</span></p><br>
-							<button>Order Now</button>
+							<button onclick="openOrderForm('CLASSIC COFFEE', 24)">Order Now</button>
 						</div>
 						
 					</div>
@@ -669,7 +1111,7 @@
 							<h3>PREMIO DELIGHT</h3><br>
 							<p>Indugle in premium blends and delightful treats.</p><br>
 							<p><span>$34.00</span></p><br>
-							<button>Order Now</button>
+							<button onclick="openOrderForm('PREMIO DELIGHT', 34)">Order Now</button>
 						</div>
 						
 					</div>
@@ -684,7 +1126,7 @@
 							<h3>LUXURY COFFEE</h3><br>
 							<p>Luxury selection for true coffee connoisseurs.</p><br>
 							<p><span>$49.00</span></p><br>
-							<button>Order Now</button>
+							<button onclick="openOrderForm('LUXURY COFFEE', 49)">Order Now</button>
 						</div>
 						
 						
@@ -700,7 +1142,7 @@
 							<h3>THE CELEBRATION</h3><br>
 							<p>Celebrate special moment with our best picks.</p><br>
 							<p><span>$59.00</span></p><br>
-							<button>Order Now</button>
+							<button onclick="openOrderForm('THE CELEBRATION', 59)">Order Now</button>
 						</div>
 						
 						
@@ -717,7 +1159,7 @@
 							<h3>COURMET COFFEE</h3><br>
 							<p>Exquisite coffee with gourmet goodies.</p><br>
 							<p><span>$69.00</span></p><br>
-							<button>Order Now</button>
+							<button onclick="openOrderForm('COURMET COFFEE', 69)">Order Now</button>
 						</div>
 						
 						
@@ -732,7 +1174,7 @@
 							<h3>ELITE INDULGENCE</h3><br>
 							<p>The elite indulgence for coffee lovers.</p><br>
 							<p><span>$79.00</span></p><br>
-							<button>Order Now</button>
+							<button onclick="openOrderForm('ELITE INDULGENCE', 79)">Order Now</button>
 						</div>
 						
 						
@@ -743,17 +1185,195 @@
 				</div>
 			
 			</section>
+
+
+			<!-- Forms and PopUp -->
+
+			<!-- Order Form -->
+
+			<section class="order-section" id="orderForm">
+
+				<div class="order-container">
+
+					<button class="order-close" onclick="closeOrderForm()">✕</button>
+
+					<h2>Place Your Order</h2>
+
+					<form id="hamperOrderForm">
+
+						<div class="order-form-layout">
+
+							<div class="order-form-group">
+								<label for="orderProduct">Selected Hamper</label>
+								<input type="text" id="orderProduct" name="product" readonly required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderPrice">Price</label>
+								<input type="text" id="orderPrice" name="price" readonly required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderName">Full Name</label>
+								<input type="text" id="orderName" name="name" placeholder="Enter your full name" required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderEmail">Email Address</label>
+								<input type="email" id="orderEmail" name="email" placeholder="Enter your email" required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderPhone">Phone Number</label>
+								<input type="tel" id="orderPhone" name="phone" placeholder="Enter your phone number" required>
+							</div>
+
+							<div class="order-form-group">
+								<label for="orderQuantity">Quantity</label>
+								<input type="number" id="orderQuantity" name="quantity" min="1" value="1" required>
+							</div>
+
+							<div class="order-form-group order-form-full">
+								<label for="orderAddress">Delivery Address</label>
+								<textarea id="orderAddress" name="address" placeholder="Enter your complete address" required></textarea>
+							</div>
+
+							<div class="order-form-group order-form-full">
+								<button type="submit" class="order-submit">Place Order</button>
+							</div>
+
+						</div>
+
+					</form>
+
+				</div>
+
+			</section>
+
+
+			<!-- Feedback Form -->
+
+			<section class="feedback-overlay" id="feedbackForm">
+
+				<div class="feedback-container">
+
+					<button class="feedback-close" onclick="closeFeedbackForm()">✕</button>
+
+					<h2>Share Your Feedback</h2>
+					<p>We would love to hear about your experience!</p>
+
+					<form id="hamperFeedbackForm">
+
+						<div class="feedback-form-group">
+							<label for="feedbackName">Your Name</label>
+							<input type="text" id="feedbackName" name="name" placeholder="Enter your name" required>
+						</div>
+
+						<div class="feedback-form-group">
+							<label>Rate Your Experience</label>
+
+							<div class="feedback-rating">
+								<input type="radio" id="star5" name="rating" value="5" required>
+								<label for="star5">★</label>
+
+								<input type="radio" id="star4" name="rating" value="4">
+								<label for="star4">★</label>
+
+								<input type="radio" id="star3" name="rating" value="3">
+								<label for="star3">★</label>
+
+								<input type="radio" id="star2" name="rating" value="2">
+								<label for="star2">★</label>
+
+								<input type="radio" id="star1" name="rating" value="1">
+								<label for="star1">★</label>
+							</div>
+						</div>
+
+						<div class="feedback-form-group">
+							<label for="feedbackMessage">Your Feedback</label>
+							<textarea id="feedbackMessage" name="message" placeholder="Write your feedback here..." required></textarea>
+						</div>
+
+						<button type="submit" class="feedback-submit">Submit Feedback</button>
+
+					</form>
+
+				</div>
+
+			</section>
+
+
+			<!-- My_Ordres_PopUp -->
+
+			<section class="my-orders-overlay" id="myOrdersPopup">
+
+				<div class="my-orders-container">
+
+					<div class="my-orders-header">
+						<h2>My Orders</h2>
+						<button class="my-orders-close" onclick="closeMyOrders()">✕</button>
+					</div>
+
+					<div class="my-orders-list" id="myOrdersList">
+
+						<div class="my-order-card">
+						
+							<div class="my-order-image">
+								<img src="images/classic.png" alt="classic delight">
+							</div>
+
+							<div class="my-order-info">
+								<h3>CLASSIC COFFEE</h3>
+								<p>Order ID: #CC1001</p>
+								<p>Quantity: 1</p>
+								<p>Order Date: 05 Oct 2026</p>
+								<span class="my-order-status status-delivered">Delivered</span>
+							</div>
+
+							<div class="my-order-price">$24.00</div>
+
+						</div>
+
+						<div class="my-order-card">
+						
+							<div class="my-order-image">
+								<img src="images/celebration.png" alt="celebration">
+							</div>
+
+							<div class="my-order-info">
+								<h3>PREMIO DELIGHT</h3>
+								<p>Order ID: #CC1002</p>
+								<p>Quantity: 1</p>
+								<p>Order Date: 08 Oct 2026</p>
+								<span class="my-order-status status-pending">Processing</span>
+							</div>
+
+							<div class="my-order-price">$34.00</div>
+
+						</div>
+
+					</div>
+
+					<div class="my-orders-empty" id="myOrdersEmpty">
+						<h3>No Orders Yet</h3>
+						<p>Your hamper orders will appear here.</p>
+					</div>
+
+				</div>
+
+			</section>
 			
 			
 		</main>
 		
 	
-		<footer class="footer-section">
+		<footer id="footer-section">
     
 			<div class="footer-content">
 					
 				<div class="company">
-					<h3>Company</h3><br><br>
+					<h3>Company Details</h3><br><br>
 					
 					<div class="company-links">
 						<a href="#about">About Us</a>
@@ -764,7 +1384,7 @@
 				
 				
 				<div class="help">
-					<h3>Get Help</h3><br><br>
+					<h3>Contact Us</h3><br><br>
 					
 					<div class="help-links">
 						<a href="tel:6307736109">Phone: +91 63077 - 36109</a>
@@ -774,17 +1394,17 @@
 				</div>
 				
 				<div class="online-shop">
-					<h3>Online-Shop</h3><br><br>
+					<h3>Online Shop</h3><br><br>
 					
 					<div class="shop-links">
-						<a href="#ice-coffee">Ice-Coffee</a>
-						<a href="#products">Brewed-Coffee</a>
+						<a href="home.html#latest_blends">Ready To Drink Coffee</a>
+						<a href="home.html#brewed-pro_section">Brewed Coffee</a>
 					</div>
 				</div>
 				
 				
 				<div class="follow-us">
-					<h3> Follow-Us</h3><br>
+					<h3> Follow Us</h3><br>
 					<div class="follow-links">
 						<a href="https://facebook.com" target="_blank"><img src ="images/—Pngtree—white  icon png_3562061.png" alt="icon-facebook"></a>
 						<a href="https://instagram.com" target="_blank"><img src="images/—Pngtree—white instagram icon png instagram_3562066.png"alt="icon-instagram"></a>
@@ -811,11 +1431,162 @@
 	   
 		closeBtn.addEventListener("click",function(){
 		   
-		   sidebar.style.left = "-15%";
-		   
+		   if(window.innerWidth <= 768){
+				sidebar.style.left = "-220px";
+		   }
+		   else{
+				sidebar.style.left = "-15%";
+		   }
 		   
 	   });
-    
+		   
+		 
+		 
+			// Refresh Effect
+		if ("scrollRestoration" in history) {
+			history.scrollRestoration = "manual";
+		}
+
+		window.addEventListener("load", function() {
+			if (performance.getEntriesByType("navigation")[0].type === "reload") {
+				window.scrollTo(0, 0);
+			}
+		});
+
+
+		//Forms and PopUp
+
+		//Order_form
+
+		function openOrderForm(productName, productPrice) {
+
+			const form = document.getElementById("orderForm");
+
+			document.getElementById("orderProduct").value = productName;
+			document.getElementById("orderPrice").value = "$" + Number(productPrice).toFixed(2);
+
+			form.classList.add("active");
+			document.body.style.overflow = "hidden";
+
+		}
+
+		function closeOrderForm() {
+
+			const form = document.getElementById("orderForm");
+
+			form.classList.remove("active");
+			document.body.style.overflow = "";
+
+		}
+
+
+		//Feedback_form
+
+		function openFeedbackForm() {
+
+			document.getElementById("feedbackForm").classList.add("active");
+			document.body.style.overflow = "hidden";
+
+		}
+
+		function closeFeedbackForm() {
+
+			document.getElementById("feedbackForm").classList.remove("active");
+			document.body.style.overflow = "";
+
+		}
+
+
+		//My_Orders_PopUp
+
+		function openMyOrders() {
+
+			document.getElementById("myOrdersPopup").classList.add("active");
+			document.body.style.overflow = "hidden";
+
+		}
+
+		function closeMyOrders() {
+
+			document.getElementById("myOrdersPopup").classList.remove("active");
+			document.body.style.overflow = "";
+
+		}
+
+
+		//Order Form Submit
+
+		document.getElementById("hamperOrderForm").addEventListener("submit", function(event) {
+
+			event.preventDefault();
+
+			const product = document.getElementById("orderProduct").value;
+			const price = document.getElementById("orderPrice").value;
+			const quantity = Number(document.getElementById("orderQuantity").value);
+			const total = Number(price.replace("$", "")) * quantity;
+
+			alert("Your order for " + product + " has been placed successfully!\nQuantity: " + quantity + "\nTotal: $" + total.toFixed(2));
+
+			this.reset();
+			closeOrderForm();
+
+		});
+
+
+		//Feedback Form Submit
+
+		document.getElementById("hamperFeedbackForm").addEventListener("submit", function(event) {
+
+			event.preventDefault();
+
+			alert("Thank you for your feedback!");
+
+			this.reset();
+			closeFeedbackForm();
+
+		});
+
+
+		//Close PopUps by Clicking Outside
+
+		document.getElementById("orderForm").addEventListener("click", function(event) {
+
+			if(event.target === this){
+				closeOrderForm();
+			}
+
+		});
+
+		document.getElementById("feedbackForm").addEventListener("click", function(event) {
+
+			if(event.target === this){
+				closeFeedbackForm();
+			}
+
+		});
+
+		document.getElementById("myOrdersPopup").addEventListener("click", function(event) {
+
+			if(event.target === this){
+				closeMyOrders();
+			}
+
+		});
+
+
+		//Close PopUps with Escape Key
+
+		document.addEventListener("keydown", function(event) {
+
+			if(event.key === "Escape"){
+				closeOrderForm();
+				closeFeedbackForm();
+				closeMyOrders();
+			}
+
+		});
+	
+	
 	</script>
 
 	</body>

@@ -1,0 +1,1031 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffyCup Admin | Dashboard</title>
+
+<style>
+    :root {
+        --panel: rgba(14, 23, 12, 0.86);
+        --panel-light: rgba(30, 48, 25, 0.85);
+        --line: rgba(185, 240, 181, 0.45);
+        --text: #eefbe9;
+        --muted: #b5c9ae;
+        --green: #52652b;
+        --gold: #e0b45a;
+        --red: #ff9288;
+        --blue: #8ec9ff;
+        --purple: #c9a8ff;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--text);
+        background:
+            linear-gradient(
+                rgba(5, 12, 4, 0.48),
+                rgba(5, 12, 4, 0.70)
+            ),
+            url("../images/login-img.png") center center / cover no-repeat fixed,
+            #10200e;
+    }
+
+    button, a {
+        font: inherit;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Main layout */
+
+    .shell {
+        display: grid;
+    grid-template-columns: 235px minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
+    gap: 18px;
+    min-height: 100vh;
+    padding: 18px;
+    transition: grid-template-columns 0.25s ease;
+    }
+
+    .glass {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    /* Sidebar */
+
+    .sidebar {
+        min-height: calc(100vh - 36px);
+        padding: 22px 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: sticky;
+        top: 18px;
+        align-self: start;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 7px 22px;
+        color: #efffe8;
+        font-size: 1.35rem;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .brand-icon {
+        font-size: 1.7rem;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nav-link,
+    .logout {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 12px;
+        border-radius: 11px;
+        color: var(--muted);
+        font-size: 0.93rem;
+        font-weight: bold;
+        white-space: nowrap;
+        border: 1px solid transparent;
+        background: transparent;
+        width: 100%;
+        text-align: left;
+        transition: 0.2s;
+    }
+
+    .nav-link:hover {
+        background: rgba(185, 240, 181, 0.10);
+        color: white;
+    }
+
+    .nav-link.active {
+        background: var(--green);
+        color: white;
+        border-color: rgba(220, 255, 210, 0.15);
+    }
+
+    .nav-icon {
+        width: 23px;
+        flex: 0 0 23px;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .logout {
+        margin-top: auto;
+        color: var(--red);
+        border-color: rgba(255, 146, 136, 0.4);
+    }
+
+    .logout:hover {
+        background: rgba(255, 146, 136, 0.12);
+    }
+	
+
+    /* Main content */
+
+    main {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .topbar {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 17px 20px;
+    }
+
+    .menu-button {
+        width: 43px;
+        height: 43px;
+        flex: 0 0 43px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        color: white;
+        background: rgba(185, 240, 181, 0.06);
+        font-size: 1.4rem;
+    }
+
+    .menu-button:hover {
+        background: rgba(185, 240, 181, 0.16);
+    }
+
+    .topbar h1 {
+        font-size: 1.55rem;
+        margin-bottom: 5px;
+    }
+
+    .topbar p {
+        color: var(--muted);
+        font-size: 0.9rem;
+    }
+
+    /* Statistics cards */
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .stat {
+        padding: 20px;
+        min-width: 0;
+        transition: transform 0.2s, background 0.2s;
+    }
+
+    .stat:hover {
+        transform: translateY(-3px);
+        background: rgba(25, 42, 20, 0.94);
+    }
+
+    .stat-label {
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: bold;
+    }
+
+    .stat-number {
+        display: block;
+        margin-top: 12px;
+        font-size: 2rem;
+        overflow-wrap: anywhere;
+    }
+
+    .stat.pending .stat-number {
+        color: var(--gold);
+    }
+
+    .stat.feedback .stat-number {
+        color: #c9e7a8;
+    }
+
+    /* Dashboard panels */
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr);
+        gap: 18px;
+    }
+
+    .panel {
+        padding: 21px;
+        min-width: 0;
+    }
+
+    .panel h2 {
+        font-size: 1.13rem;
+        margin-bottom: 18px;
+    }
+
+    /* Recent orders table */
+
+    .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        min-width: 440px;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 14px 10px;
+        text-align: left;
+        border-bottom: 1px solid rgba(185, 240, 181, 0.16);
+    }
+
+    th {
+        color: var(--muted);
+        font-size: 0.82rem;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    tbody tr:hover {
+        background: rgba(185, 240, 181, 0.04);
+    }
+
+    .status {
+        display: inline-block;
+        border: 1px solid currentColor;
+        padding: 5px 9px;
+        border-radius: 30px;
+        font-size: 0.76rem;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .Pending { color: var(--gold); }
+    .Confirmed { color: var(--gold); }
+    .Processing { color: var(--blue); }
+    .Shipped { color: var(--purple); }
+    .Delivered { color: #a5ee96; }
+    .Cancelled { color: var(--red); }
+
+    .empty {
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding: 14px 0;
+    }
+
+    .error-message {
+        color: var(--red);
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .retry-button {
+        margin-top: 12px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: white;
+        background: var(--green);
+    }
+
+    /* Top products */
+
+    .product-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 19px;
+    }
+
+    .product-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .product-image {
+        width: 48px;
+        height: 48px;
+        flex: 0 0 48px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--panel-light);
+        object-fit: cover;
+        font-size: 1.4rem;
+    }
+
+    .product-image[hidden] {
+        display: none !important;
+    }
+
+    .product-info {
+        min-width: 0;
+        flex: 1;
+        font-size: 0.9rem;
+    }
+
+    .product-info strong {
+        display: block;
+        overflow-wrap: anywhere;
+    }
+
+    .product-info small {
+        display: block;
+        color: var(--muted);
+        margin-top: 5px;
+    }
+
+    .meter {
+        height: 6px;
+        background: rgba(185, 240, 181, 0.14);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+
+    .meter-fill {
+        height: 100%;
+        background: var(--gold);
+        border-radius: 8px;
+    }
+
+    /* Collapsed desktop sidebar */
+
+    .shell.collapsed {
+        grid-template-columns: 76px minmax(0, 1fr);
+    }
+
+    .shell.collapsed .sidebar {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+    .shell.collapsed .brand {
+        justify-content: center;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .shell.collapsed .brand-name,
+    .shell.collapsed .nav-text,
+    .shell.collapsed .logout-text {
+        display: none;
+    }
+
+    .shell.collapsed .nav-link,
+    .shell.collapsed .logout {
+        justify-content: center;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .shell.collapsed .nav-icon {
+        flex-basis: auto;
+    }
+
+    .overlay {
+        display: none;
+    }
+
+    .brand-name {
+        font-family: 'Georgia', serif;
+    }
+
+    /* Tablet */
+
+    @media (max-width: 1050px) {
+        .stats {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Mobile sidebar */
+
+    @media (max-width: 760px) {
+        .shell,
+        .shell.collapsed {
+            display: block;
+            padding: 12px;
+        }
+
+        .sidebar {
+            position: fixed;
+            z-index: 30;
+            top: 12px;
+            bottom: 12px;
+            left: 12px;
+            width: 245px;
+            min-height: 0;
+            height: auto;
+            overflow-y: auto;
+            transform: translateX(-120%);
+            transition: transform 0.25s ease;
+            background: rgba(12, 23, 10, 0.98);
+        }
+
+        .shell.mobile-open .sidebar {
+            transform: translateX(0);
+        }
+
+        .shell.collapsed .sidebar {
+            padding: 22px 15px;
+        }
+
+        .shell.collapsed .brand {
+            justify-content: flex-start;
+            margin: 0 7px 22px;
+        }
+
+        .shell.collapsed .brand-name,
+        .shell.collapsed .nav-text,
+        .shell.collapsed .logout-text {
+            display: inline;
+        }
+
+        .shell.collapsed .nav-link,
+        .shell.collapsed .logout {
+            justify-content: flex-start;
+            padding: 13px 12px;
+        }
+
+        .shell.collapsed .nav-icon {
+            flex-basis: 23px;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 25;
+            background: rgba(0, 0, 0, 0.65);
+        }
+
+        .shell.mobile-open .overlay {
+            display: block;
+        }
+
+        main {
+            gap: 13px;
+        }
+
+        .topbar {
+            padding: 14px;
+        }
+
+        .topbar h1 {
+            font-size: 1.25rem;
+        }
+
+        .topbar p {
+            font-size: 0.82rem;
+        }
+
+        .panel {
+            padding: 16px;
+        }
+
+        .stats {
+            gap: 10px;
+        }
+
+        .stat {
+            padding: 15px;
+        }
+
+        .stat-number {
+            font-size: 1.65rem;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .stats {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+        }
+
+        .stat-number {
+            font-size: 1.45rem;
+        }
+
+        .topbar h1 {
+            font-size: 1.1rem;
+        }
+    }
+	
+
+	
+</style>
+</head>
+
+<body>
+
+<div class="shell" id="shell">
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar glass">
+
+        <div class="brand">
+            <span class="brand-name">CoffyCup</span>
+        </div>
+
+        <nav class="nav-links">
+
+            <a class="nav-link active"
+               href="dashboard.html"
+               title="Dashboard">
+                <span class="nav-icon">▦</span>
+                <span class="nav-text">Dashboard</span>
+            </a>
+
+            <a class="nav-link"
+               href="manage-products.html"
+               title="Manage Products">
+                <span class="nav-icon">▣</span>
+                <span class="nav-text">Manage Products</span>
+            </a>
+
+            <a class="nav-link"
+               href="manage-orders.html"
+               title="Manage Orders">
+                <span class="nav-icon">🛒</span>
+                <span class="nav-text">Manage Orders</span>
+            </a>
+			
+			<a class="nav-link" href="manage-users.html">
+				<span class="nav-icon">♙</span>
+				<span class="nav-text">Manage Users</span>
+			</a>
+
+            <a class="nav-link"
+               href="feedback.html"
+               title="View Feedback">
+                <span class="nav-icon">✉</span>
+                <span class="nav-text">View Feedback</span>
+            </a>
+
+        </nav>
+
+        <button class="logout"
+                id="logoutBtn"
+                type="button"
+                title="Logout">
+            <span class="nav-icon">↪</span>
+            <span class="logout-text">Logout</span>
+        </button>
+
+    </aside>
+
+    <!-- Main dashboard -->
+    <main>
+
+        <header class="topbar glass">
+
+            <button class="menu-button"
+                    id="menuButton"
+                    type="button"
+                    aria-label="Toggle sidebar"
+                    aria-expanded="true">
+                ☰
+            </button>
+
+            <div>
+                <h1>Welcome Back!</h1>
+                <p>Here is what is happening today.</p>
+            </div>
+
+        </header>
+
+        <!-- Statistics -->
+        <section class="stats" id="stats" aria-label="Store summary">
+            <article class="stat glass">
+                <span class="stat-label">Loading dashboard...</span>
+                <strong class="stat-number">...</strong>
+            </article>
+        </section>
+
+        <!-- Recent orders and top products -->
+        <section class="content-grid">
+
+            <div class="panel glass">
+
+                <h2>Recent Orders</h2>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recentOrders">
+                            <tr>
+                                <td colspan="4" class="empty">
+                                    Loading orders...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="panel glass">
+
+                <h2>Top Products</h2>
+
+                <ul class="product-list" id="topProducts">
+                    <li class="empty">Loading products...</li>
+                </ul>
+
+            </div>
+
+        </section>
+
+    </main>
+	
+</div>
+
+<script>
+    const shell = document.getElementById("shell");
+    const menuButton = document.getElementById("menuButton");
+    const overlay = document.getElementById("overlay");
+
+    const statsElement = document.getElementById("stats");
+    const ordersElement = document.getElementById("recentOrders");
+    const productsElement = document.getElementById("topProducts");
+
+    function money(amount) {
+        return "₹" + Number(amount || 0).toLocaleString("en-IN");
+    }
+
+    function escapeHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, function (char) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[char];
+        });
+    }
+
+    // Communicate with the Flask backend.
+    async function apiRequest(url, options = {}) {
+        const response = await fetch(url, {
+            ...options,
+            credentials: "same-origin",
+            headers: {
+                ...(options.body ? {
+                    "Content-Type": "application/json"
+                } : {}),
+                ...options.headers
+            }
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (response.status === 401) {
+            window.location.href = "/admin/";
+            throw new Error("Admin login required.");
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                result.error || "Unable to load dashboard data."
+            );
+        }
+
+        return result;
+    }
+
+    // Statistics cards.
+    function renderStats(data) {
+        const cards = [
+            {
+                label: "Total Products",
+                value: data.total_products,
+                className: ""
+            },
+            {
+                label: "Total Orders",
+                value: data.total_orders,
+                className: ""
+            },
+            {
+                label: "Pending Orders",
+                value: data.pending_orders,
+                className: "pending"
+            },
+            {
+                label: "Total Feedbacks",
+                value: data.total_feedback,
+                className: "feedback"
+            }
+        ];
+
+        statsElement.innerHTML = cards.map(card => `
+            <article class="stat glass ${card.className}">
+                <span class="stat-label">
+                    ${escapeHTML(card.label)}
+                </span>
+                <strong class="stat-number">
+                    ${Number(card.value || 0)}
+                </strong>
+            </article>
+        `).join("");
+    }
+
+    // Recent orders.
+    function renderOrders(orders) {
+        if (!orders.length) {
+            ordersElement.innerHTML = `
+                <tr>
+                    <td colspan="4" class="empty">No orders yet.</td>
+                </tr>
+            `;
+            return;
+        }
+
+        ordersElement.innerHTML = orders.slice(0, 5).map(order => {
+            const allowedStatuses = [
+                "Pending",
+                "Confirmed",
+                "Processing",
+                "Shipped",
+                "Delivered",
+                "Cancelled"
+            ];
+
+            const status = allowedStatuses.includes(order.status)
+                ? order.status
+                : "Pending";
+
+            return `
+                <tr>
+                    <td>#${escapeHTML(order.id)}</td>
+                    <td>${escapeHTML(order.name || "Customer")}</td>
+                    <td>${money(order.total)}</td>
+                    <td>
+                        <span class="status ${status}">
+                            ${escapeHTML(status)}
+                        </span>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    // Top-selling products.
+	function renderTopProducts(products) {
+		const topProducts = [...products]
+			.sort((a, b) => Number(b.sold || 0) - Number(a.sold || 0))
+			.slice(0, 4);
+
+		if (!topProducts.length) {
+			productsElement.innerHTML = `
+				<li class="empty">No products yet.</li>
+			`;
+			return;
+		}
+
+		const maxSold = Math.max(
+			1,
+			...topProducts.map(product => Number(product.sold || 0))
+		);
+
+		productsElement.innerHTML = topProducts.map(product => {
+			const sold = Number(product.sold || 0);
+			const percentage = Math.round((sold / maxSold) * 100);
+			const name = escapeHTML(product.name || "Coffee Product");
+
+			// Convert database path into a browser URL.
+			const imagePath = (product.img || "")
+				.replace(/\\/g, "/")
+				.replace(/^\/+/, "");
+
+			const image = "/" + imagePath
+				.split("/")
+				.map(encodeURIComponent)
+				.join("/");
+
+			return `
+				<li class="product-item">
+					<img
+						class="product-image"
+						src="${escapeHTML(image)}"
+						alt="${name}"
+						onerror="this.hidden=true;this.nextElementSibling.hidden=false;"
+					>
+
+					<div class="product-image" hidden aria-hidden="true">
+						☕
+					</div>
+
+					<div class="product-info">
+						<strong>${name}</strong>
+						<small>${sold} sold</small>
+
+						<div class="meter">
+							<div
+								class="meter-fill"
+								style="width:${percentage}%"
+							></div>
+						</div>
+					</div>
+				</li>
+			`;
+		}).join("");
+	}
+
+    // Load real statistics, orders and products.
+    async function loadDashboard() {
+        statsElement.innerHTML = `
+            <article class="stat glass">
+                <span class="stat-label">Loading dashboard...</span>
+                <strong class="stat-number">...</strong>
+            </article>
+        `;
+
+        try {
+            const [stats, ordersData, productsData] = await Promise.all([
+                apiRequest("/api/admin/dashboard"),
+                apiRequest("/api/admin/orders"),
+                apiRequest("/api/products")
+            ]);
+
+            const orders = ordersData.orders || [];
+            const products = productsData.products || [];
+
+            stats.pending_orders = orders.filter(order =>
+                String(order.status || "").toLowerCase() === "pending"
+            ).length;
+
+            renderStats(stats);
+            renderOrders(orders);
+            renderTopProducts(products);
+
+        } catch (error) {
+            if (error.message === "Admin login required.") {
+                return;
+            }
+
+            console.error("Dashboard loading error:", error);
+
+            statsElement.innerHTML = `
+                <article class="stat glass">
+                    <span class="stat-label">Dashboard error</span>
+                    <strong class="stat-number">!</strong>
+                    <p class="error-message">${escapeHTML(error.message)}</p>
+                    <button class="retry-button"
+                            type="button"
+                            id="retryButton">
+                        Retry
+                    </button>
+                </article>
+            `;
+
+            document.getElementById("retryButton")
+                .addEventListener("click", loadDashboard);
+
+            ordersElement.innerHTML = `
+                <tr>
+                    <td colspan="4" class="empty">
+                        Unable to load orders.
+                    </td>
+                </tr>
+            `;
+
+            productsElement.innerHTML = `
+                <li class="empty">Unable to load products.</li>
+            `;
+        }
+    }
+
+    // Sidebar controls.
+    function isMobile() {
+        return window.matchMedia("(max-width: 760px)").matches;
+    }
+
+    menuButton.addEventListener("click", function () {
+        if (isMobile()) {
+            shell.classList.toggle("mobile-open");
+        } else {
+            shell.classList.toggle("collapsed");
+        }
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            String(
+                isMobile()
+                    ? shell.classList.contains("mobile-open")
+                    : !shell.classList.contains("collapsed")
+            )
+        );
+    });
+
+    function closeMobileSidebar() {
+        shell.classList.remove("mobile-open");
+        menuButton.setAttribute("aria-expanded", "false");
+    }
+
+    overlay.addEventListener("click", closeMobileSidebar);
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeMobileSidebar();
+        }
+    });
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+        link.addEventListener("click", function () {
+            if (isMobile()) {
+                closeMobileSidebar();
+            }
+        });
+    });
+
+    window.addEventListener("resize", function () {
+        if (!isMobile()) {
+            closeMobileSidebar();
+        }
+    });
+
+    // Server-side logout.
+    document.getElementById("logoutBtn").addEventListener(
+        "click",
+        async function () {
+            if (!confirm("Are you sure you want to logout?")) {
+                return;
+            }
+
+            try {
+                await apiRequest("/api/admin/logout", {
+                    method: "POST"
+                });
+            } catch (error) {
+                console.error("Logout error:", error);
+            } finally {
+                window.location.href = "/admin/";
+            }
+        }
+    );
+
+    // Start dashboard.
+    loadDashboard();
+</script>
+
+{% include 'includes/copyright.html' %}
+</body>
+</html>

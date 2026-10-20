@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head> 
-	<title>Home-Page</title>
+	<title>Home-Page(dummy)</title>
 	
 <style>
 
@@ -9,8 +9,11 @@
 		box-sizing:border-box;
 		margin:0;
 		padding:0;
+
+	}
 	
-		
+	html{
+		scroll-behavior: smooth;
 	}
 	
 	
@@ -21,7 +24,729 @@
 		color:#ffff;
 		
 		overflow-x:hidden;
+
 	}
+	
+	
+	/*-----0_Forms-PopUp_Section-----*/
+	
+	
+			/* 1_Order_Form */
+
+	.order-section {
+		width: 100%;
+		padding: 40px 20px;
+		background: #8b2745;
+		color: #ffffff;
+		box-sizing: border-box;
+	}
+
+	.order-container {
+		max-width: 850px;
+		margin: 0 auto;
+		background: #ffffff;
+		color: #333333;
+		border-radius: 16px;
+		overflow: hidden;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+	}
+
+	/* Header */
+
+	.order-header {
+		background: #6d1f37;
+		color: #ffffff;
+		padding: 25px 30px;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
+	.order-header h2 {
+		margin: 0 0 8px;
+		font-size: 27px;
+	}
+
+	.order-header p {
+		margin: 0;
+		color: #eec3d0;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	.close-order {
+		border: none;
+		background: transparent;
+		color: #ffffff;
+		font-size: 30px;
+		cursor: pointer;
+		line-height: 1;
+	}
+
+	/* Form */
+
+	.order-form {
+		padding: 30px;
+	}
+
+	.selected-coffee {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		padding: 18px;
+		background: #fff5f7;
+		border: 1px solid #f0d5de;
+		border-radius: 12px;
+		margin-bottom: 30px;
+	}
+
+	.selected-coffee img {
+		width: 100px;
+		height: 100px;
+		object-fit: cover;
+		border-radius: 10px;
+	}
+
+	.coffee-details {
+		flex: 1;
+	}
+
+	.coffee-details h3 {
+		margin: 0 0 8px;
+		font-size: 17px;
+	}
+
+	.coffee-name {
+		margin: 0 0 6px;
+		color: #666666;
+		font-size: 14px;
+	}
+
+	.coffee-price {
+		margin: 0;
+		color: #8b2745;
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	.quantity-box {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.quantity-box label {
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	.quantity-box input {
+		width: 75px;
+		padding: 10px;
+		border: 1px solid #d7b5c0;
+		border-radius: 7px;
+		font-size: 15px;
+		color: #333333;
+	}
+
+	/* Section Headings */
+
+	.form-heading {
+		font-size: 19px;
+		margin: 28px 0 18px;
+		padding-bottom: 10px;
+		border-bottom: 2px solid #f0d5de;
+		color: #6d1f37;
+	}
+
+	/* Input Grid */
+
+	.form-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		min-width: 0;
+	}
+
+	.full-width {
+		grid-column: 1 / -1;
+	}
+
+	.form-group label {
+		font-size: 14px;
+		font-weight: 600;
+		color: #444444;
+	}
+
+	.form-group input,
+	.form-group textarea {
+		width: 100%;
+		padding: 12px 14px;
+		border: 1px solid #d8c4ca;
+		border-radius: 8px;
+		background: #ffffff;
+		color: #333333;
+		font-size: 14px;
+		font-family: Arial, sans-serif;
+		box-sizing: border-box;
+		outline: none;
+		transition: 0.25s;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus {
+		border-color: #b33259;
+		box-shadow: 0 0 0 3px rgba(179, 50, 89, 0.12);
+	}
+
+	.form-group textarea {
+		resize: vertical;
+	}
+
+	/* Payment Option */
+
+	.payment-option {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		padding: 17px;
+		border: 1px solid #d9b2bf;
+		border-radius: 10px;
+		background: #fff7f9;
+		cursor: pointer;
+	}
+
+	.payment-option input {
+		accent-color: #8b2745;
+		width: 17px;
+		height: 17px;
+	}
+
+	.payment-icon {
+		width: 42px;
+		height: 42px;
+		border-radius: 50%;
+		background: #6d1f37;
+		color: #ffffff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 22px;
+		font-weight: bold;
+	}
+
+	.payment-details {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+
+	.payment-details strong {
+		color: #6d1f37;
+		font-size: 15px;
+	}
+
+	.payment-details small {
+		color: #777777;
+		font-size: 13px;
+	}
+
+	/* Total Amount */
+
+	.order-total {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 28px;
+		padding: 20px 0;
+		border-top: 1px solid #ead8de;
+		border-bottom: 1px solid #ead8de;
+	}
+
+	.order-total span {
+		font-size: 15px;
+		color: #555555;
+	}
+
+	.order-total strong {
+		font-size: 25px;
+		color: #8b2745;
+	}
+
+	/* Confirm Order Button */
+
+	.confirm-order {
+		width: 100%;
+		margin-top: 22px;
+		padding: 15px;
+		border: none;
+		border-radius: 9px;
+		background: #6d1f37;
+		color: #ffffff;
+		font-size: 16px;
+		font-weight: bold;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+	.confirm-order:hover {
+		background: #b33259;
+		box-shadow: 0 5px 15px rgba(179, 50, 89, 0.3);
+	}
+
+	.order-note {
+		text-align: center;
+		color: #888888;
+		font-size: 12px;
+		margin: 15px 0 0;
+	}
+
+	/* Responsive Design */
+
+	@media (max-width: 600px) {
+
+		.order-section {
+			padding: 20px 12px;
+		}
+
+		.order-header {
+			padding: 20px;
+		}
+
+		.order-header h2 {
+			font-size: 22px;
+		}
+
+		.order-form {
+			padding: 20px;
+		}
+
+		.form-grid {
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+
+		.full-width {
+			grid-column: auto;
+		}
+
+		.selected-coffee {
+			gap: 12px;
+			padding: 12px;
+			flex-wrap: wrap;
+		}
+
+		.selected-coffee img {
+			width: 75px;
+			height: 75px;
+		}
+
+		.coffee-details h3 {
+			font-size: 15px;
+		}
+
+		.quantity-box {
+			margin-left: auto;
+		}
+
+		.order-total strong {
+			font-size: 22px;
+		}
+	}
+	
+	/* Order Form Popup */
+
+	.order-section {
+		display: none;
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		height: 100vh;
+		overflow-y: auto;
+		padding: 30px 20px;
+		background: rgba(0, 0, 0, 0.75);
+		z-index: 2000;
+
+		align-items: center;
+		justify-content: center;
+	}
+
+	.order-section.active {
+		display: flex;
+	}
+
+	.order-container {
+		width: 100%;
+		max-width: 850px;
+		margin: auto;
+		flex-shrink: 0;
+	}
+
+	@media (max-width: 600px) {
+		.order-section {
+			padding: 15px 10px;
+			align-items: flex-start;
+		}
+	}
+	
+			/* 1_Feedback_Form */
+			
+
+	.feedback-overlay {
+		display: none;
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		padding: 15px;
+		box-sizing: border-box;
+		background: rgba(0, 0, 0, 0.75);
+		z-index: 3000;
+		align-items: center;
+		justify-content: center;
+		overflow-y: auto;
+	}
+
+	.feedback-overlay.active {
+		display: flex;
+	}
+
+	.feedback-container {
+		position: relative;
+		width: 100%;
+		max-width: 420px;
+		max-height: 90vh;
+		overflow-y: auto;
+		box-sizing: border-box;
+		padding: 25px;
+		background: #6d1f37;
+		border: 1px solid #b33259;
+		border-radius: 14px;
+		box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+		color: #ffffff;
+	}
+
+	.feedback-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 8px;
+	}
+
+	.feedback-header h2 {
+		margin: 0;
+		color: #eec3d0;
+		font-size: 23px;
+	}
+
+	.feedback-close {
+		border: none;
+		background: transparent;
+		color: #ffffff;
+		font-size: 30px;
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	.feedback-close:hover {
+		color: #eec3d0;
+	}
+
+	.feedback-subtitle {
+		margin: 0 0 22px;
+		color: #f0dce2;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	#feedbackFormData label {
+		display: block;
+		margin: 15px 0 7px;
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	#feedbackFormData input[type="text"],
+	#feedbackFormData textarea {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 11px 12px;
+		border: 1px solid #d99aaa;
+		border-radius: 7px;
+		outline: none;
+		background: #ffffff;
+		color: #333333;
+		font-family: Arial, sans-serif;
+		font-size: 14px;
+	}
+
+	#feedbackFormData input[type="text"]:focus,
+	#feedbackFormData textarea:focus {
+		border-color: #eec3d0;
+		box-shadow: 0 0 0 2px rgba(238, 195, 208, 0.2);
+	}
+
+	#feedbackFormData textarea {
+		resize: vertical;
+		min-height: 90px;
+	}
+
+	.feedback-rating {
+		display: flex;
+		flex-direction: row;
+		gap: 5px;
+		margin: 5px 0 15px;
+	}
+
+	.feedback-rating input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.feedback-rating label {
+		margin: 0 !important;
+		color: #b9a0a7 !important;
+		font-size: 32px !important;
+		cursor: pointer;
+		transition: color 0.2s;
+	}
+
+	/* Highlight selected stars */
+	.feedback-rating label:hover,
+	.feedback-rating label:hover ~ label,
+	.feedback-rating input:checked ~ label {
+		color: #ffc857 !important;
+	}
+
+	/* Keep star order correct for left-to-right selection */
+	.feedback-rating {
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+	}
+
+	.feedback-rating label:hover,
+	.feedback-rating label:hover ~ label,
+	.feedback-rating input:checked ~ label,
+	.feedback-rating input:checked + label {
+		color: #ffc857 !important;
+	}
+
+	.feedback-submit {
+		width: 100%;
+		margin-top: 20px;
+		padding: 12px;
+		border: none;
+		border-radius: 7px;
+		background: #b33259;
+		color: #ffffff;
+		font-size: 15px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+
+	.feedback-submit:hover {
+		background: #c8446c;
+	}
+
+	@media (max-width: 480px) {
+		.feedback-container {
+			padding: 20px;
+		}
+
+		.feedback-header h2 {
+			font-size: 20px;
+		}
+	}
+
+				/* 3_My_Orders_PopUp */
+				
+				
+	
+	/*----- My Orders PopUp -----*/
+	.my-orders-overlay{
+		display:none;
+		align-items:center;
+		justify-content:center;
+		position:fixed;
+		top:0;
+		left:0;
+		height:100vh;
+		width:100vw;
+		background:rgba(0,0,0,0.78);
+		z-index:4000;
+		padding:20px;
+	}
+
+	.my-orders-overlay.active{
+		display:flex;
+	}
+
+	.my-orders-container{
+		width:80vw;
+		height:80vh;
+		max-width:1100px;
+		overflow-y:auto;
+		background:linear-gradient(
+			135deg,
+			#1f0208,
+			#3a050d,
+			#650d22,
+			#3a050d
+		);
+		border:1px solid #b33259;
+		border-radius:18px;
+		padding:25px;
+		box-shadow:0 0 30px rgba(179,50,89,0.25);
+		position:relative;
+	}
+
+	.my-orders-header{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		margin-bottom:25px;
+		padding-bottom:15px;
+		border-bottom:1px solid rgba(238,195,208,0.3);
+	}
+
+	.my-orders-header h2{
+		color:#eec3d0;
+		font-family:Georgia, "Times New Roman", serif;
+	}
+
+	.my-orders-close{
+		background:transparent;
+		border:none;
+		color:#fff;
+		font-size:28px;
+		cursor:pointer;
+		transition:0.3s;
+	}
+
+	.my-orders-close:hover{
+		color:#eec3d0;
+		transform:scale(1.1);
+	}
+
+	.my-orders-list{
+		display:flex;
+		flex-direction:column;
+		gap:15px;
+	}
+
+	.my-order-card{
+		display:flex;
+		align-items:center;
+		gap:20px;
+		padding:18px;
+		background:linear-gradient(
+			120deg,
+			rgba(109,31,55,0.85),
+			rgba(58,11,27,0.95)
+		);
+		border:1px solid rgba(227,156,177,0.25);
+		border-radius:12px;
+		transition:0.3s;
+	}
+
+	.my-order-image{
+		width:110px;
+		height:110px;
+		flex-shrink:0;
+		overflow:hidden;
+		border-radius:8px;
+		border:1px solid rgba(187,60,81,0.6);
+	}
+
+	.my-order-image img{
+		width:100%;
+		height:100%;
+		object-fit:cover;
+		display:block;
+	}
+
+	.my-order-info{
+		flex:1;
+	}
+
+	.my-order-info h3{
+		color:#eec3d0;
+		margin-bottom:8px;
+		font-size:17px;
+	}
+
+	.my-order-info p{
+		color:#fff;
+		font-size:13px;
+		line-height:1.8;
+	}
+
+	.my-order-price{
+		color:#eec3d0;
+		font-size:18px;
+		font-weight:bold;
+		white-space:nowrap;
+	}
+
+	.my-order-status{
+		display:inline-block;
+		margin-top:8px;
+		margin-left:30px; /* gifting page mein ye gap span rule se aata hai, same look ke liye yahan likha hai */
+		padding:5px 10px;
+		border-radius:20px;
+		font-size:12px;
+		font-weight:bold;
+	}
+
+	.status-delivered{
+		background:rgba(46,160,67,0.2);
+		color:#75e39a;
+	}
+
+	.status-pending{
+		background:rgba(255,193,7,0.15);
+		color:#ffd76a;
+	}
+
+	.my-orders-empty{
+		text-align:center;
+		color:#eec3d0;
+		padding:35px 10px;
+		display:none;
+	}
+
+	@media(max-width:768px){
+
+		.my-orders-container{
+			width:95vw;
+			height:85vh;
+			padding:18px;
+		}
+
+		.my-order-card{
+			align-items:flex-start;
+			flex-direction:column;
+			gap:10px;
+		}
+
+		.my-orders-header h2{
+			font-size:20px;
+		}
+	}
+
+
+	
 	
 	
 					   /*-----01_Home_Section-----*/
@@ -33,7 +758,7 @@
 	.home-section{
 		height:100vh;
 		width:100vw;
-		background-image:url("images/hero-img.jpg");
+		background-image:url("images/hero-img.png");
 		background-size:cover;
 		background-repeat:no-repeat;
 		background-position:center;
@@ -327,7 +1052,7 @@
 		
 					   /*-----02_Brewed_Pro_Section-----*/
 					
-	.brewed-pro_section{
+	#brewed-pro_section{
 		
 		display:flex;
 		align-items:center;
@@ -343,7 +1068,7 @@
 		align-items:center;
 		justify-content:center;
 		font-size:22px;
-		color:#ffff;
+		color:#eec3d0;
 		letter-spacing:4px;
 		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
 		font-family: Georgia, "Times New Roman", serif;
@@ -356,7 +1081,7 @@
 		grid-template-columns:1fr 1fr 1fr 1fr;
 		align-items:center;
 		justify-content:center;
-		height:90vh;
+		height:93vh;
 		width:93vw;
 		position:relative;
 		background-color:#77223b;
@@ -396,6 +1121,7 @@
 	.brewed_card img{
 		height:120px;
 		width:200px;
+		object-fit:cover;
 		
 	}
 	
@@ -457,7 +1183,7 @@
 	
 			/*-----Left-side container-----*/
 				
-	.latest_blends{
+	#latest_blends{
 		display:flex;
 		height:97vh;
 		width:93vw;
@@ -490,6 +1216,7 @@
 		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
 		letter-spacing:4px;
 		font-family: 'Georgia', serif;
+		color:#eec3d0;
 	}
 	.poster_container img{
 		
@@ -542,8 +1269,9 @@
 	}
 	.blends_card img{
 		height:50%;
-		width:126px;
+		width:200px;
 		padding:1px;
+		object-fit:cover;
 	}
 	.blends_card p{
 		text-align:center;
@@ -601,7 +1329,7 @@
 				/*-----04_Product_Process_Section-----*/
 					
 	
-	.process-section{
+	#process-section{
 		display:flex;
 		align-items:center;
 		justify-content:center;
@@ -655,7 +1383,25 @@
 		
 	}
 	
-			/*--Process Texts--*/
+				/*--Process Texts--*/
+			
+		/*--Process Heading(from_bean_to_cup)--*/
+			
+	.process-heading{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		margin-bottom:5%;
+		
+	}
+	
+	.process-heading h2{
+		color:#eec3d0;
+		font-size:38px;
+		letter-spacing:3px;
+		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
+		font-family: 'Georgia', serif;
+	}
 			
 	.process-step p{
 		font-size:18px;
@@ -677,27 +1423,12 @@
 		margin-right:20px;
 	}
 	
-		/*--Process Heading(from_bean_to_cup)--*/
-			
-	.process-heading{
-		display:flex;
-		align-items:center;
-		justify-content:center;
-		margin-bottom:5%;
-	}
-	
-	.process-heading h2{
-		color:#ffff;
-		font-size:38px;
-		letter-spacing:3px;
-		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
-		font-family: 'Georgia', serif;
-	}
+		
 	
 	
 					/*-----05_About-us_Section-----*/
 					
-	.section-about{
+	#section-about{
 		height:80vh;
 		width:100vw;
 		box-shadow:rgba(0, 0, 0, 0.5) 5px 5px 20px 0px;
@@ -782,12 +1513,13 @@
 		word-spacing:1px;
 		text-shadow:rgba(0, 0, 0, 0.9) 4px 6px 18px;
 		font-family: 'Georgia', serif;
+		color:#eec3d0;
 	}
 	
 					   /*-----06_Foooter_Section-----*/
 
 	
-	.footer-section{
+	#footer-section{
 		
 		display:flex;
 		align-items:center;
@@ -864,7 +1596,7 @@
 	}
 	
 	
-	.help-links a{
+	.contact-links a{
 		display:flex;
 		font-size:20px;
 		margin-bottom:5px;
@@ -886,6 +1618,13 @@
 	
 	
 	
+	
+
+
+
+	
+	
+	
 </style>
 </head>
 
@@ -903,12 +1642,12 @@
 			</div>
 			
 			<div class="sidebar-links">
-				<a href="#">My Cart</a>
-				<a href="#">My Orders</a>
-				<a href="#">Favorites</a>
-				<a href="#">Contact Us</a>
-				<a href="#">Our Process</a>
-				<a href="#">Feedback</a>
+				<a href="home.html">Home</a>
+				<a href="#brewed-pro_section">Products</a>
+				<a href="#" onclick="openMyOrders(); return false;">My Orders</a>
+				<a href="#footer-section">Contact Us</a>
+				<a href="#process-section">Our Process</a>
+				<a href="#" onclick="openFeedbackForm(); return false;">Feedback</a>
 				
 			</div>
 			
@@ -936,11 +1675,11 @@
 						</div>
 						
 						<div class="navlinks">
-							<a href="#">HOME</a>
-							<a href="#">BLENDS</a>
-							<a href="#">BREWED</a>
+							<a href="home.html">HOME</a>
+							<a href="#latest_blends">BLENDS</a>
+							<a href="#brewed-pro_section">BREWED</a>
 							<a href="gifting.html">GIFTING</a>
-							<a href="#">ABOUT</a>
+							<a href="#section-about">ABOUT</a>
 						</div>
 						
 						<div class="socialmediaLinks">
@@ -975,74 +1714,74 @@
 			<h2>OUR PRODUCTS</h2>
 		</div>
 		
-		<section class="brewed-pro_section"> 
+		<section id="brewed-pro_section"> 
 		
 			
 			<div class="brewed-products">
 			
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_wdwvmhwdwvmhwdwv.png " alt="coffee-1">
+					<img src="images/p1.png " alt="coffee-1">
 					<h3><b>COLOMBIA<br>SUPREMO</b></h3>
 					<p><i>Rich aroma with smooth caramel sweetness</i></p>
 					<p>$15.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 				
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_p6ppdjp6ppdjp6pp.png" alt="coffee-2">
+					<img src="images/p2.png" alt="coffee-2">
 					<h3>DECAF SWISS<br>WATER</h3>
 					<p>Full flavor coffee without caffeine kick</p>
 					<p>$18.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 				
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_kz1am7kz1am7kz1a.png" alt="coffee-3">
+					<img src="images/p3.png" alt="coffee-3">
 					<h3>SUMATRA MANDEHLING</h3>
 					<p>Bold earthy taste with deep chocolate notes</p>
 					<p>$16.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 				
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_h6prcmh6prcmh6pr.png" alt="coffee-4">
+					<img src="images/p4.png" alt="coffee-4">
 					<h3>ETHOPIA YIRGACHEFFE</h3>
 					<p>Bright fruity flavor with floral aroma touch</p>
 					<p>$18.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 			
 		
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_edeeuxedeeuxedee.png" alt="coffee-5">
+					<img src="images/p5.png" alt="coffee-5">
 					<h3>GUATEMALA<br>ANTIGUA</h3>
 					<p>Balanced body with hints of cocoa spice</p>
 					<p>$15.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 				
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_53qn6u53qn6u53qn.png" alt="coffee-6">
+					<img src="images/p6.png" alt="coffee-6">
 					<h3>COSTA RICA<br>TARRAZU</h3>
 					<p>Clean crisp taste with citrus undertones</p>
 					<p>$15.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 				
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_ifdqd9ifdqd9ifdq.png" alt="coffee-7">
+					<img src="images/p7.png" alt="coffee-7">
 					<h3>PANAMA<br>GEISHA</h3>
 					<p>Premium exotic coffee with tea like notes</p>
 					<p>$50.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 				
 				<div class="brewed_card">
-					<img src="images/Gemini_Generated_Image_oh2dtpoh2dtpoh2d.png" alt="coffee-8">
+					<img src="images/p8.png" alt="coffee-8">
 					<h3>HOUSE<br>BLEND</h3>
 					<p>Smooth everyday blend with balanced flavor</p>
 					<p>$12.00</p>
-					<button>Order Now</button>
+					<button type="button" onclick="openOrderForm()">Order Now</button>
 				</div>
 				
 			</div>
@@ -1055,48 +1794,48 @@
 		
 		<section class="readytodrink_pro_section">	
 			
-			<div class="latest_blends">
+			<div id="latest_blends">
 			
 				<div class="poster_container">		
 					<h2>LATEST BLENDS</h2>
-					<img src="images/ChatGPT Image Apr 4, 2026, 08_05_02 PM.png" alt="pro_img">
+					<img src="images/drinks_poster.png" alt="pro_img">
 				</div>
 				
 				<div class="blends_card_container">
 				
 					<div class="blends_card">
-						<img src="images/ChatGPT Image Apr 4, 2026, 11_20_55 PM.png" alt="ice-coffee 1">
+						<img src="images/drink-1.png" alt="ice-coffee 1">
 						<h3>CAFE MOCHA</h3>
 						<p>Rich chocolate coffee with smooth creamy finish</p>
 						<p>$16.00</p>
-						<button>Try Now</button>
+						<button type="button" onclick="openOrderForm()">Try Now</button>
 					</div>
 					
 					
 					<div class="blends_card">
-						<img src="images/ChatGPT Image Apr 4, 2026, 11_39_54 PM.png" alt="ice-coffee 2">
+						<img src="images/drink-2.png" alt="ice-coffee 2">
 						<h3>CARAMEL MACCHIATO</h3>
 						<p>Sweet caramel layers with bold espresso touch</p>
 						<p>$17.00</p>
-						<button>Try Now</button>
+						<button type="button" onclick="openOrderForm()">Try Now</button>
 					</div>
 					
 					
 					<div class="blends_card">
-						<img src="images/ChatGPT Image Apr 4, 2026, 11_38_00 PM.png" alt="ice-coffee 3">
+						<img src="images/drink-3.png" alt="ice-coffee 3">
 						<h3>VANILLA LATTE</h3>
 						<p>smooth vanilla blend with light creamy sweetness</p>
 						<p>$15.00</p>
-						<button>Try Now</button>
+						<button type="button" onclick="openOrderForm()">Try Now</button>
 					</div>
 					
 					
 					<div class="blends_card">
-						<img src="images/ChatGPT Image Apr 4, 2026, 11_46_55 PM.png" alt="ice-coffee 4">
+						<img src="images/drink-4.png" alt="ice-coffee 4">
 						<h3>HAZELNUT</h3>
 						<p>Nutty rich flavor with warm roasted aroma</p>
 						<p>$16.00</p>
-						<button>Try Now</button>
+						<button type="button" onclick="openOrderForm()">Try Now</button>
 					</div>
 					
 				</div>
@@ -1106,7 +1845,7 @@
 		
 		
 		
-		<section class="process-section">	
+		<section id="process-section">	
 		
 			<div class="process-heading">
 				<h2>FROM BEAN TO CUP</h2>
@@ -1181,7 +1920,7 @@
 		
 		
 		
-		<section class="section-about">
+		<section id="section-about">
 		
 			<div class="about-content">
 			
@@ -1223,28 +1962,285 @@
 			</div>
 		</section>
 		
+		
+				
+								<!-- Forms and PopUp -->
+								
+		
+		<!-- Order Form -->
+		<section class="order-section" id="orderForm">
+
+			<div class="order-container">
+
+				<div class="order-header">
+					<div>
+						<h2>Place Your Order</h2>
+						<p>Complete your details to order your favourite coffee.</p>
+					</div>
+
+					<button type="button" class="close-order"
+							onclick="closeOrderForm()">
+						&times;
+					</button>
+				</div>
+
+				<form class="order-form">
+
+					<div class="selected-coffee">
+						<img src="images/p1.png" alt="Selected Coffee">
+
+						<div class="coffee-details">
+							<h3>Selected Coffee</h3>
+							<p class="coffee-name">Colombia Supremo</p>
+							<p class="coffee-price">$15.00</p>
+						</div>
+
+						<div class="quantity-box">
+							<label for="quantity">Quantity</label>
+							<input type="number" id="quantity"
+								   name="quantity" value="1" min="1">
+						</div>
+					</div>
+
+					<h3 class="form-heading">Customer Details</h3>
+
+					<div class="form-grid">
+
+						<div class="form-group">
+							<label for="fullName">Full Name</label>
+							<input type="text" id="fullName"
+								   name="fullName"
+								   placeholder="Enter your full name" required>
+						</div>
+
+						<div class="form-group">
+							<label for="mobile">Mobile Number</label>
+							<input type="tel" id="mobile"
+								   name="mobile"
+								   placeholder="Enter mobile number"
+								   pattern="[0-9]{10}" required>
+						</div>
+
+						<div class="form-group full-width">
+							<label for="email">Email Address (Optional)</label>
+							<input type="email" id="email" name="email"
+								   placeholder="Enter your email address">
+						</div>
+
+						<div class="form-group full-width">
+							<label for="address">Delivery Address</label>
+							<textarea id="address" name="address" rows="3"
+									  placeholder="House no., street, area..."
+									  required></textarea>
+						</div>
+
+						<div class="form-group">
+							<label for="city">City</label>
+							<input type="text" id="city" name="city"
+								   placeholder="Enter your city" required>
+						</div>
+
+						<div class="form-group">
+							<label for="pincode">PIN Code</label>
+							<input type="text" id="pincode" name="pincode"
+								   placeholder="Enter PIN code"
+								   pattern="[0-9]{6}" required>
+						</div>
+
+					</div>
+
+					<h3 class="form-heading">Payment Method</h3>
+
+					<label class="payment-option">
+						<input type="radio" name="payment"
+							   value="COD" checked>
+
+						<span class="payment-icon">₹</span>
+
+						<span class="payment-details">
+							<strong>Cash on Delivery</strong>
+							<small>Pay when your order arrives</small>
+						</span>
+					</label>
+
+					<div class="order-total">
+						<span>Total Amount</span>
+						<strong id="totalAmount">$15.00</strong>
+					</div>
+
+					<button type="submit" class="confirm-order">
+						Confirm Order
+					</button>
+
+					<p class="order-note">
+						Please check your details before confirming your order.
+					</p>
+
+				</form>
+			</div>
+		</section>
+		
+		
+		<!-- Feedback Form -->
+		
+		<section class="feedback-overlay" id="feedbackForm">
+
+			<div class="feedback-container">
+
+				<!-- Heading and Close Button -->
+				<div class="feedback-header">
+					<h2>Share Your Feedback</h2>
+					<button type="button" class="feedback-close"
+							onclick="closeFeedbackForm()">&times;</button>
+				</div>
+
+				<p class="feedback-subtitle">
+					We'd love to hear about your CoffyChino experience!
+				</p>
+
+				<form id="feedbackFormData">
+
+					<!-- Name -->
+					<label for="feedbackName">Your Name</label>
+					<input type="text" id="feedbackName"
+						   name="name" placeholder="Enter your name" required>
+
+					<!-- Rating -->
+					<label class="rating-label">Rate Your Experience</label>
+
+					<div class="feedback-rating">
+						<input type="radio" id="rate1" name="rating" value="1" required>
+						<label for="rate1" title="1 star">★</label>
+
+						<input type="radio" id="rate2" name="rating" value="2">
+						<label for="rate2" title="2 stars">★</label>
+
+						<input type="radio" id="rate3" name="rating" value="3">
+						<label for="rate3" title="3 stars">★</label>
+
+						<input type="radio" id="rate4" name="rating" value="4">
+						<label for="rate4" title="4 stars">★</label>
+
+						<input type="radio" id="rate5" name="rating" value="5">
+						<label for="rate5" title="5 stars">★</label>
+					</div>
+
+					<!-- Feedback Message -->
+					<label for="feedbackMessage">Your Feedback</label>
+					<textarea id="feedbackMessage" name="message"
+							  rows="4" placeholder="Write your feedback here..."
+							  required></textarea>
+
+					<!-- Submit -->
+					<button type="submit" class="feedback-submit">
+						Submit Feedback
+					</button>
+
+				</form>
+
+			</div>
+		</section>
+		
+		
+		<!-- My_Ordres_PopUp -->
+		
+		
+				<!-- My_Orders_PopUp -->
+
+		<section class="my-orders-overlay" id="myOrdersPopup">
+
+			<div class="my-orders-container">
+
+				<div class="my-orders-header">
+
+					<div>
+						<h2>My Orders</h2>
+					</div>
+
+					<button type="button" class="my-orders-close"
+							onclick="closeMyOrders()">✕</button>
+				</div>
+
+				<div class="my-orders-list" id="myOrdersList">
+
+					<!-- Order 1 -->
+					<div class="my-order-card">
+
+						<div class="my-order-image">
+							<img src="images/hero-img.jpg" alt="Colombia Supremo">
+						</div>
+
+						<div class="my-order-info">
+							<h3>Colombia Supremo</h3>
+							<p>Order ID: #CC1001</p>
+							<p>Quantity: 1</p>
+							<p>Order Date: 05 Oct 2026</p>
+							<span class="my-order-status status-pending">
+								Pending...
+							</span>
+						</div>
+
+						<div class="my-order-price">$15.00</div>
+
+					</div>
+
+					<!-- Order 2 -->
+					<div class="my-order-card">
+
+						<div class="my-order-image">
+							<img src="images/hero-img.jpg" alt="Brewed Coffee">
+						</div>
+
+						<div class="my-order-info">
+							<h3>Brewed Coffee</h3>
+							<p>Order ID: #CC1002</p>
+							<p>Quantity: 2</p>
+							<p>Order Date: 08 Oct 2026</p>
+							<span class="my-order-status status-delivered">
+								Delivered
+							</span>
+						</div>
+
+						<div class="my-order-price">$30.00</div>
+
+					</div>
+
+				</div>
+
+				<!-- Empty Orders Message -->
+				<div class="my-orders-empty" id="myOrdersEmpty">
+					<h3>No Orders Yet</h3>
+					<p>Your coffee orders will appear here.</p>
+				</div>
+
+			</div>
+
+		</section>
+
+	
+		
 	</main>
 	
 	
-	<footer class="footer-section">
+	<footer id="footer-section">
     
 		<div class="footer-content">
 				
 			<div class="company">
-				<h3>Company</h3><br><br>
+				<h3>Company Details</h3><br><br>
 				
 				<div class="company-links">
-					<a href="#about">About Us</a>
-					<a href="#process">Our Process</a>
+					<a href="#section-about">About Us</a>
+					<a href="#process-section">Our Process</a>
 				</div>
 			</div>
 			
 			
 			
-			<div class="help">
-				<h3>Get Help</h3><br><br>
+			<div class="contact-us">
+				<h3>Contact Us</h3><br><br>
 				
-				<div class="help-links">
+				<div class="contact-links">
 					<a href="tel:6307736109">Phone: +91 63077 - 36109</a>
 					<a href="mailto:apoorvbatham27@gmail.com">Email Us: apoorvbatham27@gmail.com</a>
 				</div>
@@ -1252,17 +2248,17 @@
 			</div>
 			
 			<div class="online-shop">
-				<h3>Online-Shop</h3><br><br>
+				<h3>Online Shop</h3><br><br>
 				
 				<div class="shop-links">
-					<a href="#ice-coffee">Ice-Coffee</a>
-					<a href="#products">Brewed-Coffee</a>
+					<a href="#latest_blends">Ready To Drink Coffee</a>
+					<a href="#brewed-pro_section">Brewed-Coffee</a>
 				</div>
 			</div>
 			
 			
 			<div class="follow-us">
-				<h3> Follow-Us</h3><br>
+				<h3> Follow Us</h3><br>
 				<div class="follow-links">
 					<a href="https://facebook.com" target="_blank"><img src ="images/—Pngtree—white  icon png_3562061.png" alt="icon-facebook"></a>
 					<a href="https://instagram.com" target="_blank"><img src="images/—Pngtree—white instagram icon png instagram_3562066.png"alt="icon-instagram"></a>
@@ -1278,23 +2274,87 @@
 
 	
 <script>
-    
-	   let menuBtn = document.getElementById("menuBtn");
-	   let closeBtn = document.getElementById("closeBtn");
-	   let sidebar = document.getElementById("sidebar");
+		
+	<!-- Sidebar -->
+   let menuBtn = document.getElementById("menuBtn");
+   let closeBtn = document.getElementById("closeBtn");
+   let sidebar = document.getElementById("sidebar");
+   
+	menuBtn.addEventListener("click",function(){
 	   
-		menuBtn.addEventListener("click",function(){
-		   
-		   sidebar.style.left = "0";
-		   
-	   });
+	   sidebar.style.left = "0";
 	   
-		closeBtn.addEventListener("click",function(){
-		   
-		   sidebar.style.left = "-15%";
-		   
-		   
-	   });
+   });
+   
+
+	closeBtn.addEventListener("click",function(){
+	   
+	   sidebar.style.left = "-15%";
+	   
+	   
+   });
+   
+   
+   
+   
+					//Forms and PopUp
+				
+	//Order_form
+	function openOrderForm() {
+		const form = document.getElementById("orderForm");
+
+		form.classList.add("active");
+		document.body.style.overflow = "hidden";
+	}
+
+	function closeOrderForm() {
+		const form = document.getElementById("orderForm");
+
+		form.classList.remove("active");
+		document.body.style.overflow = "";
+	}
+
+
+
+	//Feedback_form
+	function openFeedbackForm() {
+		document.getElementById("feedbackForm").classList.add("active");
+		document.body.style.overflow = "hidden";
+	}
+
+	function closeFeedbackForm() {
+		document.getElementById("feedbackForm").classList.remove("active");
+		document.body.style.overflow = "";
+	}
+
+
+
+	//My_Orders_PopUp
+	function openMyOrders() {
+		document.getElementById("myOrdersPopup").classList.add("active");
+		document.body.style.overflow = "hidden";
+	}
+
+	function closeMyOrders() {
+		document.getElementById("myOrdersPopup").classList.remove("active");
+		document.body.style.overflow = "";
+	}
+
+   
+   
+	/* Refresh Effect
+	window.addEventListener("load", function() {
+		if (performance.getEntriesByType("navigation")[0].type === "reload") {
+			window.scrollTo(0, 0);
+		}
+	});
+	
+		*/
+	
+	
+	
+	
+
     
 </script>
 	

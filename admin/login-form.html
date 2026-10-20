@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffyCup - Login</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-family: sans-serif;
+			flex-direction: column;
+            background-image: url("../images/login-img.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+			row-gap:10px;
+            width: 100vw;
+			min-height: 100vh;
+			height: auto;
+        }
+		
+		.back-btn {
+			position: fixed;
+			top: 25px;
+			left: 25px;
+			color: #e6ffe6;
+			text-decoration: none;
+			font-size: 17px;
+			font-weight: bold;
+			padding: 10px 18px;
+			border: 1px solid #ccffcc;
+			border-radius: 8px;
+			background: rgba(0, 0, 0, 0.25);
+			transition: 0.3s ease;
+			z-index: 1000;
+		}
+
+		.back-btn:hover {
+			background-color:#631c31;
+			transform: translateX(-3px);
+		}
+
+        .form {
+            display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			flex-direction: column;
+			min-height: 550px;
+			width: 35%;
+			font-size: 25px;
+			border: 2px solid #ccffcc;
+			border-radius: 20px;
+			padding: 30px;
+			backdrop-filter: blur(8px);
+        }
+
+        .form-content {
+            display: flex;
+			align-items: flex-start;
+			justify-content: flex-start;
+			flex-direction: column;
+			width: 100%;
+			height: auto;
+        }
+		
+		.login-logo {
+			width: 120px;
+			height: auto;
+			display: block;
+			margin: 0 auto 8px;
+		}
+
+		.form-headings h2 {
+			font-size: 30px;
+			margin-bottom: 15px;
+		}
+		.form-headings .tagline {
+			font-size: 13px;
+			font-weight: normal;
+			margin-top: 0;
+			line-height: 1.5;
+		}
+
+        .form-headings {
+            color: #e6ffe6;
+            text-align: center;
+            margin-bottom: 5%;
+            height: 10%;
+            width: 100%;
+        }
+
+        input {
+           margin: 12px 0 8px;
+		height: 40px;
+		width: 100%;
+		text-align: left;
+		padding: 5px 8px;
+		border: none;
+		border-bottom: 2px solid #e6ffe6;
+		background: transparent;
+		outline: none;
+		color: white;
+        }
+
+        input::placeholder {
+            color: #e6ffe6;
+            text-align: start;
+        }
+
+        .form-content p {
+              color: #e6ffe6;
+			margin-top: 15px;
+			font-size: 18px;
+			font-weight: bold;
+        }
+
+        button {
+            margin-top: 10%;
+            margin-left: 22%;
+            width: 260px;
+            height: 35px;
+            color: #ffff;
+            background-color: #4D5A1A;
+            box-shadow: rgba(0, 0, 0, 0.5) 5px 5px 12px 0px;
+            border: none;
+            font-size: 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.45s ease;
+        }
+
+        button:hover {
+            background-color:#631c31;
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+
+        /* Login functionality: feedback only, no layout redesign */
+        #login-message {
+            color: #ffffff;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+    </style>
+</head>
+
+<body>
+	
+	<a href="/home.html" class="back-btn">← Back</a>
+
+    <form class="form" id="adminLoginForm">
+	
+        <div class="form-headings">
+			<h2>Welcome Back!</h2>
+
+			<img src="../images/logo-img.png"
+				 alt="CoffyCup Logo"
+				 class="login-logo">
+
+			<p class="tagline">Pure Taste Pure Beans</p>
+			
+        </div>
+
+        <div class="form-content">
+
+            <p><b>Enter Username / Email</b></p>
+            <input
+               type="text"
+			   id="username"
+			   name="username"
+			   placeholder="Username / Email"
+			   autocomplete="username"
+			   required
+			>
+
+            <p><b>Enter Password</b></p>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" id="loginButton">LOGIN</button>
+
+            <div id="login-message" role="status" aria-live="polite"></div>
+
+			<p style="font-size: 15px; align-self: center; text-align: center;">
+				Don't have an account?
+				<a href="/register.html"
+				   style="color: #e6ffe6;">
+					Register Here
+				</a>
+			</p>
+			
+        </div>
+		
+    </form>
+
+<script>
+    const loginForm = document.getElementById("adminLoginForm");
+    const loginButton = document.getElementById("loginButton");
+    const message = document.getElementById("login-message");
+
+    loginForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+
+        message.textContent = "";
+        loginButton.disabled = true;
+        loginButton.textContent = "PLEASE WAIT...";
+
+        try {
+            // First, try Admin login
+            let response = await fetch("/api/admin/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            });
+
+            let result = await response.json();
+
+            if (response.ok) {
+                message.textContent = "Admin login successful!";
+                window.location.href = "/admin/dashboard.html";
+                return;
+            }
+
+            // If Admin login fails, try User login using email
+            response = await fetch("/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    email: username,
+                    password: password
+                })
+            });
+
+            result = await response.json();
+
+            if (response.ok) {
+                message.textContent = "User login successful!";
+                window.location.href = "/home.html";
+                return;
+            }
+
+            message.textContent = "Invalid username/email or password.";
+
+        } catch (error) {
+            message.textContent =
+                "Unable to connect. Check whether Flask is running.";
+        } finally {
+            loginButton.disabled = false;
+            loginButton.textContent = "SIGN IN";
+        }
+    });
+</script>
+
+{% include 'includes/copyright.html' %}
+</body>
+</html>

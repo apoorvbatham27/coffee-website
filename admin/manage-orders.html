@@ -1,0 +1,1081 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CoffyCup Admin | Manage Orders</title>
+
+    <style>
+        :root {
+            --panel: rgba(14, 23, 12, 0.87);
+            --line: rgba(185, 240, 181, 0.48);
+            --text: #eefbe9;
+            --muted: #b5c9ae;
+            --green: #52652b;
+            --gold: #e0b45a;
+            --red: #ff9288;
+            --blue: #8ec9ff;
+            --purple: #c9a8ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+
+            /* Generated CoffyCup background */
+            background:
+                linear-gradient(
+                    rgba(5, 12, 4, 0.48),
+                    rgba(5, 12, 4, 0.70)
+                ),
+                url("../images/login-img.png") center center / cover no-repeat fixed,
+                #10200e;
+        }
+
+        button,
+        select,
+        a {
+            font: inherit;
+        }
+
+        button,
+        select {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Main layout */
+
+        .layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr);
+            gap: 18px;
+            padding: 18px;
+            min-height: 100vh;
+            transition: grid-template-columns 0.25s ease;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            min-height: calc(100vh - 36px);
+            padding: 22px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: sticky;
+            top: 18px;
+            align-self: start;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 7px 22px;
+            color: #e9ffe4;
+            font-size: 1.4rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            font-size: 1.7rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-link,
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 12px;
+            color: var(--muted);
+            border-radius: 10px;
+            font-size: 0.93rem;
+            font-weight: bold;
+            border: 1px solid transparent;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background: rgba(185, 240, 181, 0.10);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: var(--green);
+            color: white;
+            border-color: rgba(220, 255, 210, 0.15);
+        }
+
+        .nav-icon {
+            width: 23px;
+            flex: 0 0 23px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .logout {
+            margin-top: auto;
+            color: var(--red);
+            border-color: rgba(255, 146, 136, 0.4);
+        }
+
+        .logout:hover {
+            background: rgba(255, 146, 136, 0.12);
+        }
+
+        /* Main content */
+
+        main {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding: 18px 20px;
+        }
+
+        .menu-button {
+            width: 43px;
+            height: 43px;
+            flex: 0 0 43px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            color: white;
+            background: rgba(185, 240, 181, 0.06);
+            font-size: 1.4rem;
+        }
+
+        .menu-button:hover {
+            background: rgba(185, 240, 181, 0.15);
+        }
+
+        h1 {
+            font-size: 1.55rem;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .filter {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        select {
+            padding: 10px 12px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            background: #14210f;
+            color: white;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: #d5f5c9;
+            box-shadow: 0 0 0 2px rgba(185, 240, 181, 0.12);
+        }
+
+        /* Orders table */
+
+        .orders {
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .orders-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 17px;
+        }
+
+        .orders-heading h2 {
+            font-size: 1.15rem;
+        }
+
+        .order-count {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 820px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px 10px;
+            text-align: left;
+            vertical-align: middle;
+            border-bottom: 1px solid rgba(185, 240, 181, 0.17);
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 0.81rem;
+            white-space: nowrap;
+            background: rgba(185, 240, 181, 0.04);
+        }
+
+        td {
+            font-size: 0.87rem;
+        }
+
+        tbody tr:hover {
+            background: rgba(185, 240, 181, 0.045);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .customer strong,
+        .customer span {
+            display: block;
+            overflow-wrap: anywhere;
+        }
+
+        .customer strong {
+            margin-bottom: 5px;
+        }
+
+        .customer span {
+            color: var(--muted);
+            font-size: 0.78rem;
+            margin-top: 4px;
+            max-width: 190px;
+        }
+
+        .payment {
+            display: inline-block;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 5px 9px;
+            font-size: 0.77rem;
+            white-space: nowrap;
+        }
+
+        .status-select {
+            min-width: 125px;
+            padding: 8px;
+            font-size: 0.82rem;
+        }
+
+        .status-label {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            border: 1px solid currentColor;
+            font-size: 0.77rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .Pending {
+            color: var(--gold);
+        }
+
+        .Processing {
+            color: var(--blue);
+        }
+
+        .Shipped {
+            color: var(--purple);
+        }
+
+        .Delivered {
+            color: #a5ee96;
+        }
+
+        .Cancelled {
+            color: var(--red);
+        }
+
+        .message {
+            color: var(--muted);
+            text-align: center;
+            padding: 28px 15px;
+        }
+
+        /* Notification */
+
+        .notice {
+            position: fixed;
+            z-index: 50;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: calc(100% - 30px);
+            padding: 13px 18px;
+            border-radius: 10px;
+            background: #253b1d;
+            color: white;
+            border: 1px solid var(--line);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+            display: none;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .notice.show {
+            display: block;
+        }
+
+        /* Desktop sidebar collapse */
+
+        .layout.collapsed {
+            grid-template-columns: 76px minmax(0, 1fr);
+        }
+
+        .layout.collapsed .sidebar {
+            padding-left: 9px;
+            padding-right: 9px;
+        }
+
+        .layout.collapsed .brand {
+            justify-content: center;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .layout.collapsed .brand-name,
+        .layout.collapsed .nav-text,
+        .layout.collapsed .logout-text {
+            display: none;
+        }
+
+        .layout.collapsed .nav-link,
+        .layout.collapsed .logout {
+            justify-content: center;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .layout.collapsed .nav-icon {
+            flex-basis: auto;
+        }
+
+        .overlay {
+            display: none;
+        }
+
+        /* Tablet */
+
+        @media (max-width: 1000px) {
+            .layout {
+                grid-template-columns: 205px minmax(0, 1fr);
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .layout.collapsed {
+                grid-template-columns: 70px minmax(0, 1fr);
+            }
+
+            .header {
+                gap: 12px;
+            }
+
+            .filter {
+                margin-left: 0;
+            }
+        }
+
+        /* Mobile sidebar */
+
+        @media (max-width: 760px) {
+            .layout,
+            .layout.collapsed {
+                display: block;
+                padding: 10px;
+            }
+
+            .sidebar {
+                position: fixed;
+                z-index: 31;
+                top: 10px;
+                bottom: 10px;
+                left: 10px;
+                width: 245px;
+                min-height: 0;
+                height: auto;
+                overflow-y: auto;
+                transform: translateX(-120%);
+                transition: transform 0.25s ease;
+                background: rgba(12, 23, 10, 0.98);
+            }
+
+            .layout.mobile-open .sidebar {
+                transform: translateX(0);
+            }
+
+            .layout.collapsed .sidebar {
+                padding: 22px 15px;
+            }
+
+            .layout.collapsed .brand {
+                justify-content: flex-start;
+                margin: 0 7px 22px;
+            }
+
+            .layout.collapsed .brand-name,
+            .layout.collapsed .nav-text,
+            .layout.collapsed .logout-text {
+                display: inline;
+            }
+			
+			
+			
+
+            .layout.collapsed .nav-link,
+            .layout.collapsed .logout {
+                justify-content: flex-start;
+                padding: 13px 12px;
+            }
+
+            .layout.collapsed .nav-icon {
+                flex-basis: 23px;
+            }
+
+            .layout.mobile-open .overlay {
+                display: block;
+            }
+
+            .overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 30;
+                background: rgba(0, 0, 0, 0.65);
+            }
+
+            main {
+                gap: 12px;
+            }
+
+            .header {
+                padding: 14px;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .subtitle {
+                font-size: 0.82rem;
+            }
+
+            .filter {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .filter select {
+                flex: 1;
+                max-width: 220px;
+            }
+
+            .orders {
+                padding: 15px;
+            }
+
+            .orders-heading h2 {
+                font-size: 1.05rem;
+            }
+        }
+		
+		.brand-name{
+			font-family: 'Georgia', serif;
+		}
+
+		
+        @media (max-width: 420px) {
+            h1 {
+                font-size: 1.12rem;
+            }
+
+            .menu-button {
+                width: 39px;
+                height: 39px;
+                flex-basis: 39px;
+            }
+
+            .header {
+                gap: 10px;
+            }
+
+            .orders {
+                padding: 12px;
+            }
+        }
+		
+		
+    </style>
+</head>
+
+<body>
+
+<div class="layout" id="layout">
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar panel" id="sidebar">
+
+        <div class="brand">
+            <span class="brand-name">CoffyCup</span>
+        </div>
+
+        <nav class="nav-links">
+
+            <a class="nav-link" href="dashboard.html">
+                <span class="nav-icon">▦</span>
+                <span class="nav-text">Dashboard</span>
+            </a>
+
+            <a class="nav-link" href="manage-products.html">
+                <span class="nav-icon">▣</span>
+                <span class="nav-text">Manage Products</span>
+            </a>
+
+            <a class="nav-link active" href="orders.html" aria-current="page">
+                <span class="nav-icon">🛒</span>
+                <span class="nav-text">Manage Orders</span>
+            </a>
+			
+			<a class="nav-link" href="manage-users.html">
+				<span class="nav-icon">♙</span>
+				<span class="nav-text">Manage Users</span>
+			</a>
+
+            <a class="nav-link" href="feedback.html">
+                <span class="nav-icon">✉</span>
+                <span class="nav-text">View Feedback</span>
+            </a>
+
+        </nav>
+
+        <button class="logout" id="logoutBtn" type="button">
+            <span class="nav-icon">↪</span>
+            <span class="logout-text">Logout</span>
+        </button>
+
+    </aside>
+
+    <!-- Main content -->
+    <main>
+
+        <header class="header panel">
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                type="button"
+                aria-label="Toggle sidebar"
+                aria-expanded="true"
+            >☰</button>
+
+            <div>
+                <h1>Manage Orders</h1>
+                <p class="subtitle">
+                    View customer orders and update their status.
+                </p>
+            </div>
+
+            <label class="filter" for="statusFilter">
+                <span>Filter:</span>
+
+                <select id="statusFilter">
+                    <option value="All">All orders</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </label>
+
+        </header>
+
+        <section class="orders panel">
+
+            <div class="orders-heading">
+                <h2>Customer Orders</h2>
+                <span class="order-count" id="orderCount">0 orders</span>
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Details</th>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="ordersTable"></tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+	
+<script>
+    // Orders and page elements
+    let orders = [];
+
+    const table = document.getElementById("ordersTable");
+    const statusFilter = document.getElementById("statusFilter");
+    const orderCount = document.getElementById("orderCount");
+    const notice = document.getElementById("notice");
+
+    const allowedStatuses = [
+        "Pending",
+        "Confirmed",
+        "Processing",
+        "Shipped",
+        "Delivered",
+        "Cancelled"
+    ];
+
+    // Prevent text from being interpreted as HTML.
+    function escapeHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, function (char) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[char];
+        });
+    }
+
+    function formatMoney(amount) {
+        return "₹" + Number(amount || 0).toLocaleString("en-IN");
+    }
+
+    function getOrderId(order) {
+        return String(order.id ?? order.order_id ?? "—");
+    }
+
+    function getCustomerName(order) {
+        return order.name
+            ?? order.customer
+            ?? order.customer_name
+            ?? "Customer";
+    }
+
+    function getProductName(order) {
+        if (typeof order.prod === "string") {
+            return order.prod;
+        }
+
+        if (typeof order.product === "string") {
+            return order.product;
+        }
+
+        return order.product_name
+            ?? order.product?.name
+            ?? "Coffee Product";
+    }
+
+    function getQuantity(order) {
+        return Number(order.qty ?? order.quantity ?? 1);
+    }
+
+    function getTotal(order) {
+        return Number(
+            order.total
+            ?? order.totalAmount
+            ?? order.amount
+            ?? 0
+        );
+    }
+
+    function getStatus(order) {
+        return allowedStatuses.includes(order.status)
+            ? order.status
+            : "Pending";
+    }
+
+    function getPayment(order) {
+        return order.payment_method
+            ?? order.payment
+            ?? order.paymentMethod
+            ?? "Cash on Delivery";
+    }
+
+    function getAddress(order) {
+        return [
+            order.addr ?? order.address ?? order.deliveryAddress,
+            order.city,
+            order.pincode
+        ].filter(Boolean).join(", ") || "—";
+    }
+
+    // Temporary notification
+    let noticeTimeout;
+
+    function showNotice(message) {
+        notice.textContent = message;
+        notice.classList.add("show");
+
+        clearTimeout(noticeTimeout);
+
+        noticeTimeout = setTimeout(function () {
+            notice.classList.remove("show");
+        }, 2500);
+    }
+
+    // Load actual orders from the Flask backend.
+    async function loadOrders() {
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="message">Loading orders...</td>
+            </tr>
+        `;
+
+        try {
+            const response = await fetch("/api/admin/orders", {
+                method: "GET",
+                credentials: "same-origin"
+            });
+
+            const data = await response.json();
+
+            if (response.status === 401) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="message">
+                            Admin login required. Please log in again.
+                        </td>
+                    </tr>
+                `;
+                orderCount.textContent = "0 orders";
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(data.error || "Could not load orders.");
+            }
+
+            orders = Array.isArray(data.orders) ? data.orders : [];
+            showOrders();
+
+        } catch (error) {
+            console.error("Orders loading failed:", error);
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="7" class="message">
+                        Unable to load orders. Please refresh the page.
+                    </td>
+                </tr>
+            `;
+
+            orderCount.textContent = "0 orders";
+            showNotice("Could not load orders from the database.");
+        }
+    }
+
+    // Display orders according to the selected filter.
+    function showOrders() {
+        const selectedFilter = statusFilter.value;
+
+        const filteredOrders = orders.filter(function (order) {
+            return selectedFilter === "All"
+                || getStatus(order) === selectedFilter;
+        });
+
+        orderCount.textContent =
+            filteredOrders.length +
+            (filteredOrders.length === 1 ? " order" : " orders");
+
+        if (filteredOrders.length === 0) {
+            table.innerHTML = `
+                <tr>
+                    <td colspan="7" class="message">
+                        No orders found for this filter.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        table.innerHTML = filteredOrders.map(function (order) {
+            const id = getOrderId(order);
+            const status = getStatus(order);
+
+            const customer = escapeHTML(getCustomerName(order));
+            const phone = escapeHTML(order.phone ?? order.mobile ?? "—");
+            const address = escapeHTML(getAddress(order));
+            const product = escapeHTML(getProductName(order));
+            const quantity = getQuantity(order);
+            const payment = escapeHTML(getPayment(order));
+            const total = formatMoney(getTotal(order));
+
+            return `
+                <tr>
+                    <td>
+                        <strong>${escapeHTML(id)}</strong>
+                    </td>
+
+                    <td class="customer">
+                        <strong>${customer}</strong>
+                        <span>${phone}</span>
+                        <span>${address}</span>
+                    </td>
+
+                    <td>${product}</td>
+                    <td>${quantity}</td>
+                    <td>${total}</td>
+
+                    <td>
+                        <span class="payment">${payment}</span>
+                    </td>
+
+                    <td>
+                        <select
+                            class="status-select"
+                            data-order-id="${escapeHTML(id)}"
+                            aria-label="Status for order ${escapeHTML(id)}"
+                        >
+                            ${allowedStatuses.map(function (option) {
+                                return `
+                                    <option
+                                        value="${option}"
+                                        ${option === status ? "selected" : ""}
+                                    >${option}</option>
+                                `;
+                            }).join("")}
+                        </select>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    // Save status changes to the database.
+    table.addEventListener("change", async function (event) {
+        const select = event.target;
+
+        if (!select.matches(".status-select")) {
+            return;
+        }
+
+        const orderId = select.dataset.orderId;
+        const newStatus = select.value;
+
+        if (!allowedStatuses.includes(newStatus)) {
+            return;
+        }
+
+        // Find the matching order by its database ID.
+        const order = orders.find(function (item) {
+            return getOrderId(item) === orderId;
+        });
+
+        if (!order || !Number.isInteger(Number(orderId))) {
+            showNotice("Invalid order ID.");
+            showOrders();
+            return;
+        }
+
+        const oldStatus = getStatus(order);
+        select.disabled = true;
+
+        try {
+            const response = await fetch(
+                "/api/admin/orders/" + encodeURIComponent(orderId),
+                {
+                    method: "PUT",
+                    credentials: "same-origin",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        status: newStatus
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (response.status === 401) {
+                showNotice("Admin login required. Please log in again.");
+                await loadOrders();
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    data.error || "Could not update order status."
+                );
+            }
+
+            order.status = data.status ?? newStatus;
+            showOrders();
+            showNotice("Order #" + orderId + " updated to " + order.status);
+
+        } catch (error) {
+            console.error("Status update failed:", error);
+            order.status = oldStatus;
+            showOrders();
+            showNotice(error.message || "Unable to update order status.");
+        }
+    });
+
+    // Filter orders by status.
+    statusFilter.addEventListener("change", showOrders);
+
+    // Sidebar responsive controls.
+    const layout = document.getElementById("layout");
+    const menuButton = document.getElementById("menuButton");
+    const overlay = document.getElementById("overlay");
+
+    function isMobile() {
+        return window.matchMedia("(max-width: 760px)").matches;
+    }
+
+    function closeMobileSidebar() {
+        layout.classList.remove("mobile-open");
+        menuButton.setAttribute("aria-expanded", "false");
+    }
+
+    menuButton.addEventListener("click", function () {
+        if (isMobile()) {
+            layout.classList.toggle("mobile-open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(layout.classList.contains("mobile-open"))
+            );
+        } else {
+            layout.classList.toggle("collapsed");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(!layout.classList.contains("collapsed"))
+            );
+        }
+    });
+
+    overlay.addEventListener("click", closeMobileSidebar);
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeMobileSidebar();
+        }
+    });
+
+    document.querySelectorAll(".nav-link").forEach(function (link) {
+        link.addEventListener("click", function () {
+            if (isMobile()) {
+                closeMobileSidebar();
+            }
+        });
+    });
+
+    window.addEventListener("resize", function () {
+        if (!isMobile()) {
+            closeMobileSidebar();
+        }
+    });
+
+    // Logout through the Flask backend.
+    document.getElementById("logoutBtn").addEventListener("click", async function () {
+        if (!confirm("Are you sure you want to logout?")) {
+            return;
+        }
+
+        try {
+            await fetch("/api/admin/logout", {
+                method: "POST",
+                credentials: "same-origin"
+            });
+        } catch (error) {
+            console.error("Logout request failed:", error);
+        }
+
+        window.location.href = "/admin/";
+    });
+
+    // Initial page load.
+    loadOrders();
+</script>
+
+
+{% include 'includes/copyright.html' %}
+</body>
+</html>

@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Admin | View Feedback</title>
+
+    <style>
+        :root {
+            --panel: rgba(14, 23, 12, 0.88);
+            --line: rgba(185, 240, 181, 0.35);
+            --text: #eefbe9;
+            --muted: #b5c9ae;
+            --green: #52652b;
+            --red: #ff9288;
+            --gold: #e0b45a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background:
+                linear-gradient(
+                    rgba(5, 12, 4, 0.48),
+                    rgba(5, 12, 4, 0.70)
+                ),
+                url("../images/login-img.png") center center / cover no-repeat fixed,
+                #10200e;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        /* Main layout */
+
+        .layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr);
+            gap: 18px;
+            padding: 18px;
+            min-height: 100vh;
+            transition: grid-template-columns 0.25s ease;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            min-height: calc(100vh - 36px);
+            padding: 22px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: sticky;
+            top: 18px;
+            align-self: start;
+            z-index: 31;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 7px 22px;
+            color: #e9ffe4;
+            font-size: 1.4rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            font-size: 1.7rem;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        nav a,
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 13px 12px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: var(--muted);
+            background: transparent;
+            text-decoration: none;
+            text-align: left;
+            font-size: 0.92rem;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .nav-icon {
+            width: 23px;
+            flex: 0 0 23px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            background: rgba(185, 240, 181, 0.10);
+            color: white;
+        }
+
+        nav a.active {
+            background: var(--green);
+            color: white;
+        }
+
+        .logout {
+            margin-top: auto;
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .logout:hover {
+            background: rgba(255, 146, 136, 0.12);
+        }
+
+        /* Main content */
+
+        main {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 20px;
+            flex-wrap: wrap;
+        }
+
+        .menu-button {
+            width: 43px;
+            height: 43px;
+            flex: 0 0 43px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            color: white;
+            background: rgba(185, 240, 181, 0.06);
+            font-size: 1.4rem;
+        }
+
+        .menu-button:hover {
+            background: rgba(185, 240, 181, 0.15);
+        }
+
+        .header-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            font-size: 1.55rem;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .count {
+            padding: 8px 13px;
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            color: var(--gold);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        /* Feedback table */
+
+        .feedback-panel {
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 17px;
+        }
+
+        .section-heading h2 {
+            font-size: 1.15rem;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px 10px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid rgba(185, 240, 181, 0.18);
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 0.83rem;
+            white-space: nowrap;
+            background: rgba(185, 240, 181, 0.04);
+        }
+
+        td {
+            font-size: 0.88rem;
+            overflow-wrap: anywhere;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(185, 240, 181, 0.04);
+        }
+
+        .customer-name {
+            font-weight: bold;
+        }
+
+        .email,
+        .date {
+            color: var(--muted);
+        }
+
+        .message {
+            min-width: 220px;
+            max-width: 430px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .empty {
+            text-align: center;
+            color: var(--muted);
+            padding: 28px 15px;
+        }
+
+        .error-message {
+            color: var(--red);
+            text-align: center;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        /* Collapsed desktop sidebar */
+
+        .layout.collapsed {
+            grid-template-columns: 76px minmax(0, 1fr);
+        }
+
+        .layout.collapsed .sidebar {
+            padding-left: 9px;
+            padding-right: 9px;
+        }
+
+        .layout.collapsed .brand {
+            justify-content: center;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .layout.collapsed .brand-text,
+        .layout.collapsed .nav-text,
+        .layout.collapsed .logout-text {
+            display: none;
+        }
+
+        .layout.collapsed nav a,
+        .layout.collapsed .logout {
+            justify-content: center;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .layout.collapsed .nav-icon {
+            flex-basis: auto;
+        }
+
+        .overlay {
+            display: none;
+        }
+
+        /* Tablet */
+
+        @media (max-width: 1000px) {
+            .layout {
+                grid-template-columns: 205px minmax(0, 1fr);
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .layout.collapsed {
+                grid-template-columns: 70px minmax(0, 1fr);
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .feedback-panel {
+                padding: 15px;
+            }
+        }
+
+        /* Mobile */
+
+        @media (max-width: 760px) {
+            .layout,
+            .layout.collapsed {
+                display: block;
+                padding: 10px;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 10px;
+                bottom: 10px;
+                left: 10px;
+                width: 245px;
+                min-height: 0;
+                height: auto;
+                overflow-y: auto;
+                transform: translateX(-120%);
+                transition: transform 0.25s ease;
+                background: rgba(12, 23, 10, 0.98);
+            }
+
+            .layout.mobile-open .sidebar {
+                transform: translateX(0);
+            }
+
+            .layout.collapsed .sidebar {
+                padding: 22px 15px;
+            }
+
+            .layout.collapsed .brand {
+                justify-content: flex-start;
+                margin: 0 7px 22px;
+            }
+
+            .layout.collapsed .brand-text,
+            .layout.collapsed .nav-text,
+            .layout.collapsed .logout-text {
+                display: inline;
+            }
+
+            .layout.collapsed nav a,
+            .layout.collapsed .logout {
+                justify-content: flex-start;
+                padding: 13px 12px;
+            }
+
+            .layout.collapsed .nav-icon {
+                flex-basis: 23px;
+            }
+
+            .overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 30;
+                background: rgba(0, 0, 0, 0.65);
+            }
+
+            .layout.mobile-open .overlay {
+                display: block;
+            }
+
+            main {
+                gap: 12px;
+            }
+
+            .header {
+                gap: 11px;
+                padding: 14px;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .subtitle {
+                font-size: 0.82rem;
+            }
+
+            .count {
+                margin-left: 54px;
+            }
+
+            .feedback-panel {
+                padding: 12px;
+            }
+        }
+		
+		.brand-text{
+			font-family: 'Georgia', serif;
+		}
+
+        @media (max-width: 420px) {
+            .header {
+                padding: 12px;
+            }
+
+            h1 {
+                font-size: 1.1rem;
+            }
+
+            .menu-button {
+                width: 39px;
+                height: 39px;
+                flex-basis: 39px;
+            }
+
+            .count {
+                margin-left: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout" id="layout">
+
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar panel" id="sidebar">
+            <div class="brand">
+                <span class="brand-text">CoffyCup</span>
+            </div>
+
+            <nav>
+                <a href="dashboard.html">
+                    <span class="nav-icon">▦</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+
+                <a href="manage-products.html">
+                    <span class="nav-icon">▣</span>
+                    <span class="nav-text">Manage Products</span>
+                </a>
+
+                <a href="manage-orders.html">
+                    <span class="nav-icon">🛒</span>
+                    <span class="nav-text">Manage Orders</span>
+                </a>
+				
+				<a class="nav-link" href="manage-users.html">
+					<span class="nav-icon">♙</span>
+					<span class="nav-text">Manage Users</span>
+				</a>
+
+                <a href="feedback.html" class="active" aria-current="page">
+                    <span class="nav-icon">✉</span>
+                    <span class="nav-text">View Feedback</span>
+                </a>
+            </nav>
+
+            <button class="logout" id="logoutButton" type="button">
+                <span class="nav-icon">↪</span>
+                <span class="logout-text">Logout</span>
+            </button>
+        </aside>
+
+        <!-- Main section -->
+        <main>
+            <header class="header panel">
+                <button
+                    class="menu-button"
+                    id="menuButton"
+                    type="button"
+                    aria-label="Toggle sidebar"
+                    aria-expanded="true"
+                >☰</button>
+
+                <div class="header-text">
+                    <h1>View Feedback</h1>
+                    <p class="subtitle">What customers are saying</p>
+                </div>
+
+                <span class="count" id="feedbackCount">0 feedbacks</span>
+            </header>
+
+            <section class="feedback-panel panel">
+                <div class="section-heading">
+                    <h2>Customer Feedback</h2>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+							<tr>
+								<th>Customer Name</th>
+								<th>Email</th>
+								<th>Rating</th>
+								<th>Feedback Message</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+
+						<tbody id="feedbackTable">
+							<tr>
+								<td colspan="5" class="empty">Loading feedback...</td>
+							</tr>
+						</tbody>	
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    
+	<script>
+		const layout = document.getElementById("layout");
+		const menuButton = document.getElementById("menuButton");
+		const overlay = document.getElementById("overlay");
+		const feedbackTable = document.getElementById("feedbackTable");
+		const feedbackCount = document.getElementById("feedbackCount");
+
+		// Escape text before inserting it into HTML.
+		function escapeHTML(value) {
+			return String(value ?? "").replace(/[&<>"']/g, function (char) {
+				return {
+					"&": "&amp;",
+					"<": "&lt;",
+					">": "&gt;",
+					'"': "&quot;",
+					"'": "&#39;"
+				}[char];
+			});
+		}
+
+		// Format date received from Flask/MySQL.
+		function formatDate(value) {
+			if (!value) return "—";
+
+			const date = new Date(value);
+
+			if (Number.isNaN(date.getTime())) {
+				return escapeHTML(value);
+			}
+
+			return escapeHTML(
+				date.toLocaleString("en-IN", {
+					day: "2-digit",
+					month: "short",
+					year: "numeric",
+					hour: "2-digit",
+					minute: "2-digit"
+				})
+			);
+		}
+
+		// Call Flask API.
+		async function apiRequest(url, options = {}) {
+			const response = await fetch(url, {
+				...options,
+				credentials: "same-origin",
+				headers: {
+					...(options.body ? {
+						"Content-Type": "application/json"
+					} : {}),
+					...options.headers
+				}
+			});
+
+			const result = await response.json().catch(() => ({}));
+
+			if (response.status === 401) {
+				window.location.href = "/admin/";
+				throw new Error("Admin login required.");
+			}
+
+			if (!response.ok) {
+				throw new Error(
+					result.error || "Unable to load feedback."
+				);
+			}
+
+			return result;
+		}
+
+		// Display real feedback from the database.
+		function showFeedback(items) {
+			feedbackTable.replaceChildren();
+
+			feedbackCount.textContent =
+				items.length +
+				(items.length === 1 ? " feedback" : " feedbacks");
+
+			if (items.length === 0) {
+				feedbackTable.innerHTML = `
+					<tr>
+						<td colspan="5" class="empty">
+							No feedback received yet.
+						</td>
+					</tr>
+				`;
+				return;
+			}
+
+			items.forEach(function (item) {
+				const row = document.createElement("tr");
+
+				const nameCell = document.createElement("td");
+				nameCell.className = "customer-name";
+				nameCell.textContent = item.name || "Anonymous";
+
+				const emailCell = document.createElement("td");
+				emailCell.className = "email";
+				emailCell.textContent = item.email || "Not provided";
+
+				const ratingCell = document.createElement("td");
+				const rating = Number(item.rating);
+
+				if (
+					item.rating !== null &&
+					item.rating !== "" &&
+					Number.isInteger(rating) &&
+					rating >= 1 &&
+					rating <= 5
+				) {
+					ratingCell.innerHTML =
+						`<span style="color:#e0b45a">` +
+						`${"★".repeat(rating)}${"☆".repeat(5 - rating)}` +
+						`</span> <small>${rating}/5</small>`;
+				} else {
+					ratingCell.textContent = "Not rated";
+				}
+
+				const messageCell = document.createElement("td");
+				messageCell.className = "message";
+				messageCell.textContent = item.msg || "";
+
+				const dateCell = document.createElement("td");
+				dateCell.className = "date";
+				dateCell.textContent = formatDate(item.created_at);
+
+				row.append(
+					nameCell,
+					emailCell,
+					ratingCell,
+					messageCell,
+					dateCell
+				);
+
+				feedbackTable.appendChild(row);
+			});
+		}
+
+		// Load feedback from Flask, not localStorage.
+		async function loadFeedback() {
+			feedbackCount.textContent = "Loading...";
+			feedbackTable.innerHTML = `
+				<tr>
+					<td colspan="5" class="empty">
+						Loading feedback...
+					</td>
+				</tr>
+			`;
+
+			try {
+				const data = await apiRequest("/api/admin/feedback");
+				showFeedback(data.feedback || []);
+			} catch (error) {
+				if (error.message === "Admin login required.") {
+					return;
+				}
+
+				console.error("Feedback loading error:", error);
+				feedbackCount.textContent = "Unavailable";
+
+				feedbackTable.innerHTML = `
+					<tr>
+						<td colspan="5" class="error-message">
+							${escapeHTML(error.message)}
+							<br>
+							<button
+								class="retry-button"
+								id="retryFeedback"
+								type="button"
+								style="margin-top:12px;padding:8px 14px;
+									   border:1px solid var(--line);
+									   border-radius:8px;background:var(--green);
+									   color:white;"
+							>
+								Retry
+							</button>
+						</td>
+					</tr>
+				`;
+
+				document.getElementById("retryFeedback")
+					.addEventListener("click", loadFeedback);
+			}
+		}
+
+		// Sidebar controls.
+		function isMobile() {
+			return window.matchMedia("(max-width: 760px)").matches;
+		}
+
+		function closeMobileSidebar() {
+			layout.classList.remove("mobile-open");
+			menuButton.setAttribute("aria-expanded", "false");
+		}
+
+		menuButton.addEventListener("click", function () {
+			if (isMobile()) {
+				layout.classList.toggle("mobile-open");
+
+				menuButton.setAttribute(
+					"aria-expanded",
+					String(layout.classList.contains("mobile-open"))
+				);
+			} else {
+				layout.classList.toggle("collapsed");
+
+				menuButton.setAttribute(
+					"aria-expanded",
+					String(!layout.classList.contains("collapsed"))
+				);
+			}
+		});
+
+		overlay.addEventListener("click", closeMobileSidebar);
+
+		document.querySelectorAll("nav a").forEach(function (link) {
+			link.addEventListener("click", function () {
+				if (isMobile()) {
+					closeMobileSidebar();
+				}
+			});
+		});
+
+		document.addEventListener("keydown", function (event) {
+			if (event.key === "Escape") {
+				closeMobileSidebar();
+			}
+		});
+
+		window.addEventListener("resize", function () {
+			if (!isMobile()) {
+				closeMobileSidebar();
+			}
+		});
+
+		// Flask admin logout.
+		document.getElementById("logoutButton").addEventListener(
+			"click",
+			async function () {
+				if (!confirm("Are you sure you want to logout?")) {
+					return;
+				}
+
+				try {
+					await apiRequest("/api/admin/logout", {
+						method: "POST"
+					});
+				} catch (error) {
+					console.error("Logout error:", error);
+				} finally {
+					window.location.href = "/admin/";
+				}
+			}
+		);
+
+		// Load feedback when the page opens.
+		loadFeedback();
+	</script>
+	
+	
+{% include 'includes/copyright.html' %}
+</body>
+</html>
