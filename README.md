@@ -1,36 +1,81 @@
 # CoffyCup – A Premium Coffee Brand Website
 
+**Live Website:** https://coffee-website-gbss.onrender.com
+
 CoffyCup is a college mini project developed as part of my Semester 5 BCA coursework. It was my first practical web development project, created mainly to improve my practical knowledge and gain hands-on experience in building a website.
 
 The website presents coffee blends, ready-to-drink beverages, and gifting hampers through an attractive and user-friendly interface. Rather than being an advanced commercial platform, this project focuses on learning and applying the fundamentals of web development, backend programming, and database integration.
 
 ## Features
 
-- Coffee-themed homepage
+- Coffee-themed homepage with premium design
 - Coffee blends and ready-to-drink product sections
 - Gifting hampers section
-- User login and registration interface
-- Order-related functionality
-- Admin panel
+- User registration and login
+- Product browsing and ordering functionality
+- Cash on Delivery option
+- My Orders section
+- User feedback functionality
+- Admin panel for managing website data
 - MySQL database integration
 
 ## Technologies Used
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Python, Flask
-- **Database:** MySQL
-- **Development Tools:** Notepad++, XAMPP, Git, GitHub
+| Category | Technology |
+|---|---|
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Python, Flask |
+| Database | MySQL |
+| Template Engine | Jinja2 |
+| Local Development | XAMPP |
+| Deployment | Render |
+| Cloud Database | TiDB Cloud |
+| Version Control | Git and GitHub |
+| Code Editor | Notepad++ |
+
+## Live Deployment
+
+The CoffyCup website is deployed using Render, with TiDB Cloud as its cloud database.
+
+- **Live Website:** https://coffee-website-gbss.onrender.com
+- **Hosting Platform:** Render
+- **Database Platform:** TiDB Cloud
+- **Source Code:** https://github.com/apoorvbatham27/coffee-website
+
+*Note: The free hosting service may go to sleep after a period of inactivity. The first visit after inactivity may take some time to load.*
 
 ## Project Structure
 
-- `app.py` – Flask application
+- `app.py` – Main Flask application
+- `wsgi.py` – Application entry point for deployment
 - `templates/` – HTML templates
 - `images/` – Website images and product assets
 - `admin/` – Admin-related project files
+- `certs/` – SSL certificate used for secure database connectivity
+- `requirements.txt` – Python dependencies
+- `Procfile` – Deployment start command
 - `uml-diagrams/` – Project UML diagrams
 
+## User and Admin Modules
+
+**User Module**
+- User registration and login
+- Browse available coffee products
+- Place orders using Cash on Delivery
+- View previous orders
+- Submit feedback
+
+**Admin Module**
+- Admin authentication
+- Manage products
+- Manage orders
+- View and manage customer feedback
+
 ## Learning Objectives
-The main objective of this project was to improve my practical programming skills and understand how different web technologies work together. Through this project, I aimed to gain hands-on experience in frontend development, backend programming, and database integration. I also focused on creating a simple, user-friendly interface with an attractive coffee-themed design, ensuring easy navigation, a clear layout, and a pleasant visual experience that makes users feel comfortable and engaged.
+
+The main objective of this project was to improve my practical programming skills and understand how different web technologies work together. Through this project, I aimed to gain hands-on experience in frontend development, backend programming, and database integration.
+
+I also focused on creating a simple, user-friendly interface with an attractive coffee-themed design, ensuring easy navigation, a clear layout, and a pleasant visual experience that makes users feel comfortable and engaged.
 
 ## Future Scope
 
@@ -44,7 +89,9 @@ The CoffyCup website can be enhanced in the future by adding the following featu
 6. **Mobile-Friendly Design:** Improve usability on mobile phones and tablets.
 7. **Advanced Admin Dashboard:** Display sales summaries and order statistics.
 8. **Wishlist:** Allow users to save their favourite coffee products.
+
 ---
 
 **Project:** CoffyCup  
-**Project Type:** BCA Semester 5 Mini Project
+**Project Type:** BCA Semester 5 Mini Project  
+**Academic Year:** 2026–27
