@@ -66,10 +66,11 @@ ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin")
 
 def get_connection():
     return mysql.connector.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME
+    host=DB_HOST,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    database=DB_NAME,
+    use_pure=True
     )
 
 
@@ -177,10 +178,12 @@ def initialize_database():
         raise ValueError("Invalid database name.")
 
     connection = mysql.connector.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASSWORD
+    host=DB_HOST,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    use_pure=True
     )
+    
     cursor = connection.cursor()
 
     try:
