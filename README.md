@@ -19,6 +19,35 @@ The website presents coffee blends, ready-to-drink beverages, and gifting hamper
 - Admin panel for managing website data
 - MySQL database integration
 
+
+
+
+## Website Screenshots
+
+### Homepage
+![CoffyCup Homepage](screenshots/home.png)
+
+### Coffee Blends
+![Coffee Blends 1](screenshots/blends_1.png)
+![Coffee Blends 2](screenshots/blends_2.png)
+
+### Product Pages
+![Product Page 1](screenshots/pro_1.png)
+![Product Page 2](screenshots/pro_2.png)
+
+### Gifting Hampers
+![CoffyCup Gifting Hampers](screenshots/hampers.png)
+
+### User Authentication
+![Login Page](screenshots/login.png)
+![Register Page](screenshots/register.png)
+
+### Admin Panel
+![CoffyCup Admin Panel](screenshots/admin.png)
+
+
+
+
 ## Technologies Used
 
 | Category | Technology |
