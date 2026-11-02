@@ -1,4 +1,3 @@
-
 import os
 import re
 from functools import wraps
@@ -46,7 +45,7 @@ app.secret_key = os.environ.get(
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE="Lax",
-    SESSION_COOKIE_SECURE=False,
+    SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "False").lower() == "true",
     SESSION_COOKIE_REFRESH_EACH_REQUEST=True,
     PERMANENT_SESSION_LIFETIME=__import__("datetime").timedelta(days=7)
 )
@@ -56,22 +55,34 @@ app.config.update(
 # =========================================================
 
 DB_HOST = os.environ.get("DB_HOST", "localhost")
+DB_PORT = int(os.environ.get("DB_PORT", "3306"))
 DB_USER = os.environ.get("DB_USER", "root")
 DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
 DB_NAME = os.environ.get("DB_NAME", "coffycup_database")
+DB_SSL_CA = os.environ.get("DB_SSL_CA", "")
 
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin")
 
 
 def get_connection():
-    return mysql.connector.connect(
-    host=DB_HOST,
-    user=DB_USER,
-    password=DB_PASSWORD,
-    database=DB_NAME,
-    use_pure=True
-    )
+    db_config = {
+        "host": DB_HOST,
+        "port": DB_PORT,
+        "user": DB_USER,
+        "password": DB_PASSWORD,
+        "database": DB_NAME,
+        "use_pure": True
+    }
+
+    if DB_SSL_CA:
+        db_config.update({
+            "ssl_ca": DB_SSL_CA,
+            "ssl_verify_cert": True,
+            "ssl_verify_identity": True
+        })
+
+    return mysql.connector.connect(**db_config)
 
 
 def query_db(sql, values=None, fetchone=False, commit=False):
@@ -177,13 +188,22 @@ def initialize_database():
     if not re.fullmatch(r"[A-Za-z0-9_]+", DB_NAME):
         raise ValueError("Invalid database name.")
 
-    connection = mysql.connector.connect(
-    host=DB_HOST,
-    user=DB_USER,
-    password=DB_PASSWORD,
-    use_pure=True
-    )
-    
+    db_config = {
+    "host": DB_HOST,
+    "port": DB_PORT,
+    "user": DB_USER,
+    "password": DB_PASSWORD,
+    "use_pure": True
+    }
+
+    if DB_SSL_CA:
+        db_config.update({
+            "ssl_ca": DB_SSL_CA,
+            "ssl_verify_cert": True,
+            "ssl_verify_identity": True
+        })
+
+    connection = mysql.connector.connect(**db_config)
     cursor = connection.cursor()
 
     try:
