@@ -28,12 +28,12 @@ The website presents coffee blends, ready-to-drink beverages, and gifting hamper
 ![CoffyCup Homepage](screenshots/home.png)
 
 ### Coffee Blends
-![Coffee Blends 1](screenshots/blends_1.png)
-![Coffee Blends 2](screenshots/blends_2.png)
+![Coffee Blends - View 1](screenshots/blends_1.png)
+![Coffee Blends - View 2](screenshots/blends_2.png)
 
 ### Product Pages
-![Product Page 1](screenshots/pro_1.png)
-![Product Page 2](screenshots/pro_2.png)
+![Product Page - View 1](screenshots/pro_1.png)
+![Product Page - View 2](screenshots/pro_2.png)
 
 ### Gifting Hampers
 ![CoffyCup Gifting Hampers](screenshots/hampers.png)
@@ -43,8 +43,7 @@ The website presents coffee blends, ready-to-drink beverages, and gifting hamper
 ![Register Page](screenshots/register.png)
 
 ### Admin Panel
-![CoffyCup Admin Panel](screenshots/admin.png)
-
+![CoffyCup Admin Dashboard](screenshots/admin.png)
 
 
 
@@ -83,7 +82,7 @@ The CoffyCup website is deployed using Render, with TiDB Cloud as its cloud data
 - `certs/` – SSL certificate used for secure database connectivity
 - `requirements.txt` – Python dependencies
 - `Procfile` – Deployment start command
-- `uml-diagrams/` – Project UML diagrams
+
 
 ## User and Admin Modules
 
